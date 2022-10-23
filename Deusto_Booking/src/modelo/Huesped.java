@@ -1,14 +1,16 @@
 package modelo;
 
-public class Cliente extends Persona{
+public class Huesped extends Persona{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	protected int edad;
+	
 
-	public Cliente(int dni, String nombre, String mail, int tlfNum, int contrasenya) {
+	public Huesped(int dni, String nombre, String mail, int tlfNum, int contrasenya) {
 		super(dni, nombre, mail, tlfNum, contrasenya);
 		// TODO Auto-generated constructor stub
 	}
