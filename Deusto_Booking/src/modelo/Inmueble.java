@@ -1,6 +1,6 @@
 package modelo;
 
-public class Inmmueble {
+public class Inmueble {
 	
 	protected int numHab;
 	protected int numBany;
