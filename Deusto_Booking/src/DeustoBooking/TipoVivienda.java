@@ -1,4 +1,4 @@
-package modelo;
+package DeustoBooking;
 
 public enum TipoVivienda {
 	CHALET,PISO,ADOSADO,ESTUDIO;

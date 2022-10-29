@@ -1,4 +1,4 @@
-package modelo;
+package DeustoBooking;
 
 import java.util.ArrayList;
 
