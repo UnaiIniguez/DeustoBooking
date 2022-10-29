@@ -6,8 +6,8 @@ public class Persona implements Serializable{
 	
 	private int dni;
 	private String nombre;
-	protected int edad;
 	private String mail;
+	private int edad;
 	private int tlfNum; 
 	private int contrasenya;
 	

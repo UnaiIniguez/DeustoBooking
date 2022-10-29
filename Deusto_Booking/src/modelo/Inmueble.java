@@ -3,7 +3,7 @@ package modelo;
 public class Inmueble {
 	
 	protected int numHab;
-	protected int numBany;
+	protected int numBanyo;
 	protected String ubicacion;
 	Propietario propietario;
 
