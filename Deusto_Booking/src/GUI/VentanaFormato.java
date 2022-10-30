@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -22,7 +23,9 @@ public class VentanaFormato extends JFrame{
 	setLocationRelativeTo(null);
 	getContentPane().setBackground(SKYBLUE);
 	//Icono de ventana
-	ImageIcon img = new ImageIcon("icono.png");
+	
+	
+	ImageIcon img = new ImageIcon("/src/GUI/icono.png");
 	setIconImage(img.getImage());
 	
 	

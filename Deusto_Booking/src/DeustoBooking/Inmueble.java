@@ -128,6 +128,13 @@ public class Inmueble {
 	public void setPrecioNoche(float precioNoche) {
 		this.precioNoche = precioNoche;
 	}
+
+	@Override
+	public String toString() {
+		return "Inmueble [propietario=" + propietario + ", ocupado=" + ocupado + ", Huesped=" + Huesped + ", numHab="
+				+ numHab + ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes
+				+ ", tipo=" + tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
+	}
 	
 	
 	
