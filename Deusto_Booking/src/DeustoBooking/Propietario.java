@@ -1,10 +1,12 @@
-package modelo;
+package DeustoBooking;
 
 import java.util.ArrayList;
 
 public class Propietario extends Persona{
 
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Inmueble> viviendas =  new ArrayList<>();
 	
