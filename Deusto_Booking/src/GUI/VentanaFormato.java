@@ -8,7 +8,7 @@ import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -67,6 +67,11 @@ public class VentanaFormato extends JFrame{
 	p55.add(t1);
 	p66.add(b);
 	p77.add(b1);
+	
+	
+	ImageIcon img = new ImageIcon("/src/GUI/icono.png");
+	setIconImage(img.getImage());
+
 	
 	
 	getContentPane().add(p1);
