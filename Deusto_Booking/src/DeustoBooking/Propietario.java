@@ -14,5 +14,9 @@ public class Propietario extends Persona{
 		super(dni, nombre, mail, tlfNum, contrasenya);
 		// TODO Auto-generated constructor stub
 	}
+	
+//*************************************GETTERS Y SETTERS*****************************************************
+	
+
 
 }
