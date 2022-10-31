@@ -1,4 +1,4 @@
-package modelo;
+package DeustoBooking;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ public class Persona implements Serializable{
 	
 	private int dni;
 	private String nombre;
+	private int edad;
 	private String mail;
 	private int tlfNum; 
 	private int contrasenya;
