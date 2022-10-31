@@ -16,13 +16,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class VentanaFormato extends JFrame{
-	
+public class VentanaFormato extends JFrame {
+
 	private JPanel j;
-	
-	public static final Color SKYBLUE = new Color(51,133,255);
-	
+
+	public static final Color SKYBLUE = new Color(51, 133, 255);
+
 	public VentanaFormato() {
+//<<<<<<< HEAD
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500, 500);
+		setTitle("Sign in");
+		setLocationRelativeTo(null);
+		getContentPane().setBackground(SKYBLUE);
+		// Icono de ventana
+		ImageIcon img = new ImageIcon("icono.png");
+		setIconImage(img.getImage());
+
+		setVisible(true);
+
 		
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setSize(400,600);
@@ -69,8 +82,7 @@ public class VentanaFormato extends JFrame{
 	p77.add(b1);
 	
 	
-	ImageIcon img = new ImageIcon("/src/GUI/icono.png");
-	setIconImage(img.getImage());
+	
 
 	
 	
@@ -78,8 +90,10 @@ public class VentanaFormato extends JFrame{
 	getContentPane().add(p2);
 	getContentPane().add(p3);
 	getContentPane().add(p4);
-	}
 	
+
+	}
+
 	public static void main(String[] args) {
 		new VentanaFormato().setVisible(true);
 		
