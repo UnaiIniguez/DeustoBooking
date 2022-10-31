@@ -16,6 +16,8 @@ public class Huesped extends Persona {
 			this.nomEmpresa = null;
 		}
 	}
+
+	
 	
 	
 
