@@ -13,12 +13,28 @@ public class Huesped extends Persona {
 
 	public Huesped(int dni, String nombre, String mail, int tlfNum, int contrasenya, String cargo, String nomEmpresa) {
 		super(dni, nombre, mail, tlfNum, contrasenya);
-		this.cargo = cargo;
-		this.nomEmpresa = nomEmpresa;
+		this.setCargo(cargo);
+		this.setNomEmpresa(nomEmpresa);
 		if (cargo == null) {
-			this.cargo = "Desempleado";
-			this.nomEmpresa = null;
+			this.setCargo("Desempleado");
+			this.setNomEmpresa(null);
 		}
+	}
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public String getNomEmpresa() {
+		return nomEmpresa;
+	}
+
+	public void setNomEmpresa(String nomEmpresa) {
+		this.nomEmpresa = nomEmpresa;
 	}
 	
 

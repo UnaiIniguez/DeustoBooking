@@ -3,8 +3,12 @@ package DeustoBooking;
 public class Inmueble {
 	
 	
-	Propietario propietario;
+
+	Duenio duenio;
 	Boolean ocupado = false;				
+
+	
+
 	String Huesped = null;
 	
 	private  int numHab;
@@ -17,10 +21,10 @@ public class Inmueble {
 	
 	
 	
-	public Inmueble(Propietario propietario, String ubicacion,TipoVivienda tipo,
+	public Inmueble(Duenio duenio, String ubicacion,TipoVivienda tipo,
 			 float metrosCuadrados, int numBany, int numHab, int maxHuespedes, float precioNoche) {
 		super();
-		this.propietario = propietario;
+		this.duenio = duenio;
 		this.numHab = numHab;
 		this.numBany = numBany;
 		this.ubicacion = ubicacion;
@@ -105,8 +109,8 @@ public class Inmueble {
 
 
 
-	public Propietario getPropietario() {
-		return propietario;
+	public Duenio getDuenio() {
+		return duenio;
 	}
 
 
@@ -131,7 +135,7 @@ public class Inmueble {
 
 	@Override
 	public String toString() {
-		return "Inmueble [propietario=" + propietario + ", ocupado=" + ocupado + ", Huesped=" + Huesped + ", numHab="
+		return "Inmueble [duenio=" + duenio + ", ocupado=" + ocupado + ", Huesped=" + Huesped + ", numHab="
 				+ numHab + ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes
 				+ ", tipo=" + tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
 	}
