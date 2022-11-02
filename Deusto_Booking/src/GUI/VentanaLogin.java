@@ -96,8 +96,9 @@ public class VentanaLogin extends JFrame {
 		l.setFont(bigFont);
 		l1.setFont(mediumFont);
 		l2.setFont(mediumFont);
+		
 		//Icono de ventana
-		//setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono.png"));
 		
 		
 		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/icono.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));

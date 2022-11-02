@@ -4,7 +4,7 @@ public class Inmueble {
 	
 	
 	Propietario propietario;
-	Boolean ocupado = false;
+	Boolean ocupado = false;				
 	String Huesped = null;
 	
 	private  int numHab;
