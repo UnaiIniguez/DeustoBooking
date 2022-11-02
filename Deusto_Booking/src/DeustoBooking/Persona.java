@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Persona implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int dni;
 	private String nombre;
 	private int edad;
@@ -17,7 +21,7 @@ public class Persona implements Serializable{
 		this.nombre = nombre;
 		this.mail = mail;
 		this.tlfNum = tlfNum;
-		this.contrasenya = contrasenya;
+		this.setContrasenya(contrasenya);
 	}
 
 	public int getDni() {
@@ -50,6 +54,22 @@ public class Persona implements Serializable{
 
 	public void setTlfNum(int tlfNum) {
 		this.tlfNum = tlfNum;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public int getContrasenya() {
+		return contrasenya;
+	}
+
+	public void setContrasenya(int contrasenya) {
+		this.contrasenya = contrasenya;
 	}
 	
 	
