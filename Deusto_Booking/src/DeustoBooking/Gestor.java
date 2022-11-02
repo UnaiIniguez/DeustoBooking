@@ -1,4 +1,4 @@
-package Clases;
+package DeustoBooking;
 
 import java.util.ArrayList;
 import java.util.HashMap;
