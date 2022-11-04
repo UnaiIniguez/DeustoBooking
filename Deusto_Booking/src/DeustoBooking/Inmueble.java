@@ -1,10 +1,21 @@
 package DeustoBooking;
 
 public class Inmueble {
+<<<<<<< HEAD
 
 	Duenio duenio;
 	Boolean ocupado = false;
 
+=======
+	
+	
+
+	Duenio duenio;
+	Boolean ocupado = false;				
+
+	
+
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	String Huesped = null;
 
 	private int numHab;
@@ -14,9 +25,17 @@ public class Inmueble {
 	TipoVivienda tipo;
 	private float metrosCuadrados;
 	private float precioNoche;
+<<<<<<< HEAD
 
 	public Inmueble(Duenio duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados, int numBany, int numHab,
 			int maxHuespedes, float precioNoche) {
+=======
+	
+	
+	
+	public Inmueble(Duenio duenio, String ubicacion,TipoVivienda tipo,
+			 float metrosCuadrados, int numBany, int numHab, int maxHuespedes, float precioNoche) {
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 		super();
 		this.duenio = duenio;
 		this.numHab = numHab;
@@ -79,6 +98,11 @@ public class Inmueble {
 		this.metrosCuadrados = metrosCuadrados;
 	}
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	public Duenio getDuenio() {
 		return duenio;
 	}
@@ -101,9 +125,23 @@ public class Inmueble {
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "Inmueble [duenio=" + duenio + ", ocupado=" + ocupado + ", Huesped=" + Huesped + ", numHab=" + numHab
 				+ ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes + ", tipo="
 				+ tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
 	}
+=======
+		return "Inmueble [duenio=" + duenio + ", ocupado=" + ocupado + ", Huesped=" + Huesped + ", numHab="
+				+ numHab + ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes
+				+ ", tipo=" + tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 
 }

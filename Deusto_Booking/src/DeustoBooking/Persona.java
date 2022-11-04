@@ -2,8 +2,13 @@ package DeustoBooking;
 
 import java.io.Serializable;
 
+<<<<<<< HEAD
 public class Persona implements Serializable {
 
+=======
+public class Persona implements Serializable{
+	
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	/**
 	 * 
 	 */
@@ -71,5 +76,12 @@ public class Persona implements Serializable {
 	public void setContrasenya(int contrasenya) {
 		this.contrasenya = contrasenya;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 
 }
