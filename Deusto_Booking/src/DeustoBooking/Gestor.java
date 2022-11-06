@@ -2,6 +2,9 @@ package DeustoBooking;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Gestor {
 
@@ -45,5 +48,28 @@ public class Gestor {
 	public void setInmuebles(ArrayList<Inmueble> inmuebles) {
 		this.inmuebles = inmuebles;
 	}
+	
+	public static void anadirInmueblePersona( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles, ArrayList<Inmueble> inmueble ) {
+		if ( inmuebles.containsKey(nombre) ) {
+			inmuebles.get(nombre).addAll(inmueble);	
+			System.out.println( "Se añadio el inmueble" );
+		}else {
+			System.out.println( "No se encontro al propietario" );
+		}
+		
+	}
+	
+	public static void borrarInmueble( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles ) {
+		Scanner sc = new Scanner(System.in);
+		if (inmuebles.containsKey(nombre)) {
+			inmuebles.remove( nombre, sc);
+			System.out.println( "Se a eliminado el inmueble" );
+		}else {
+			System.out.println( "No hay ningun inmueble asignado a esa persona" );
+		}
+		
+	}
 
 }
+
+
