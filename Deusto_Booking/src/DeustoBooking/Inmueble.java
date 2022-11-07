@@ -77,9 +77,6 @@ public class Inmueble {
 		return metrosCuadrados;
 	}
 
-	public void setMetrosCuadrados(float metrosCuadrados) {
-		this.metrosCuadrados = metrosCuadrados;
-	}
 
 	public Duenio getDuenio() {
 		return duenio;

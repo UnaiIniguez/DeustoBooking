@@ -8,14 +8,14 @@ public class Persona implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int dni;
+	private int dni;			
 	private String nombre;
 	private int edad;
 	private String mail;
-	private int tlfNum;
-	private int contrasenya;
+	private String tlfNum;		//He cambiado el telefono de int a String porque sino no daba el rango
+	private String contrasenya;		//He cambiado la contraseña a String porque cada uno puede poner la contraseña com desea
 
-	public Persona(int dni, String nombre, String mail, int tlfNum, int contrasenya) {
+	public Persona(int dni, String nombre, String mail, String tlfNum, String contrasenya) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -48,11 +48,11 @@ public class Persona implements Serializable {
 		this.mail = mail;
 	}
 
-	public int getTlfNum() {
+	public String getTlfNum() {
 		return tlfNum;
 	}
 
-	public void setTlfNum(int tlfNum) {
+	public void setTlfNum(String tlfNum) {
 		this.tlfNum = tlfNum;
 	}
 
@@ -64,11 +64,11 @@ public class Persona implements Serializable {
 		this.edad = edad;
 	}
 
-	public int getContrasenya() {
+	public String getContrasenya() {
 		return contrasenya;
 	}
 
-	public void setContrasenya(int contrasenya) {
+	public void setContrasenya(String contrasenya) {
 		this.contrasenya = contrasenya;
 	}
 
