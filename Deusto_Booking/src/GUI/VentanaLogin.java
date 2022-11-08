@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaLogin extends JFrame {
 
@@ -21,10 +23,12 @@ public class VentanaLogin extends JFrame {
 	panel1.setBackground(SKYBLUE);
 
 	//Textfield de usuario
-	JTextField txtUsuario = new JTextField(15);
+	final JTextField txtUsuario = new JTextField(15);
+	txtUsuario.setText("Nombre de usuario");
+	txtUsuario.setForeground(Color.GRAY);
 	panel2.add(txtUsuario);
 	panel2.setBackground(SKYBLUE);
-
+	
 	//Textfield de contrasenya
 	JPasswordField pfContrasenya = new JPasswordField(15);
 	panel3.add(pfContrasenya);
