@@ -1,6 +1,7 @@
 package DeustoBooking;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Inmueble {
 
@@ -104,6 +105,11 @@ public class Inmueble {
 				+ ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes + ", tipo="
 				+ tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
 	}
+
+	
+	
+	
+	
 
 	
 

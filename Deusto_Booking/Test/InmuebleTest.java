@@ -71,7 +71,9 @@ public class InmuebleTest {
 	}
 	
 //	public void testGetDuenio() {
-//		assertEquals()						
+//		
+//		d =  new Duenio(0, null, null, null, null, null)
+//		assertTrue(i.getDuenio().equals(d));						
 //	}
 	
 	public void testGetUbicacion() {
