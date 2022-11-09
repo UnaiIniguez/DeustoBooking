@@ -76,11 +76,11 @@ public class VentanaPrincipal extends JFrame{
 		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, IÑIGO HERNAEZ, UNAI IÑIGUEZ y BELTRÁN SENDAGORTA");
 		
 		//Diseño de contenedores
-		panelSDCentro.setBackground(SystemColor.activeCaption);
-		panelSuperior.setBackground(SystemColor.activeCaption);
-		panelSuperiorDerecho.setBackground(SystemColor.activeCaption);
-		panelSuperiorIzquierda.setBackground(SystemColor.activeCaption);
-		panelInferior.setBackground(SystemColor.activeCaption);
+		panelSDCentro.setBackground(new Color(173, 216, 230));
+		panelSuperior.setBackground(new Color(173, 216, 230));
+		panelSuperiorDerecho.setBackground(new Color(173, 216, 230));
+		panelSuperiorIzquierda.setBackground(new Color(173, 216, 230));
+		panelInferior.setBackground(new Color(173, 216, 230));
 		panelCentral.setBackground(Color.WHITE);
 		
 		//Contenedores dentro de contenedores
