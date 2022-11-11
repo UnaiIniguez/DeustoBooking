@@ -49,9 +49,9 @@ public class Gestor {
 		this.inmuebles = inmuebles;
 	}
 	
-	public static void anadirInmueblePersona( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles, ArrayList<Inmueble> inmueble ) {
+	public static void anadirInmueblePersona( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles, ArrayList<Inmueble> arrayList ) {
 		if ( inmuebles.containsKey(nombre) ) {
-			inmuebles.get(nombre).addAll(inmueble);	
+			inmuebles.get(nombre).addAll(arrayList);	
 			System.out.println( "Se añadio el inmueble" );
 		}else {
 			System.out.println( "No se encontro al propietario" );

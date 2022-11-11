@@ -2,7 +2,7 @@ package DeustoBooking;
 
 import java.io.Serializable;
 
-public class Persona implements Serializable {
+public abstract class Persona implements Serializable {
 
 	/**
 	 * 
