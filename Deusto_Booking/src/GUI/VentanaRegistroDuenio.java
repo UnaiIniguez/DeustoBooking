@@ -20,14 +20,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DeustoBooking.Gestor;
+
 public class VentanaRegistroDuenio extends JFrame {
 
 	private JPanel j;
-
+	Gestor g;
 	public static final Color SKYBLUE = new Color(51, 133, 255);
 
-	public VentanaRegistroDuenio() {
+	public VentanaRegistroDuenio(Gestor gestor) {
 
+		g = gestor;
 		getContentPane().setLayout(new GridLayout(8, 1));
 		//Paneles para personalizar tamaños de componentes
 		JPanel p1 = new JPanel(new GridLayout(1,7));
@@ -136,8 +139,8 @@ public class VentanaRegistroDuenio extends JFrame {
 		//Especificaciones de ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Registro Huesped");
-		setLocationRelativeTo(null);
-		getContentPane().setBackground(SKYBLUE);
+		this.setLocationRelativeTo(null);
+		getContentPane().setBackground(new Color(173, 216, 230));
 		setSize(400,600);
 		p1.setBackground(SKYBLUE);
 		p2.setBackground(SKYBLUE);
@@ -200,9 +203,5 @@ public class VentanaRegistroDuenio extends JFrame {
 		
 	}
 
-	public static void main(String[] args) {
-	 new VentanaRegistroDuenio().setVisible(true);
-	
-		
-	}
+
 }

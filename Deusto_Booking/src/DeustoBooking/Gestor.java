@@ -17,12 +17,10 @@ public class Gestor {
 
 	ArrayList<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
 
-	public Gestor(HashMap<String, ArrayList<Inmueble>> propietarios, HashMap<String, ArrayList<Inmueble>> huespedes,
-			ArrayList<Inmueble> inmuebles) {
-		super();
-		this.propietarios = propietarios;
-		this.huespedes = huespedes;
-		this.inmuebles = inmuebles;
+	
+
+	public Gestor() {
+		
 	}
 
 	public HashMap<String, ArrayList<Inmueble>> getPropietarios() {
@@ -52,7 +50,7 @@ public class Gestor {
 	public static void anadirInmueblePersona( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles, ArrayList<Inmueble> arrayList ) {
 		if ( inmuebles.containsKey(nombre) ) {
 			inmuebles.get(nombre).addAll(arrayList);	
-			System.out.println( "Se añadio el inmueble" );
+			System.out.println( "Se aï¿½adio el inmueble" );
 		}else {
 			System.out.println( "No se encontro al propietario" );
 		}

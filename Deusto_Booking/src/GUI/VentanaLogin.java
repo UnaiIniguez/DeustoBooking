@@ -1,6 +1,9 @@
 package GUI;
 
 import javax.swing.*;
+
+import DeustoBooking.Gestor;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +12,11 @@ public class VentanaLogin extends JFrame {
 
 	public static final Color SKYBLUE = new Color(51, 133, 255);
 
-	public VentanaLogin() {
+	Gestor g;
+	public VentanaLogin(Gestor gestor) {
+	
+	g = gestor;
+	
 	JPanel panel1 = new	JPanel(new FlowLayout());
 	JPanel panel2 = new	JPanel(new FlowLayout());
 	JPanel panel3 = new	JPanel(new FlowLayout());

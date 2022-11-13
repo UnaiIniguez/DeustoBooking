@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -22,14 +24,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import DeustoBooking.Gestor;
+
 
 
 public class VentanaPrincipal extends JFrame{
-
+	
+	private Gestor gestor;
 	
 	
-	public VentanaPrincipal() {
+	public VentanaPrincipal(Gestor g) {
 		
+		this.gestor = g;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(950, 650);
 		setTitle("Deusto Booking");
@@ -44,6 +50,8 @@ public class VentanaPrincipal extends JFrame{
 		JPanel panelLlegada = new JPanel();
 		JPanel panelSalida = new JPanel();
 		JPanel panelHuesped = new JPanel();
+		JPanel panelBuscar = new JPanel();
+		
 		JPanel panelInferior = new JPanel();
 		JPanel panelSuperior = new JPanel(new BorderLayout());	
 		JPanel panelSuperiorDerecho = new JPanel(new BorderLayout());
@@ -53,27 +61,53 @@ public class VentanaPrincipal extends JFrame{
 		
 		//Creación de componentes
 		
-		JButton anfitrion = new JButton("Hazte anfitrión");
+		JButton duenio = new JButton("Hazte anfitrión");
 		JButton iniSesion = new JButton("Iniciar sesion");
+		JButton buscar = new JButton("Buscar");
 		JLabel vacio1 = new JLabel("       ");
 		JLabel vacio2 = new JLabel("       ");
 		JLabel vacio3 = new JLabel("       ");	
 		JLabel vacio4 = new JLabel(" ");	
 		JLabel vacio5 = new JLabel("     ");
 		JLabel destino = new JLabel("DESTINO:");
-		JTextField Destinotxt = new JTextField("", 15);
+		JTextField destinotxt = new JTextField("", 15);
 		JLabel llegada = new JLabel("LLEGADA:");
-		JTextField Llegadatxt = new JTextField("", 15);
+		JTextField llegadatxt = new JTextField("", 15);
 		JLabel salida = new JLabel("SALIDA:");
-		JTextField Salidatxt = new JTextField("", 15);
+		JTextField salidatxt = new JTextField("", 15);
 		JLabel numhuespedes = new JLabel("NÚMERO DE HUESPEDES:");
-		JComboBox ComboBoxHuespedes = new JComboBox();
-		ComboBoxHuespedes.setModel(new DefaultComboBoxModel(new String[] {"1", "2","3","4","5","6","7+"}));
+		JComboBox comboBoxHuespedes = new JComboBox();
+		comboBoxHuespedes.setModel(new DefaultComboBoxModel(new String[] {"1", "2","3","4","5","6","7+"}));
 		
 		
 		JLabel lblImagen = new JLabel();
 		lblImagen.setIcon(new ImageIcon("img/Casa_Fondo.jpg"));
 		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, IÑIGO HERNAEZ, UNAI IÑIGUEZ y BELTRÁN SENDAGORTA");
+		
+		
+		//Eventos
+		
+		duenio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaRegistroDuenio VentanaDuenio = new VentanaRegistroDuenio(gestor);
+				VentanaDuenio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				VentanaDuenio.setVisible(true);
+			}
+		});
+		
+		iniSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
+				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				ventanaInicio.setVisible(true);
+			}
+		});
+		
 		
 		//Diseño de contenedores
 		panelSDCentro.setBackground(new Color(173, 216, 230));
@@ -95,6 +129,7 @@ public class VentanaPrincipal extends JFrame{
 		panelCentralIzquierda.add(panelLlegada);
 		panelCentralIzquierda.add(panelSalida);
 		panelCentralIzquierda.add(panelHuesped);
+		panelCentralIzquierda.add(panelBuscar);
 		
 		
 		//Anyadir componentes a contenedores
@@ -104,17 +139,18 @@ public class VentanaPrincipal extends JFrame{
 		panelSuperiorDerecho.add(vacio3, BorderLayout.NORTH);
 		
 		panelSDCentro.add(iniSesion);
-		panelSDCentro.add(anfitrion);
+		panelSDCentro.add(duenio);
 		
 		panelDestino.add(destino);
-		panelDestino.add(Destinotxt);
+		panelDestino.add(destinotxt);
 		panelSalida.add(salida);
-		panelSalida.add(Salidatxt);
+		panelSalida.add(salidatxt);
 		panelLlegada.add(llegada);
-		panelLlegada.add(Llegadatxt);
+		panelLlegada.add(llegadatxt);
 		panelHuesped.add(numhuespedes);
 		panelHuesped.add(vacio4);
-		panelHuesped.add(ComboBoxHuespedes);
+		panelHuesped.add(comboBoxHuespedes);
+		panelBuscar.add(buscar);
 		
 		panelInferior.add(lblInferior, BorderLayout.CENTER);
 		
@@ -134,9 +170,7 @@ public class VentanaPrincipal extends JFrame{
 	
 	
 	
-	 public static void main(String args[]) {
-		new VentanaPrincipal();
-	}
+	 
 }
 
 
