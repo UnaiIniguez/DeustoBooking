@@ -7,15 +7,22 @@ import java.util.Scanner;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Gestor {
-
-	private HashMap<String, ArrayList<Inmueble>> propietarios = new HashMap<>(); // En este mapa se almacenaran los
-																					// propietarios con sus viviendas
+	
+	private ArrayList<Duenio> propietarios = new ArrayList();
 
 	private HashMap<String, ArrayList<Inmueble>> huespedes = new HashMap<>(); // En este mapa se almacenaran todos los
 																				// huespedes y los inmuebles que tiene
 																				// reservados.
 
 	ArrayList<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
+	
+	public void datosTest() {
+		
+		ArrayList<Inmueble> inmueblesTest = new ArrayList();
+		Duenio d = new Duenio(12345678, "Pepe", "pepe@gmail.com", "656232359", "1234", inmueblesTest);
+		propietarios.add(d);
+		
+	}
 
 	
 
@@ -23,11 +30,11 @@ public class Gestor {
 		
 	}
 
-	public HashMap<String, ArrayList<Inmueble>> getPropietarios() {
+	public ArrayList<Duenio> getPropietarios() {
 		return propietarios;
 	}
 
-	public void setPropietarios(HashMap<String, ArrayList<Inmueble>> propietarios) {
+	public void setPropietarios(ArrayList<Duenio> propietarios) {
 		this.propietarios = propietarios;
 	}
 
@@ -47,24 +54,15 @@ public class Gestor {
 		this.inmuebles = inmuebles;
 	}
 	
-	public static void anadirInmueblePersona( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles, ArrayList<Inmueble> arrayList ) {
-		if ( inmuebles.containsKey(nombre) ) {
-			inmuebles.get(nombre).addAll(arrayList);	
-			System.out.println( "Se a�adio el inmueble" );
-		}else {
-			System.out.println( "No se encontro al propietario" );
-		}
+	public static void anadirInmueblePersona( Duenio duenio, Inmueble inmueble ) {
+		
+		duenio.getInmuebles().add(inmueble);
 		
 	}
 	
-	public static void borrarInmueble( String nombre, HashMap<String, ArrayList<Inmueble>> inmuebles ) {
-		Scanner sc = new Scanner(System.in);
-		if (inmuebles.containsKey(nombre)) {
-			inmuebles.remove( nombre, sc);
-			System.out.println( "Se a eliminado el inmueble" );
-		}else {
-			System.out.println( "No hay ningun inmueble asignado a esa persona" );
-		}
+	public static void borrarInmueble( Duenio duenio, Inmueble inmueble) {
+		
+		duenio.getInmuebles().remove(inmueble);
 		
 	}
 

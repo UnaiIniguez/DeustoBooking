@@ -12,7 +12,7 @@ public class Duenio extends Persona {
 		this.inmueble = inmueble;
 	}
 
-	public ArrayList<Inmueble> getInmueble() {
+	public ArrayList<Inmueble> getInmuebles() {
 		return inmueble;
 	}
 
