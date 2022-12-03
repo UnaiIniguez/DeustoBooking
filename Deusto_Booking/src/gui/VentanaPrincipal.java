@@ -85,7 +85,8 @@ public class VentanaPrincipal extends JFrame{
 		
 		
 		JLabel lblImagen = new JLabel();
-		lblImagen.setIcon(new ImageIcon("img/Casa_Fondo.jpg"));
+		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/Casa_Fondo.jpg").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+		lblImagen.setIcon(logo);
 		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, IÑIGO HERNAEZ, UNAI IÑIGUEZ y BELTRÁN SENDAGORTA");
 		
 		

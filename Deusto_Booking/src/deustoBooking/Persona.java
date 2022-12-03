@@ -8,14 +8,14 @@ public abstract class Persona implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int dni;			
+	private String dni;			
 	private String nombre;
 	private int edad;
 	private String mail;
 	private String tlfNum;		//He cambiado el telefono de int a String porque sino no daba el rango
 	private String contrasenya;		//He cambiado la contraseña a String porque cada uno puede poner la contraseña com desea
 
-	public Persona(int dni, String nombre, String mail, String tlfNum, String contrasenya) {
+	public Persona(String dni, String nombre, String mail, String tlfNum, String contrasenya) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -24,11 +24,11 @@ public abstract class Persona implements Serializable {
 		this.setContrasenya(contrasenya);
 	}
 
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
