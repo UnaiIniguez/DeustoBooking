@@ -135,6 +135,18 @@ public class Gestor {
 		inmuebles.add(nuevoInmueble);
 		
 	}
+	
+	
+	//********************METODOS DEL HUESPED********************************
+	
+	public void anularReserva(Huesped h, Inmueble i) {
+		if ( huespedes.containsKey(h.getDni()) ) {
+			if(huespedes.get(h.getDni()).contains(i)) {
+				huespedes.get(h.getDni()).remove(i);
+			}
+		}
+	}
+	
 
 }
 
