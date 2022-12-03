@@ -6,9 +6,9 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import DeustoBooking.Duenio;
-import DeustoBooking.Gestor;
-import DeustoBooking.Inmueble;
+import deustoBooking.Duenio;
+import deustoBooking.Gestor;
+import deustoBooking.Inmueble;
 
 public class GestionTest {
 	

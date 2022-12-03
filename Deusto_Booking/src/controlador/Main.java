@@ -1,7 +1,7 @@
 package controlador;
 
-import DeustoBooking.Gestor;
-import GUI.VentanaPrincipal;
+import deustoBooking.Gestor;
+import gui.VentanaPrincipal;
 
 public class Main {
 	

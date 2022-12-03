@@ -1,8 +1,8 @@
-package GUI;
+package gui;
 
 import javax.swing.*;
 
-import DeustoBooking.Gestor;
+import deustoBooking.Gestor;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

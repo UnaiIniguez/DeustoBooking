@@ -1,4 +1,4 @@
-package DeustoBooking;
+package deustoBooking;
 
 public class Huesped extends Persona {
 

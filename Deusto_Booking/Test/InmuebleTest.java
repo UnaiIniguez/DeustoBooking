@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import DeustoBooking.Duenio;
-import DeustoBooking.Inmueble;
-import DeustoBooking.TipoVivienda;
+import deustoBooking.Duenio;
+import deustoBooking.Inmueble;
+import deustoBooking.TipoVivienda;
 
 public class InmuebleTest {
 

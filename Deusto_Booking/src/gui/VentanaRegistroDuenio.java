@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 
 import java.awt.Button;
@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import DeustoBooking.Gestor;
+import deustoBooking.Gestor;
 
 public class VentanaRegistroDuenio extends JFrame {
 
