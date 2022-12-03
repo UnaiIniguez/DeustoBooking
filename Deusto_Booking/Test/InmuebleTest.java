@@ -15,7 +15,7 @@ public class InmuebleTest {
 	
 	@Before
 	public void setUp() {
-		i = new Inmueble(new Duenio(58050922,"Javier","Javier@gmail.com","62660030327","perro23",new ArrayList()), "Blas de Otero 58", TipoVivienda.PISO, 100f, 2, 3, 3,45f);
+		i = new Inmueble(new Duenio("58050922A","Javier","Javier@gmail.com","62660030327","perro23",new ArrayList<Inmueble>()), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
 	}
 	
 	
@@ -71,11 +71,7 @@ public class InmuebleTest {
 		assertEquals(100f,(float) i.getMetrosCuadrados(),0.01f);
 	}
 	
-//	public void testGetDuenio() {
-//		
-//		d =  new Duenio(0, null, null, null, null, null)
-//		assertTrue(i.getDuenio().equals(d));						
-//	}
+
 	@Test
 	public void testGetUbicacion() {
 		assertEquals("Blas de Otero 58",i.getUbicacion());

@@ -11,7 +11,7 @@ public class Huesped extends Persona {
 	// Solvencia economica demostrable = demostramos la solvencia con pagos por
 	// adelantado.
 
-	public Huesped(int dni, String nombre, String mail, String tlfNum, String contrasenya, String cargo, String nomEmpresa) {
+	public Huesped(String dni, String nombre, String mail, String tlfNum, String contrasenya, String cargo, String nomEmpresa) {
 		super(dni, nombre, mail, tlfNum, contrasenya);
 		this.setCargo(cargo);
 		this.setNomEmpresa(nomEmpresa);

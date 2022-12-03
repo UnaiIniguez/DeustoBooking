@@ -54,6 +54,7 @@ public class VentanaPrincipal extends JFrame{
 		JPanel panelSalida = new JPanel();
 		JPanel panelHuesped = new JPanel();
 		JPanel panelBuscar = new JPanel();
+		JPanel panelTipoVivienda = new JPanel();
 		
 		JPanel panelInferior = new JPanel();
 		JPanel panelSuperior = new JPanel(new BorderLayout());	
@@ -82,10 +83,12 @@ public class VentanaPrincipal extends JFrame{
 		JLabel numhuespedes = new JLabel("NÚMERO DE HUESPEDES:");
 		JComboBox comboBoxHuespedes = new JComboBox();
 		comboBoxHuespedes.setModel(new DefaultComboBoxModel(new String[] {"1", "2","3","4","5","6","7+"}));
+		JComboBox comboBoxTipoVivienda = new JComboBox();
+		comboBoxTipoVivienda.setModel(new DefaultComboBoxModel(new String[] {"Tipo de vivienda", "PISO", "CHALET","ADOSADO", "ESTUDIO"}));
 		
 		
 		JLabel lblImagen = new JLabel();
-		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/Casa_Fondo.jpg").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/imagenFondo.jpg").getImage().getScaledInstance(800,550, Image.SCALE_DEFAULT));
 		lblImagen.setIcon(logo);
 		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, IÑIGO HERNAEZ, UNAI IÑIGUEZ y BELTRÁN SENDAGORTA");
 		
@@ -113,7 +116,29 @@ public class VentanaPrincipal extends JFrame{
 			}
 		});
 		
-
+		iniSesionAf.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
+				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				ventanaInicio.setVisible(true);	
+			}
+		});
+		
+		buscar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				VisualizarInmuebles ventana = new VisualizarInmuebles(gestor);
+				ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				ventana.setVisible(true);
+				
+				
+			}
+		});
 		
 		//Diseño de contenedores
 		panelSDCentro.setBackground(new Color(173, 216, 230));
@@ -135,7 +160,9 @@ public class VentanaPrincipal extends JFrame{
 		panelCentralIzquierda.add(panelLlegada);
 		panelCentralIzquierda.add(panelSalida);
 		panelCentralIzquierda.add(panelHuesped);
+		panelCentralIzquierda.add(panelTipoVivienda);
 		panelCentralIzquierda.add(panelBuscar);
+		
 		
 		
 		//Anyadir componentes a contenedores
@@ -158,6 +185,7 @@ public class VentanaPrincipal extends JFrame{
 		panelHuesped.add(vacio4);
 		panelHuesped.add(comboBoxHuespedes);
 		panelBuscar.add(buscar);
+		panelTipoVivienda.add(comboBoxTipoVivienda);
 		
 		panelInferior.add(lblInferior, BorderLayout.CENTER);
 		

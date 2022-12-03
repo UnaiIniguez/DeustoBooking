@@ -10,9 +10,11 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Gestor {
 	
-	private List<Duenio> propietarios = new ArrayList();
+	private List<Duenio> propietarios = new ArrayList<>();
+	
+	private List<Huesped> huespedes = new ArrayList<>();		//Guardará a todos los huespedes de la base de datos
 
-	private Map<String, ArrayList<Inmueble>> huespedes = new HashMap<>(); // En este mapa se almacenaran todos los
+	private Map<String, ArrayList<Inmueble>> Reservas = new HashMap<>(); // En este mapa se almacenaran todos los
 																				// huespedes y los inmuebles que tiene
 																				// reservados.(Clave DNI)
 
@@ -20,8 +22,8 @@ public class Gestor {
 	
 	public void datosTest() {
 		
-		ArrayList<Inmueble> inmueblesTest = new ArrayList();
-		Duenio d = new Duenio(12345678, "Pepe", "pepe@gmail.com", "656232359", "1234", inmueblesTest);
+		ArrayList<Inmueble> inmueblesTest = new ArrayList<>();
+		Duenio d = new Duenio("12345678B", "Pepe", "pepe@gmail.com", "656232359", "1234", inmueblesTest);
 		propietarios.add(d);
 		
 	}
@@ -41,7 +43,7 @@ public class Gestor {
 	}
 
 	public Map<String, ArrayList<Inmueble>> getHuespedes() {
-		return huespedes;
+		return Reservas;
 	}
 
 
@@ -61,22 +63,22 @@ public class Gestor {
 	 * @param Persona = La persona que desea iniciar sesión.
 	 *
 	 */
-	public boolean iniSesion(Persona p) {
-		if ( p instanceof Duenio) {
-			if(propietarios.contains(p)) {
+	public boolean iniSesion(String dni, String contraseña) {
+		
+		for(Duenio d : propietarios) {
+			if(d.getContrasenya() == contraseña && d.getDni() == dni) {
 				return true;
-			}else {
-				return false;
-			}
-		}else {
-			if(huespedes.keySet().contains(p.getDni())) {
-				return true;
-			}else {
-				return false;
+				
 			}
 		}
 		
-		
+		for( Huesped p : huespedes) {
+			if(p.getContrasenya() == contraseña && p.getDni() == dni) {
+				return true;
+			}
+			
+		}
+		return false;
 		
 	}
 	
@@ -140,9 +142,9 @@ public class Gestor {
 	//********************METODOS DEL HUESPED********************************
 	
 	public void anularReserva(Huesped h, Inmueble i) {
-		if ( huespedes.containsKey(h.getDni()) ) {
-			if(huespedes.get(h.getDni()).contains(i)) {
-				huespedes.get(h.getDni()).remove(i);
+		if ( Reservas.containsKey(h.getDni()) ) {
+			if(Reservas.get(h.getDni()).contains(i)) {
+				Reservas.get(h.getDni()).remove(i);
 			}
 		}
 	}
