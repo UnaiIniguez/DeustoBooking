@@ -24,6 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 import deustoBooking.Gestor;
 
 
@@ -72,9 +75,9 @@ public class VentanaPrincipal extends JFrame{
 		JLabel destino = new JLabel("DESTINO:");
 		JTextField destinotxt = new JTextField("", 15);
 		JLabel llegada = new JLabel("LLEGADA:");
-		JTextField llegadatxt = new JTextField("", 15);
+		JDateChooser diaLlegada = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
 		JLabel salida = new JLabel("SALIDA:");
-		JTextField salidatxt = new JTextField("", 15);
+		JDateChooser diaSalida = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
 		JLabel numhuespedes = new JLabel("NÚMERO DE HUESPEDES:");
 		JComboBox comboBoxHuespedes = new JComboBox();
 		comboBoxHuespedes.setModel(new DefaultComboBoxModel(new String[] {"1", "2","3","4","5","6","7+"}));
@@ -144,9 +147,9 @@ public class VentanaPrincipal extends JFrame{
 		panelDestino.add(destino);
 		panelDestino.add(destinotxt);
 		panelSalida.add(salida);
-		panelSalida.add(salidatxt);
+		panelSalida.add(diaSalida);
 		panelLlegada.add(llegada);
-		panelLlegada.add(llegadatxt);
+		panelLlegada.add(diaLlegada);
 		panelHuesped.add(numhuespedes);
 		panelHuesped.add(vacio4);
 		panelHuesped.add(comboBoxHuespedes);
