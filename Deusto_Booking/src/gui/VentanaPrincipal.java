@@ -58,14 +58,15 @@ public class VentanaPrincipal extends JFrame{
 		JPanel panelInferior = new JPanel();
 		JPanel panelSuperior = new JPanel(new BorderLayout());	
 		JPanel panelSuperiorDerecho = new JPanel(new BorderLayout());
-		JPanel panelSDCentro = new JPanel( new GridLayout(1 , 2, 5 , 100));
+		JPanel panelSDCentro = new JPanel( new GridLayout(1 , 3, 5 , 100));
 		JPanel panelSuperiorIzquierda = new JPanel();
 		
 		
 		//Creación de componentes
 		
 		JButton duenio = new JButton("Hazte anfitrión");
-		JButton iniSesion = new JButton("Iniciar sesion");
+		JButton iniSesionCl = new JButton("Iniciar como cliente");
+		JButton iniSesionAf = new JButton("Iniciar como anfitrión");
 		JButton buscar = new JButton("Buscar");
 		JLabel vacio1 = new JLabel("       ");
 		JLabel vacio2 = new JLabel("       ");
@@ -101,7 +102,7 @@ public class VentanaPrincipal extends JFrame{
 			}
 		});
 		
-		iniSesion.addActionListener(new ActionListener() {
+		iniSesionCl.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -111,6 +112,7 @@ public class VentanaPrincipal extends JFrame{
 			}
 		});
 		
+
 		
 		//Diseño de contenedores
 		panelSDCentro.setBackground(new Color(173, 216, 230));
@@ -141,8 +143,9 @@ public class VentanaPrincipal extends JFrame{
 		panelSuperiorDerecho.add(vacio2, BorderLayout.SOUTH);
 		panelSuperiorDerecho.add(vacio3, BorderLayout.NORTH);
 		
-		panelSDCentro.add(iniSesion);
+		panelSDCentro.add(iniSesionCl);
 		panelSDCentro.add(duenio);
+		panelSDCentro.add(iniSesionAf);
 		
 		panelDestino.add(destino);
 		panelDestino.add(destinotxt);

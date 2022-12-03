@@ -26,7 +26,7 @@ public class VentanaRegistroDuenio extends JFrame {
 
 	private JPanel j;
 	Gestor g;
-	public static final Color SKYBLUE = new Color(51, 133, 255);
+
 
 	public VentanaRegistroDuenio(Gestor gestor) {
 
@@ -138,33 +138,33 @@ public class VentanaRegistroDuenio extends JFrame {
 		
 		//Especificaciones de ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Registro Huesped");
+		setTitle("Registro duenio");
 		this.setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(173, 216, 230));
 		setSize(400,600);
-		p1.setBackground(SKYBLUE);
-		p2.setBackground(SKYBLUE);
-		p3.setBackground(SKYBLUE);
-		p4.setBackground(SKYBLUE);
-		p5.setBackground(SKYBLUE);
-		p6.setBackground(SKYBLUE);
-		p7.setBackground(SKYBLUE);
-		p8.setBackground(SKYBLUE);
-		p11.setBackground(SKYBLUE);
-		p22.setBackground(SKYBLUE);
-		p33.setBackground(SKYBLUE);
-		p44.setBackground(SKYBLUE);
-		p55.setBackground(SKYBLUE);
-		p66.setBackground(SKYBLUE);
-		p77.setBackground(SKYBLUE);
-		p88.setBackground(SKYBLUE);
-		p99.setBackground(SKYBLUE);
-		p100.setBackground(SKYBLUE);
-		p101.setBackground(SKYBLUE);
-		p102.setBackground(SKYBLUE);
-		p103.setBackground(SKYBLUE);
-		p104.setBackground(SKYBLUE);
-		p105.setBackground(SKYBLUE);
+		p1.setBackground(new Color(173, 216, 230));
+		p2.setBackground(new Color(173, 216, 230));
+		p3.setBackground(new Color(173, 216, 230));
+		p4.setBackground(new Color(173, 216, 230));
+		p5.setBackground(new Color(173, 216, 230));
+		p6.setBackground(new Color(173, 216, 230));
+		p7.setBackground(new Color(173, 216, 230));
+		p8.setBackground(new Color(173, 216, 230));
+		p11.setBackground(new Color(173, 216, 230));
+		p22.setBackground(new Color(173, 216, 230));
+		p33.setBackground(new Color(173, 216, 230));
+		p44.setBackground(new Color(173, 216, 230));
+		p55.setBackground(new Color(173, 216, 230));
+		p66.setBackground(new Color(173, 216, 230));
+		p77.setBackground(new Color(173, 216, 230));
+		p88.setBackground(new Color(173, 216, 230));
+		p99.setBackground(new Color(173, 216, 230));
+		p100.setBackground(new Color(173, 216, 230));
+		p101.setBackground(new Color(173, 216, 230));
+		p102.setBackground(new Color(173, 216, 230));
+		p103.setBackground(new Color(173, 216, 230));
+		p104.setBackground(new Color(173, 216, 230));
+		p105.setBackground(new Color(173, 216, 230));
 		
 		
 		

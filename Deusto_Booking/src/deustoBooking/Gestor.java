@@ -65,14 +65,18 @@ public class Gestor {
 		if ( p instanceof Duenio) {
 			if(propietarios.contains(p)) {
 				return true;
+			}else {
+				return false;
 			}
 		}else {
 			if(huespedes.keySet().contains(p.getDni())) {
 				return true;
+			}else {
+				return false;
 			}
 		}
 		
-		return false;
+		
 		
 	}
 	
