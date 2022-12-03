@@ -32,7 +32,7 @@ public class GestionTest {
 		Duenio d = gestor.getPropietarios().get(0);
 		Inmueble i = new Inmueble(d, "Santnader", null, 0, 0, 0, 0, 0);
 		
-		gestor.anadirInmueblePersona( d, i );
+		gestor.anadirInmueble( d, i );
 		assertEquals( i, d.getInmuebles().get(0) );//Comparo si el inmueble de test con el que he introducido
 		
 	}

@@ -2,19 +2,21 @@ package deustoBooking;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Gestor {
 	
-	private ArrayList<Duenio> propietarios = new ArrayList();
+	private List<Duenio> propietarios = new ArrayList();
 
-	private HashMap<String, ArrayList<Inmueble>> huespedes = new HashMap<>(); // En este mapa se almacenaran todos los
+	private Map<String, ArrayList<Inmueble>> huespedes = new HashMap<>(); // En este mapa se almacenaran todos los
 																				// huespedes y los inmuebles que tiene
-																				// reservados.
+																				// reservados.(Clave DNI)
 
-	ArrayList<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
+	List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
 	
 	public void datosTest() {
 		
@@ -30,39 +32,103 @@ public class Gestor {
 		
 	}
 
-	public ArrayList<Duenio> getPropietarios() {
+	public List<Duenio> getPropietarios() {
 		return propietarios;
 	}
 
-	public void setPropietarios(ArrayList<Duenio> propietarios) {
+	public void setPropietarios(List<Duenio> propietarios) {
 		this.propietarios = propietarios;
 	}
 
-	public HashMap<String, ArrayList<Inmueble>> getHuespedes() {
+	public Map<String, ArrayList<Inmueble>> getHuespedes() {
 		return huespedes;
 	}
 
-	public void setHuespedes(HashMap<String, ArrayList<Inmueble>> huespedes) {
-		this.huespedes = huespedes;
-	}
 
-	public ArrayList<Inmueble> getInmuebles() {
+	public List<Inmueble> getInmuebles() {
 		return inmuebles;
 	}
 
-	public void setInmuebles(ArrayList<Inmueble> inmuebles) {
-		this.inmuebles = inmuebles;
+
+//**************************METODOS COMUNES**********************************************
+	
+
+
+	/**
+	 * 
+	 * Iniciar sesión  
+	 * 
+	 * @param Persona = La persona que desea iniciar sesión.
+	 *
+	 */
+	public boolean iniSesion(Persona p) {
+		if ( p instanceof Duenio) {
+			if(propietarios.contains(p)) {
+				return true;
+			}
+		}else {
+			if(huespedes.keySet().contains(p.getDni())) {
+				return true;
+			}
+		}
+		
+		return false;
+		
 	}
 	
-	public static void anadirInmueblePersona( Duenio duenio, Inmueble inmueble ) {
+	
+	
+//********************METODOS DEL ANFITRIÓN********************************
+	
+	
+	
+	/**
+	 * 
+	 * Anyade un inmueble a la web 
+	 * 
+	 * @param Duenio = El duenio que quiere anyadir el inmueble
+	 *  @param Inmueble = inmueble que quiere anyadir
+	 *
+	 */
+	public void anadirInmueble( Duenio duenio, Inmueble inmueble ) {
 		
 		duenio.getInmuebles().add(inmueble);
+		inmuebles.add(inmueble);
 		
 	}
 	
-	public static void borrarInmueble( Duenio duenio, Inmueble inmueble) {
+	/**
+	 * 
+	 * Borra un inmueble de la web 
+	 * 
+	 * @param Duenio = El duenio que quiere eliminar el inmueble
+	 *  @param Inmueble = inmueble que quiere eliminar
+	 *
+	 */
+	public void borrarInmueble( Duenio duenio, Inmueble inmueble) {
 		
 		duenio.getInmuebles().remove(inmueble);
+		inmuebles.remove(inmueble);
+		
+	}
+	
+	
+	/**
+	 * 
+	 * Editar el inmueble (Cambios en el espacio, mas habitaciones...)
+	 * 
+	 * @param Duenio = El duenio que quiere editar el inmueble
+	 * @param Inmueble viejo = El viejo inmueble que se quiere editar
+	 * @param Inmueble nuevo = El inmueble con los cambios   
+	 *
+	 */
+	public void editarInmueble(Duenio duenio, Inmueble inmuebleviejo, Inmueble nuevoInmueble) {
+		
+		duenio.getInmuebles().remove(inmuebleviejo);
+		inmuebles.remove(inmuebleviejo);
+		
+		duenio.getInmuebles().add(nuevoInmueble);
+		inmuebles.add(nuevoInmueble);
 		
 	}
 

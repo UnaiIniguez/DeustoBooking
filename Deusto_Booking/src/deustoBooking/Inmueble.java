@@ -8,7 +8,7 @@ public class Inmueble {
 	Duenio duenio;
 	Boolean ocupado = false;
 
-	String Huesped = null;
+	String Huesped = null;		//Nombre del huesped que estará en la casa
 
 	private int numHab;
 	private int numBany;
