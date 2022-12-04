@@ -7,12 +7,18 @@ import deustoBooking.Gestor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class VentanaLogin extends JFrame {
 
 
 
 	Gestor g;
+	JPasswordField pfContrasenya;
+	JTextField txtUsuario;
+	
 	public VentanaLogin(Gestor gestor) {
 	
 	g = gestor;
@@ -20,7 +26,8 @@ public class VentanaLogin extends JFrame {
 	JPanel panel1 = new	JPanel(new FlowLayout());
 	JPanel panel2 = new	JPanel(new FlowLayout());
 	JPanel panel3 = new	JPanel(new FlowLayout());
-	JPanel panel4 = new	JPanel(new FlowLayout());
+	JPanel panel5 = new	JPanel(new FlowLayout());
+	JPanel panel6 = new	JPanel(new FlowLayout());
 	
 	//Icono de Deusto Booking
 	ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/icono.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
@@ -30,23 +37,23 @@ public class VentanaLogin extends JFrame {
 	panel1.setBackground(new Color(173, 216, 230));
 
 	//Textfield de usuario
-	final JTextField txtUsuario = new JTextField(15);
+	txtUsuario = new JTextField(15);
 	txtUsuario.setText("Nombre de usuario");
 	txtUsuario.setForeground(Color.GRAY);
 	panel2.add(txtUsuario);
 	panel2.setBackground(new Color(173, 216, 230));
 	
 	//Textfield de contrasenya
-	JPasswordField pfContrasenya = new JPasswordField(15);
-	panel3.add(pfContrasenya);
-	panel3.setBackground(new Color(173, 216, 230));
+	pfContrasenya = new JPasswordField(15);
+	panel5.add(pfContrasenya);
+	panel5.setBackground(new Color(173, 216, 230));
 	
 	//Boton de login
 	JButton btnLogin = new JButton("Iniciar sesión");
 	btnLogin.setSize(200,100);
 	btnLogin.setLocation(300, 200);
-	panel4.add(btnLogin);
-	panel4.setBackground(new Color(173, 216, 230));
+	panel6.add(btnLogin);
+	panel6.setBackground(new Color(173, 216, 230));
 	
 	//Especificaciones de ventana
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,8 +63,40 @@ public class VentanaLogin extends JFrame {
 	setSize(300,400);
 	add(panel1);
 	add(panel2);
-	add(panel3);
-	add(panel4);
+	add(panel5);
+	add(panel6);
+	
+	
+	//Eventos de ventana
+	
+	pfContrasenya.addKeyListener(new KeyAdapter() {
+		
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == 10) {
+				if (txtUsuario.getText().equals("cliente") && pfContrasenya.getText().equals("cliente")) {
+					
+					VentanaPrincipal ventana = new VentanaPrincipal(g);
+					ventana.setVisible(true);
+					dispose();	
+				}
+				
+
+			}
+			
+		}
+	});
+	
+	btnLogin.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			VentanaPrincipal ventana = new VentanaPrincipal(g);
+			ventana.setVisible(true);
+			dispose();	
+			
+		}
+	});
 		
 		
 	}

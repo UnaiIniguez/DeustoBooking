@@ -65,9 +65,10 @@ public class VentanaPrincipal extends JFrame{
 		
 		//Creación de componentes
 		
-		JButton duenio = new JButton("Hazte anfitrión");
+		JButton regisDuenio = new JButton("Hazte anfitrión");
 		JButton iniSesionCl = new JButton("Iniciar como cliente");
 		JButton iniSesionAf = new JButton("Iniciar como anfitrión");
+		JButton regisCliente = new JButton("Hazte cliente");
 		JButton buscar = new JButton("Buscar");
 		JLabel vacio1 = new JLabel("       ");
 		JLabel vacio2 = new JLabel("       ");
@@ -95,7 +96,7 @@ public class VentanaPrincipal extends JFrame{
 		
 		//Eventos
 		
-		duenio.addActionListener(new ActionListener() {
+		regisDuenio.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -131,6 +132,7 @@ public class VentanaPrincipal extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				
 				VisualizarInmuebles ventana = new VisualizarInmuebles(gestor);
 				ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -172,7 +174,7 @@ public class VentanaPrincipal extends JFrame{
 		panelSuperiorDerecho.add(vacio3, BorderLayout.NORTH);
 		
 		panelSDCentro.add(iniSesionCl);
-		panelSDCentro.add(duenio);
+		panelSDCentro.add(regisDuenio);
 		panelSDCentro.add(iniSesionAf);
 		
 		panelDestino.add(destino);

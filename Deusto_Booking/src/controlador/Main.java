@@ -1,6 +1,7 @@
 package controlador;
 
 import deustoBooking.Gestor;
+import gui.VentanaLogin;
 import gui.VentanaPrincipal;
 
 public class Main {
@@ -8,8 +9,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Gestor gestor = new Gestor();
-		VentanaPrincipal frame = new VentanaPrincipal(gestor);
-		
+		VentanaLogin ventana = new VentanaLogin(gestor);
+		ventana.setVisible(true);
 		
 	}
 	
