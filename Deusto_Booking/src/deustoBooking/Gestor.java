@@ -1,5 +1,9 @@
 package deustoBooking;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -173,7 +177,45 @@ public class Gestor {
 		}
 	}
 	
+	public boolean iniciarSesionDB(String dni, String contrasenya) {
+		
+		Connection conn = null;
+		{try {
+			
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:db/Deusto_Booking.db");
+			System.out.println("Abre la DB");
+			
+			Statement stmt = conn.createStatement();
+			
+			List<String> usuarios = new ArrayList<>();
+			ResultSet rs1 = stmt.executeQuery(" SELECT DNI_H FROM Huesped");
+			while(rs1.next()) {
+				usuarios.add(rs1.getString("DNI_H"));
+			}
+			
+			List<String> contrasenyas = new ArrayList<>();
+			ResultSet rs2 = stmt.executeQuery(" SELECT Contrasenya_H FROM Huesped");
+			while(rs2.next()) {
+				usuarios.add(rs2.getString("Contrasenya_H"));
+			}
+			
+			if(usuarios.contains(dni) && contrasenyas.contains(contrasenya) && usuarios.indexOf(dni) == contrasenyas.indexOf(contrasenya)) {
+				return true;
+			}
+			
+			
+			stmt.close();
+			conn.close();
+		}catch(Exception e) {
+			System.out.println("Error de conexion a la BD");
+		}
+			
+		}
+		return false;
+	
 
+}
 }
 
 
