@@ -15,7 +15,7 @@ public class Main {
 		
 		
 		Gestor gestor = new Gestor();
-		VentanaLogin ventana = new VentanaLogin(gestor);
+		VentanaPrincipal ventana = new VentanaPrincipal(gestor);
 		ventana.setVisible(true);
 		
 		

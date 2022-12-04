@@ -1,6 +1,7 @@
 package deustoBooking;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -27,7 +28,7 @@ public class Gestor {
 	public void datosTest() {
 		
 		ArrayList<Inmueble> inmueblesTest = new ArrayList<>();
-		Duenio d = new Duenio("12345678B", "Pepe", "pepe@gmail.com", "656232359", "1234", inmueblesTest);
+		Duenio d = new Duenio("12345678B", "Pepe", 77, "pepe@gmail.com", "656232359", "1234", inmueblesTest);
 		propietarios.add(d);
 		
 	}
@@ -174,6 +175,9 @@ public class Gestor {
 			if(!Reservas.get(h.getDni()).contains(i)) {
 				Reservas.get(h.getDni()).add(i);
 			}
+		}else {
+			Reservas.put(h.getDni(), new ArrayList<Inmueble>());
+			Reservas.get(h.getDni()).add(i);
 		}
 	}
 	
@@ -215,7 +219,18 @@ public class Gestor {
 		return false;
 	
 
-}
+	}
+	
+	public void registroHuesped(String dni, String nombre, int edad, String mail, String tlf, String cargo, String nomEmpresa, String contrasenya) {
+		
+		Huesped h = new Huesped(dni, nombre, edad, mail, tlf, contrasenya, cargo, nomEmpresa);
+		
+		if (!huespedes.contains(h)) {
+			huespedes.add(h);
+		}
+	}
+	
+	
 }
 
 
