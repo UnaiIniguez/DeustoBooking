@@ -141,6 +141,14 @@ public class Gestor {
 	
 	//********************METODOS DEL HUESPED********************************
 	
+	/**
+	 * 
+	 * Anular reserva 
+	 * 
+	 * @param h = Huesped que anula la reserva
+	 * @param i = Inmueble reservado pendiente de anular
+	 *
+	 */
 	public void anularReserva(Huesped h, Inmueble i) {
 		if ( Reservas.containsKey(h.getDni()) ) {
 			if(Reservas.get(h.getDni()).contains(i)) {
@@ -149,6 +157,14 @@ public class Gestor {
 		}
 	}
 	
+	/**
+	 * 
+	 * Reservar
+	 * 
+	 * @param h = Huesped que ejecuta la reserva
+	 * @param i = Inmueble pendiente de reservar
+	 *
+	 */
 	public void reservar(Huesped h, Inmueble i) {
 		if (Reservas.containsKey(h.getDni())) {
 			if(!Reservas.get(h.getDni()).contains(i)) {
