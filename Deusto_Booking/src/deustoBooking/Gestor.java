@@ -149,6 +149,14 @@ public class Gestor {
 		}
 	}
 	
+	public void reservar(Huesped h, Inmueble i) {
+		if (Reservas.containsKey(h.getDni())) {
+			if(!Reservas.get(h.getDni()).contains(i)) {
+				Reservas.get(h.getDni()).add(i);
+			}
+		}
+	}
+	
 
 }
 
