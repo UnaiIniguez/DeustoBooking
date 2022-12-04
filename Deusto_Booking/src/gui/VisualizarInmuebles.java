@@ -28,12 +28,7 @@ public class VisualizarInmuebles extends JFrame{
 			JPanel panelDerecho = new JPanel();
 			JPanel panelSuperior = new JPanel();
 			
-			
-			JButton seleccionar = new JButton("Seleccionar vivienda");
-			JButton volver = new JButton("Volver");
-			
-			panelSuperior.add(volver, BorderLayout.WEST);
-			panelDerecho.add(seleccionar, BorderLayout.SOUTH);
+
 		
 			
 			

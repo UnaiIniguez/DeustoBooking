@@ -141,7 +141,7 @@ public class VentanaRegistroDuenio extends JFrame {
 		setTitle("Registro duenio");
 		this.setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(173, 216, 230));
-		setSize(400,600);
+		setSize(400,700);
 		p1.setBackground(new Color(173, 216, 230));
 		p2.setBackground(new Color(173, 216, 230));
 		p3.setBackground(new Color(173, 216, 230));

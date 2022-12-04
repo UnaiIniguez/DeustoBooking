@@ -104,6 +104,7 @@ public class VentanaPrincipal extends JFrame{
 				VentanaRegistroDuenio VentanaDuenio = new VentanaRegistroDuenio(gestor);
 				VentanaDuenio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				VentanaDuenio.setVisible(true);
+				
 			}
 		});
 		
@@ -114,6 +115,7 @@ public class VentanaPrincipal extends JFrame{
 				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
+				dispose();
 			}
 		});
 		
@@ -125,6 +127,7 @@ public class VentanaPrincipal extends JFrame{
 				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);	
+				dispose();
 			}
 		});
 		
