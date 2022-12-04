@@ -15,13 +15,15 @@ public abstract class Persona implements Serializable {
 	private String tlfNum;		//He cambiado el telefono de int a String porque sino no daba el rango
 	private String contrasenya;		//He cambiado la contraseña a String porque cada uno puede poner la contraseña com desea
 
-	public Persona(String dni, String nombre, String mail, String tlfNum, String contrasenya) {
+
+	public Persona(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
+		this.edad = edad;
 		this.mail = mail;
 		this.tlfNum = tlfNum;
-		this.setContrasenya(contrasenya);
+		this.contrasenya = contrasenya;
 	}
 
 	public String getDni() {
