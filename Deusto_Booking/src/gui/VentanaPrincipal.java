@@ -102,9 +102,9 @@ public class VentanaPrincipal extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				VentanaRegistroDuenio VentanaDuenio = new VentanaRegistroDuenio(gestor);
-				VentanaDuenio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				VentanaDuenio.setVisible(true);
+				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
+				ventana.setVisible(true);
+				dispose();
 				
 			}
 		});
@@ -152,7 +152,7 @@ public class VentanaPrincipal extends JFrame{
 		panelSuperiorDerecho.setBackground(new Color(173, 216, 230));
 		panelSuperiorIzquierda.setBackground(new Color(173, 216, 230));
 		panelInferior.setBackground(new Color(173, 216, 230));
-		panelCentral.setBackground(Color.WHITE);
+		
 		
 		//Contenedores dentro de contenedores
 		
