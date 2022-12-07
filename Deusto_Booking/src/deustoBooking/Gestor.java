@@ -3,6 +3,7 @@ package deustoBooking;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -63,17 +64,17 @@ public class Gestor {
 	 * @param Persona = La persona que desea iniciar sesión.
 	 *
 	 */
-	public boolean iniSesion(String dni, String contraseña) {
+	public boolean iniSesion(String dni, String contrase�a) {
 		
 		for(Duenio d : propietarios) {
-			if(d.getContrasenya() == contraseña && d.getDni() == dni) {
+			if(d.getContrasenya() == contrase�a && d.getDni() == dni) {
 				return true;
 				
 			}
 		}
 		
 		for( Huesped p : huespedes) {
-			if(p.getContrasenya() == contraseña && p.getDni() == dni) {
+			if(p.getContrasenya() == contrase�a && p.getDni() == dni) {
 				return true;
 			}
 			
@@ -226,10 +227,11 @@ public class Gestor {
 
 	public Connection conectar() {
 		try {
-			Class.forName("org.mysql.JDBC");
+			Class.forName("org.sqlite.JDBC");
 
-			conectar = DriverManager.getConnection("jdbc:mysql:Deusto_Booking.db");
+			conectar = DriverManager.getConnection("jdbc:sqlite:Deusto_Booking.db");
 			System.out.println("Conexion establecida");
+			inicializarBD();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -237,6 +239,102 @@ public class Gestor {
 		return conectar;
 
 	}
+	
+	public void inicializarBD() {
+		
+		String sql_TablaInmueble = " CREATE TABLE IF NOT EXISTS Inmueble ("
+				+ "Precio INTEGER,"
+				+ "Max_Hu INTEGER,"
+				+ "Ocupado INTEGER,"
+				+ "Num_Hab INTEGER,"
+				+ "Num_Bany INTEGER,"
+				+ "Ubi TEXT,"
+				+ "Tipo TEXT,"
+				+ "m2	INTEGER,"
+				+ "DNI_D INTEGER,"
+				+ "PRIMARY KEY (Ubi) );";
+		
+		String sql_TablaHuesped = " CREATE TABLE IF NOT EXISTS Huesped ("
+				+ "DNI_H INTEGER,"
+				+ "NOM_H TEXT,"
+				+ "EDAD_H INTEGER,"
+				+ "MAIL_H TEXT,"
+				+ "TLF_H INTEGER,"
+				+ "Cargo TEXT,"
+				+ "NOM_EMP TEXT,"
+				+ "Contrasenya_H	TEXT,"
+				+ "PRIMARY KEY (DNI_H) );";
+		
+		String sql_TablaDuenyo = " CREATE TABLE IF NOT EXISTS Duenyo ("
+				+ "DNI_D INTEGER,"
+				+ "NOM_D TEXT,"
+				+ "EDAD_D INTEGER,"
+				+ "MAIL_D TEXT,"
+				+ "TLF_D INTEGER,"
+				+ "Cargo TEXT,"
+				+ "Contrasenya	TEXT,"
+				+ "PRIMARY KEY (DNI_D) );";
+		
+		
+		try {
+			Statement st = conectar.createStatement();
+			st.execute(sql_TablaInmueble);
+			st.execute(sql_TablaHuesped);
+			st.execute(sql_TablaDuenyo);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//================Test de la Base de Datos==========================
 
+	public void bdTest() {
+		
+		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );";
+		try {
+			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			pst.setInt(1, 100);
+			pst.setInt(2, 20);
+			pst.setInt(3, 1);
+			pst.setInt(4, 4);
+			pst.setInt(5, 2);
+			pst.setString(6, "Bilbao");
+			pst.setString(7, "Casa");
+			pst.setInt(8, 12);
+			pst.setInt(9, 11223344);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+public void anyadirInmueble(Inmueble inmueble) {
+		
+		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );";
+		try {
+			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			pst.setInt(1, 100);
+			pst.setInt(2, 20);
+			pst.setInt(3, 1);
+			pst.setInt(4, 4);
+			pst.setInt(5, 2);
+			pst.setString(6, "Bilbao");
+			pst.setString(7, "Casa");
+			pst.setInt(8, 12);
+			pst.setInt(9, 11223344);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	// Obtener de Inmueble los datos necesarios para introducir en la Base de Datos, 
 
 }
