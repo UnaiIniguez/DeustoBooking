@@ -95,6 +95,8 @@ public class VentanaPrincipal extends JFrame{
 		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, IÑIGO HERNAEZ, UNAI IÑIGUEZ y BELTRÁN SENDAGORTA");
 		
 		
+		
+		
 		//Eventos
 		
 		regisDuenio.addActionListener(new ActionListener() {
@@ -178,8 +180,10 @@ public class VentanaPrincipal extends JFrame{
 		panelSuperiorDerecho.add(vacio3, BorderLayout.NORTH);
 		
 		panelSDCentro.add(iniSesionCl);
-		panelSDCentro.add(regisDuenio);
+		panelSDCentro.add(regisCliente);
 		panelSDCentro.add(iniSesionAf);
+		panelSDCentro.add(regisDuenio);
+		
 		
 		panelDestino.add(destino);
 		panelDestino.add(destinotxt);
