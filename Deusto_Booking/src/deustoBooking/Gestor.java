@@ -36,7 +36,9 @@ public class Gestor {
 	}
 
 	public Gestor() {
-
+		conectar();
+		inicializarBD();
+		
 	}
 
 	public List<Duenio> getPropietarios() {
@@ -293,7 +295,9 @@ public class Gestor {
 
 	public void bdTest() {
 		
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );";
+		datosTest();
+		
+		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
 			PreparedStatement pst = conectar.prepareStatement(datos_sql);
 			pst.setInt(1, 100);
@@ -305,6 +309,7 @@ public class Gestor {
 			pst.setString(7, "Casa");
 			pst.setInt(8, 12);
 			pst.setInt(9, 11223344);
+			System.out.println("Inserción correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -327,6 +332,7 @@ public void anyadirInmueble(Inmueble inmueble) {
 			pst.setString(7, "Casa");
 			pst.setInt(8, 12);
 			pst.setInt(9, 11223344);
+			System.out.println("Inserción correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -334,6 +340,49 @@ public void anyadirInmueble(Inmueble inmueble) {
 		
 		
 	}
+
+public void anyadirDuenyo(Duenio duenio) {
+	
+	String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
+	try {
+		PreparedStatement pst = conectar.prepareStatement(datos_sql);
+		pst.setInt(1, 11223344);
+		pst.setString(2, "Pepe");
+		pst.setInt(3, 30);
+		pst.setString(4, "pepe@gmail.com");
+		pst.setInt(5, 123586479);
+		pst.setString(6, "Jefe");
+		pst.setString(7, "123456");
+		System.out.println("Inserción correcta");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+}
+
+public void anyadirHuesped(Huesped huesped) {
+	
+	String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
+	try {
+		PreparedStatement pst = conectar.prepareStatement(datos_sql);
+		pst.setInt(1, 12345679);
+		pst.setString(2, "Juan");
+		pst.setInt(3, 28);
+		pst.setString(4, "juan@gmail.com");
+		pst.setInt(5, 456825476);
+		pst.setString(6, "Hospedado");
+		pst.setString(7, "Iberdrola");
+		pst.setString(8, "456789123");
+		System.out.println("Inserción correcta");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+}
 
 	// Obtener de Inmueble los datos necesarios para introducir en la Base de Datos, 
 
