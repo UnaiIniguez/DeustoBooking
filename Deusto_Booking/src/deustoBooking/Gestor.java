@@ -66,17 +66,17 @@ public class Gestor {
 	 * @param Persona = La persona que desea iniciar sesiÃ³n.
 	 *
 	 */
-	public boolean iniSesion(String dni, String contraseña) {
+	public boolean iniSesion(String dni, String contrasena) {
 		
 		for(Duenio d : propietarios) {
-			if(d.getContrasenya() == contraseña && d.getDni() == dni) {
+			if(d.getContrasenya() == contrasena && d.getDni() == dni) {
 				return true;
 				
 			}
 		}
 		
 		for( Huesped p : huespedes) {
-			if(p.getContrasenya() == contraseña && p.getDni() == dni) {
+			if(p.getContrasenya() == contrasena && p.getDni() == dni) {
 				return true;
 			}
 			
@@ -309,7 +309,7 @@ public class Gestor {
 			pst.setString(7, "Casa");
 			pst.setInt(8, 12);
 			pst.setInt(9, 11223344);
-			System.out.println("Inserción correcta");
+			System.out.println("Inserciï¿½n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -332,7 +332,7 @@ public void anyadirInmueble(Inmueble inmueble) {
 			pst.setString(7, "Casa");
 			pst.setInt(8, 12);
 			pst.setInt(9, 11223344);
-			System.out.println("Inserción correcta");
+			System.out.println("Inserciï¿½n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -353,7 +353,7 @@ public void anyadirDuenyo(Duenio duenio) {
 		pst.setInt(5, 123586479);
 		pst.setString(6, "Jefe");
 		pst.setString(7, "123456");
-		System.out.println("Inserción correcta");
+		System.out.println("Inserciï¿½n correcta");
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -375,7 +375,7 @@ public void anyadirHuesped(Huesped huesped) {
 		pst.setString(6, "Hospedado");
 		pst.setString(7, "Iberdrola");
 		pst.setString(8, "456789123");
-		System.out.println("Inserción correcta");
+		System.out.println("Inserciï¿½n correcta");
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
