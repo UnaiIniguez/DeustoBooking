@@ -91,27 +91,16 @@ public class VentanaLogin extends JFrame {
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == 10) {
-				if (txtUsuario.getText().equals("cliente") && pfContrasenya.getText().equals("cliente")) {
-					
-					VentanaPrincipal ventana = new VentanaPrincipal(g);
-					ventana.setVisible(true);
+			if (e.getKeyCode() == 10 || BTNLOGIN.isSelected()) {
+				if (g.iniSesion(txtUsuario.getText(), pfContrasenya.getText()) == true) {
+					System.out.println("Inicio de sesion correcto");
 					dispose();	
+				}else {
+					System.out.println("Inicio de sesion incorrecto");
 				}
 				
 
 			}
-			
-		}
-	});
-	
-	btnLogin.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			VentanaPrincipal ventana = new VentanaPrincipal(g);
-			ventana.setVisible(true);
-			dispose();	
 			
 		}
 	});
@@ -126,13 +115,10 @@ public class VentanaLogin extends JFrame {
 		
 		@Override
 		public void focusGained(FocusEvent e) {
-			txtUsuario.setText(null);			
+			txtUsuario.setText(null);		
 		}
 	});
 	
 	}
-	
-	
-
 	
 }

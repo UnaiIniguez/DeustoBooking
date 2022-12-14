@@ -106,7 +106,7 @@ public class VentanaPrincipal extends JFrame{
 				
 				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
 				ventana.setVisible(true);
-				dispose();
+				
 				
 			}
 		});
@@ -118,7 +118,7 @@ public class VentanaPrincipal extends JFrame{
 				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
-				dispose();
+				
 			}
 		});
 		
@@ -130,7 +130,7 @@ public class VentanaPrincipal extends JFrame{
 				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);	
-				dispose();
+				
 			}
 		});
 		
