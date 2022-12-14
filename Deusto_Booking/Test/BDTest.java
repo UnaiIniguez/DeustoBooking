@@ -33,8 +33,18 @@ public class BDTest {
 		gestor.anadirInmueble( d, i );
 		assertEquals( i, d.getInmuebles().get(0) );//Comparo si el inmueble de test con el que he introducido esta dentro detro de la BD
 	}
-
 	
+	@Test
+	public void anadirDuenioTest() {
+		
+		
+		
+	}
+
+	@Test
+	public void anadirHuespedTest() {
+		
+	}
 	
 
 }
