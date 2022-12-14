@@ -1,14 +1,12 @@
 package controlador;
 
 import java.sql.*;
+import java.util.List;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import deustoBooking.Duenio;
 import deustoBooking.Gestor;
+import deustoBooking.Huesped;
+import deustoBooking.Inmueble;
 import deustoBooking.TipoBusqueda;
 import gui.VentanaLogin;
 import gui.VentanaPrincipal;
@@ -49,13 +47,13 @@ public class Main {
 				rs = st.executeQuery(sqlQuery);
 				while (rs.next()) {
 					// Columnas Duenyo
-					int dni_d = rs.getInt(1);
+					String dni_d = rs.getString(1);
 					String nom_d = rs.getString(2);
 					int edad_d = rs.getInt(3);
 					String mail_d = rs.getString(4);
-					int tlf_d = rs.getInt(5);
+					String tlf_d = rs.getString(5);
 					String cargo = rs.getString(6);
-					String contrasenya = rs.getString(7); //Aqui habia un 9, ( ns si hay que cambiarlo)
+					String contrasenya = rs.getString(7); // Aqui habia un 9, ( ns si hay que cambiarlo)
 
 					// Lo muestro por pantalla
 					System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo
@@ -68,14 +66,14 @@ public class Main {
 				rs = st.executeQuery(sqlQuery);
 				while (rs.next()) {
 					// Columnas Huesped
-					int dni_h = rs.getInt(1);
+					String dni_h = rs.getString(1);
 					String nom_h = rs.getString(2);
 					int edad_h = rs.getInt(3);
 					String mail_h = rs.getString(4);
-					int tlf_h = rs.getInt(5);
+					String tlf_h = rs.getString(5);
 					String cargo = rs.getString(6);
 					String nom_emp = rs.getString(7);
-					String contrasenya_h = rs.getString(8); //Aqui habia un 9 ( ns si hay que cambiarlo)
+					String contrasenya_h = rs.getString(8); // Aqui habia un 9 ( ns si hay que cambiarlo)
 
 					// Lo muestro por pantalla
 					System.out.println(dni_h + " " + nom_h + " " + edad_h + " " + mail_h + " " + tlf_h + " " + cargo
@@ -88,15 +86,15 @@ public class Main {
 				rs = st.executeQuery(sqlQuery);
 				while (rs.next()) {
 					// Columnas Inmueble
-					int precio = rs.getInt(1);
+					float precio = rs.getFloat(1);
 					int max_hu = rs.getInt(2);
-					int ocupado = rs.getInt(3);
+					boolean ocupado = rs.getBoolean(3);
 					int num_hab = rs.getInt(4);
 					int num_bany = rs.getInt(5);
 					String ubi = rs.getString(6);
 					String tipo = rs.getString(7);
-					int m2 = rs.getInt(8);
-					int dni_d = rs.getInt(9);
+					float m2 = rs.getFloat(8);
+					String dni_d = rs.getString(9);
 
 					// Lo muestro por pantalla
 					System.out.println(precio + " " + max_hu + " " + ocupado + " " + num_hab + " " + num_bany + " "
@@ -112,8 +110,6 @@ public class Main {
 		}
 
 	}
-//=============================Metodo para guardar en la Base de Datos==============================================================================
-	
-	
-	
+
+
 }

@@ -20,17 +20,18 @@ public class Gestor {
 	private List<Duenio> propietarios = new ArrayList<>();
 
 	private List<Huesped> huespedes = new ArrayList<>(); // Guardará a todos los huespedes de la base de datos
+	
+	private List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
 
 	private Map<String, ArrayList<Inmueble>> Reservas = new HashMap<>(); // En este mapa se almacenaran todos los
-																			// huespedes y los inmuebles que tiene
-																			// reservados.(Clave DNI)
+																			// huespedes y los inmuebles que tien																	// reservados.(Clave DNI)
+	private Connection conectar;
 
-	List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
-
+	
 	public void datosTest() {
 
 		ArrayList<Inmueble> inmueblesTest = new ArrayList<>();
-		Duenio d = new Duenio("12345678B", "Pepe", 77, "pepe@gmail.com", "656232359", "1234", inmueblesTest);
+		Duenio d = new Duenio("12345678B", "Pepe", 77, "pepe@gmail.com", "656232359", "1234", "Jefe", inmueblesTest);
 		propietarios.add(d);
 
 	}
@@ -95,12 +96,12 @@ public class Gestor {
 	 * @param Inmueble = inmueble que quiere anyadir
 	 *
 	 */
-	public void anadirInmueble(Duenio duenio, Inmueble inmueble) {
-
-		duenio.getInmuebles().add(inmueble);
-		inmuebles.add(inmueble);
-
-	}
+//	public void anadirInmueble(Duenio duenio, Inmueble inmueble) {
+//
+//		duenio.getInmuebles().add(inmueble);
+//		inmuebles.add(inmueble);
+//
+//	}
 
 	/**
 	 * 
@@ -110,12 +111,12 @@ public class Gestor {
 	 * @param Inmueble = inmueble que quiere eliminar
 	 *
 	 */
-	public void borrarInmueble(Duenio duenio, Inmueble inmueble) {
-
-		duenio.getInmuebles().remove(inmueble);
-		inmuebles.remove(inmueble);
-
-	}
+//	public void borrarInmueble(Duenio duenio, Inmueble inmueble) {
+//
+//		duenio.getInmuebles().remove(inmueble);
+//		inmuebles.remove(inmueble);
+//
+//	}
 
 	/**
 	 * 
@@ -126,15 +127,15 @@ public class Gestor {
 	 * @param Inmueble nuevo = El inmueble con los cambios
 	 *
 	 */
-	public void editarInmueble(Duenio duenio, Inmueble inmuebleviejo, Inmueble nuevoInmueble) {
-
-		duenio.getInmuebles().remove(inmuebleviejo);
-		inmuebles.remove(inmuebleviejo);
-
-		duenio.getInmuebles().add(nuevoInmueble);
-		inmuebles.add(nuevoInmueble);
-
-	}
+//	public void editarInmueble(Duenio duenio, Inmueble inmuebleviejo, Inmueble nuevoInmueble) {
+//
+//		duenio.getInmuebles().remove(inmuebleviejo);
+//		inmuebles.remove(inmuebleviejo);
+//
+//		duenio.getInmuebles().add(nuevoInmueble);
+//		inmuebles.add(nuevoInmueble);
+//
+//	}
 
 	// ********************METODOS DEL HUESPED********************************
 
@@ -225,7 +226,7 @@ public class Gestor {
 
 	// ========================Metodo para conenctarme a la Base de Datos======================================================================================================================================================
 
-	private Connection conectar;
+	
 
 	public Connection conectar() {
 		try {
@@ -245,36 +246,37 @@ public class Gestor {
 	public void inicializarBD() {
 		
 		String sql_TablaInmueble = " CREATE TABLE IF NOT EXISTS Inmueble ("
-				+ "Precio INTEGER,"
+				+ "Precio DECIMAL,"
 				+ "Max_Hu INTEGER,"
 				+ "Ocupado INTEGER,"
 				+ "Num_Hab INTEGER,"
 				+ "Num_Bany INTEGER,"
 				+ "Ubi TEXT,"
 				+ "Tipo TEXT,"
-				+ "m2	INTEGER,"
+				+ "m2	DECIMAL,"
 				+ "DNI_D INTEGER,"
-				+ "PRIMARY KEY (Ubi) );";
+				+ "PRIMARY KEY (Ubi) "
+				+ "FOREIGN KEY (DNI_D) REFERENCES Duenyo (DNI_D) );";
 		
 		String sql_TablaHuesped = " CREATE TABLE IF NOT EXISTS Huesped ("
 				+ "DNI_H INTEGER,"
 				+ "NOM_H TEXT,"
 				+ "EDAD_H INTEGER,"
 				+ "MAIL_H TEXT,"
-				+ "TLF_H INTEGER,"
+				+ "TLF_H TEXT,"
 				+ "Cargo TEXT,"
 				+ "NOM_EMP TEXT,"
 				+ "Contrasenya_H	TEXT,"
 				+ "PRIMARY KEY (DNI_H) );";
 		
 		String sql_TablaDuenyo = " CREATE TABLE IF NOT EXISTS Duenyo ("
-				+ "DNI_D INTEGER,"
+				+ "DNI_D TEXT,"
 				+ "NOM_D TEXT,"
 				+ "EDAD_D INTEGER,"
 				+ "MAIL_D TEXT,"
 				+ "TLF_D INTEGER,"
-				+ "Cargo TEXT,"
 				+ "Contrasenya	TEXT,"
+				+ "Cargo TEXT,"
 				+ "PRIMARY KEY (DNI_D) );";
 		
 		
@@ -323,15 +325,15 @@ public void anyadirInmueble(Inmueble inmueble) {
 		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
 			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setInt(1, 100);
-			pst.setInt(2, 20);
-			pst.setInt(3, 1);
-			pst.setInt(4, 4);
-			pst.setInt(5, 2);
-			pst.setString(6, "Bilbao");
-			pst.setString(7, "Casa");
-			pst.setInt(8, 12);
-			pst.setInt(9, 11223344);
+			pst.setFloat(1, inmueble.getPrecioNoche());
+			pst.setInt(2, inmueble.getMaxHuespedes());
+			pst.setInt(3, inmueble.getOcupado());
+			pst.setInt(4, inmueble.getNumHab());
+			pst.setInt(5, inmueble.getNumBany());
+			pst.setString(6, inmueble.getUbicacion());
+			pst.setString(7, "Casa");// no se porque no me deja hacer inmueble.getTipo(
+			pst.setFloat(8, inmueble.getMetrosCuadrados());
+			pst.setString(9, inmueble.getDuenio().getDni());
 			System.out.println("Inserci�n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -346,13 +348,13 @@ public void anyadirDuenyo(Duenio duenio) {
 	String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
 	try {
 		PreparedStatement pst = conectar.prepareStatement(datos_sql);
-		pst.setInt(1, 11223344);
-		pst.setString(2, "Pepe");
-		pst.setInt(3, 30);
-		pst.setString(4, "pepe@gmail.com");
-		pst.setInt(5, 123586479);
-		pst.setString(6, "Jefe");
-		pst.setString(7, "123456");
+		pst.setString(1, duenio.getDni());
+		pst.setString(2, duenio.getNombre());
+		pst.setInt(3, duenio.getEdad());
+		pst.setString(4, duenio.getMail());
+		pst.setString(5, duenio.getTlfNum());
+		pst.setString(6, duenio.getContrasenya());
+		pst.setString(7, duenio.getCargo());
 		System.out.println("Inserci�n correcta");
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -367,14 +369,14 @@ public void anyadirHuesped(Huesped huesped) {
 	String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
 	try {
 		PreparedStatement pst = conectar.prepareStatement(datos_sql);
-		pst.setInt(1, 12345679);
-		pst.setString(2, "Juan");
-		pst.setInt(3, 28);
-		pst.setString(4, "juan@gmail.com");
-		pst.setInt(5, 456825476);
-		pst.setString(6, "Hospedado");
-		pst.setString(7, "Iberdrola");
-		pst.setString(8, "456789123");
+		pst.setString(1, huesped.getDni());
+		pst.setString(2, huesped.getNombre());
+		pst.setInt(3, huesped.getEdad());
+		pst.setString(4, huesped.getMail());
+		pst.setString(5, huesped.getTlfNum());
+		pst.setString(6, huesped.getCargo());
+		pst.setString(7, huesped.getNomEmpresa());
+		pst.setString(8, huesped.getContrasenya());
 		System.out.println("Inserci�n correcta");
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -385,5 +387,25 @@ public void anyadirHuesped(Huesped huesped) {
 }
 
 	// Obtener de Inmueble los datos necesarios para introducir en la Base de Datos, 
+
+//=============================Metodo para guardar en la Base de Datos==============================================================================
+
+	public void guardarDatosBD() {
+		
+		for (int i = 0; i < propietarios.size(); i++) {
+			anyadirDuenyo(propietarios.get(i));
+		}
+		
+		for (int i = 0; i < huespedes.size(); i++) {
+			anyadirHuesped(huespedes.get(i));
+		}
+		
+		for (int i = 0; i < inmuebles.size(); i++) {
+			anyadirInmueble(inmuebles.get(i));
+		}
+		
+	}
+
+		
 
 }

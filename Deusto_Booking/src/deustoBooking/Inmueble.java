@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Inmueble {
 
 	Duenio duenio;
-	Boolean ocupado = false;
+	private int ocupado;
 
 	String Huesped = null;		//Nombre del huesped que estará en la casa
 
@@ -34,11 +34,11 @@ public class Inmueble {
 
 //*************************************GETTERS Y SETTERS*****************************************************
 
-	public Boolean getOcupado() {
+	public int getOcupado() {
 		return ocupado;
 	}
 
-	public void setOcupado(Boolean ocupado) {
+	public void setOcupado(int ocupado) {
 		this.ocupado = ocupado;
 	}
 

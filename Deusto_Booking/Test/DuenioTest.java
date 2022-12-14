@@ -14,14 +14,14 @@ public class DuenioTest {
 	@Test
 	public void  getInmueblesTest() {
 		ArrayList<Inmueble> inmueble = new ArrayList<Inmueble>(); 
-		duenio.getInmuebles();
+		//duenio.getInmuebles();
 	}
 	
 	@Test 
 	public void setInmuebleTest() {
 		ArrayList<Inmueble> inmueble = new ArrayList<Inmueble>(); 
 		
-		duenio.setInmueble(inmueble);
+		//duenio.setInmueble(inmueble);
 	}
 	
 	
