@@ -12,15 +12,21 @@ import gui.VentanaLogin;
 import gui.VentanaPrincipal;
 
 public class Main {
+	
+	private static Gestor gestor;
+	private static VentanaPrincipal ventana;
+	private static Connection cn;
+	private static boolean isChanged;
+	
 
 	public static void main(String[] args) {
 
-		Gestor gestor = new Gestor();
-		VentanaPrincipal ventana = new VentanaPrincipal(gestor);
+		gestor = new Gestor();
+		ventana = new VentanaPrincipal(gestor);
 		ventana.setVisible(true);
-		Gestor conexion = new Gestor();
-		Connection cn = conexion.conectar();
-
+		cn = gestor.conectar();
+		isChanged = false;
+		
 //========================Leer la Base de Datos===============================
 
 		leerBaseDeDatos(cn, TipoBusqueda.INMUEBLE);

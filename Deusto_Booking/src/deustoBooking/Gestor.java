@@ -23,7 +23,7 @@ public class Gestor {
 	
 	private List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
 
-	private Map<String, ArrayList<Inmueble>> Reservas = new HashMap<>(); // En este mapa se almacenaran todos los
+	private Map<String, ArrayList<Inmueble>> reservas = new HashMap<>(); // En este mapa se almacenaran todos los
 																			// huespedes y los inmuebles que tien																	// reservados.(Clave DNI)
 	private Connection conectar;
 
@@ -31,7 +31,7 @@ public class Gestor {
 	public void datosTest() {
 
 		ArrayList<Inmueble> inmueblesTest = new ArrayList<>();
-		Duenio d = new Duenio("12345678B", "Pepe", 77, "pepe@gmail.com", "656232359", "1234", "Jefe", inmueblesTest);
+		Duenio d = new Duenio("12345678B", "Pepe", 77, "pepe@gmail.com", "656232359", "1234", "Jefe");
 		propietarios.add(d);
 
 	}
@@ -51,7 +51,7 @@ public class Gestor {
 	}
 
 	public Map<String, ArrayList<Inmueble>> getHuespedes() {
-		return Reservas;
+		return reservas;
 	}
 
 	public List<Inmueble> getInmuebles() {
@@ -148,9 +148,9 @@ public class Gestor {
 	 *
 	 */
 	public void anularReserva(Huesped h, Inmueble i) {
-		if (Reservas.containsKey(h.getDni())) {
-			if (Reservas.get(h.getDni()).contains(i)) {
-				Reservas.get(h.getDni()).remove(i);
+		if (reservas.containsKey(h.getDni())) {
+			if (reservas.get(h.getDni()).contains(i)) {
+				reservas.get(h.getDni()).remove(i);
 			}
 		}
 	}
@@ -164,13 +164,13 @@ public class Gestor {
 	 *
 	 */
 	public void reservar(Huesped h, Inmueble i) {
-		if (Reservas.containsKey(h.getDni())) {
-			if (!Reservas.get(h.getDni()).contains(i)) {
-				Reservas.get(h.getDni()).add(i);
+		if (reservas.containsKey(h.getDni())) {
+			if (!reservas.get(h.getDni()).contains(i)) {
+				reservas.get(h.getDni()).add(i);
 			}
 		} else {
-			Reservas.put(h.getDni(), new ArrayList<Inmueble>());
-			Reservas.get(h.getDni()).add(i);
+			reservas.put(h.getDni(), new ArrayList<Inmueble>());
+			reservas.get(h.getDni()).add(i);
 		}
 	}
 

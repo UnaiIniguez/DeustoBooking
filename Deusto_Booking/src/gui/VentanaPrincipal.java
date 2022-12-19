@@ -92,7 +92,7 @@ public class VentanaPrincipal extends JFrame{
 		JLabel lblImagen = new JLabel();
 		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/imagenFondo.jpg").getImage().getScaledInstance(800,550, Image.SCALE_DEFAULT));
 		lblImagen.setIcon(logo);
-		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, IÑIGO HERNAEZ, UNAI IÑIGUEZ y BELTRÁN SENDAGORTA");
+		JLabel lblInferior = new JLabel("CREADO POR : UNAI ALONSO, INIGO HERNAEZ, UNAI INIGUEZ y BELTRAN SENDAGORTA");
 		
 		
 		
@@ -104,7 +104,7 @@ public class VentanaPrincipal extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
+				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion(gestor.getPropietarios());
 				ventana.setVisible(true);
 				
 				

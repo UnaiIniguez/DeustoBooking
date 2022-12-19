@@ -7,9 +7,12 @@ public class Duenio extends Persona {
 
 	private static final long serialVersionUID = 1L;
 	private String cargo;
+	
+	public Duenio() {
+		
+	}
 
-	public Duenio(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya, String cargo,
-			List<Inmueble> inmueble) {
+	public Duenio(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya, String cargo) {
 		super(dni, nombre, edad, mail, tlfNum, contrasenya);
 		this.cargo = cargo;
 	}

@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -13,25 +16,36 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class VentanaRegistroAnfitrion extends JFrame{
+import deustoBooking.Duenio;
+
+public class VentanaRegistroAnfitrion extends JFrame {
 	
-	
-	public VentanaRegistroAnfitrion() {
-		
+	private static JTextField txtDNI = new JTextField(12);
+	private static JTextField txtNombre = new JTextField(12);
+	private static JTextField txtApellido = new JTextField(12);
+	private static JTextField txtpuesto = new JTextField(12);
+	private static JTextField txtTelefono = new JTextField(12);
+	private static JTextField txtmetros = new JTextField(12);
+	private static JTextField txtLocalidad = new JTextField(12);
+	private static JTextField txtDireccion = new JTextField(12);
+	private static List<Duenio> propietarios;
+
+	public VentanaRegistroAnfitrion( List<Duenio> propietarios) {
+
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		setTitle("Registro duenyo");
+		this.propietarios = propietarios;
 		
+
 		setLayout(new BorderLayout());
-		
-		
-		//Creaci贸n de contenedores
+
+		// Creaci贸n de contenedores
 		JPanel panelInferior = new JPanel();
 		JPanel panelCentral = new JPanel(new GridLayout(5, 4));
 		JPanel panelSuperior = new JPanel(new FlowLayout());
-		
-		
+
 		JPanel panelDNI = new JPanel();
 		JPanel panelNombre = new JPanel();
 		JPanel panelApellido = new JPanel();
@@ -42,11 +56,10 @@ public class VentanaRegistroAnfitrion extends JFrame{
 		JPanel panelLocalidad = new JPanel();
 		JPanel panelDireccion = new JPanel();
 		JPanel panelTipoVivienda = new JPanel();
-		
-		
-		//Creaci贸n de objetos
+
+		// Creaci贸n de objetos
 		JButton botonRegistrar = new JButton("Registrarse");
-		
+
 		JLabel lbDNI = new JLabel("DNI:");
 		JLabel lbNombre = new JLabel("Nombre:");
 		JLabel lbApellidos = new JLabel("Apellidos:");
@@ -61,25 +74,19 @@ public class VentanaRegistroAnfitrion extends JFrame{
 		JLabel lbDatosPer = new JLabel("DATOS PERSONALES ");
 		JLabel lbVivienda = new JLabel("PRIMERA VIVIENDA");
 		JLabel lbEspacio = new JLabel("                                            ");
+
 		
 		
-		JTextField txtDNI = new JTextField(12);
-		JTextField txtNombre = new JTextField(12);
-		JTextField txtApellido = new JTextField(12);
-		JTextField txtpuesto = new JTextField(12);
-		JTextField txtTelefono = new JTextField(12);
-		JTextField txtmetros = new JTextField(12);
 		JComboBox boxHabi = new JComboBox();
-		boxHabi.setModel(new DefaultComboBoxModel(new String[] {"1", "2","3","4", "+"}));
+		boxHabi.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "+" }));
 		JComboBox boxBan = new JComboBox();
-		boxBan.setModel(new DefaultComboBoxModel(new String[] {"1", "2","3","+"}));
-		JTextField txtLocalidad = new JTextField(12);
-		JTextField txtDireccion = new JTextField(12);
-		JComboBox comboBoxTipoVivienda = new JComboBox();
-		comboBoxTipoVivienda.setModel(new DefaultComboBoxModel(new String[] {"Tipo de vivienda", "PISO", "CHALET","ADOSADO", "ESTUDIO"}));
+		boxBan.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "+" }));
 		
-	
-		//Anyadir los objetos a los paneles 
+		JComboBox comboBoxTipoVivienda = new JComboBox();
+		comboBoxTipoVivienda.setModel(
+				new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
+
+		// Anyadir los objetos a los paneles
 		panelDNI.add(lbDNI);
 		panelDNI.add(txtDNI);
 		panelNombre.add(lbNombre);
@@ -102,9 +109,8 @@ public class VentanaRegistroAnfitrion extends JFrame{
 		panelDireccion.add(txtDireccion);
 		panelTipoVivienda.add(lbTipoVivienda);
 		panelTipoVivienda.add(comboBoxTipoVivienda);
-		
-		
-		//Insertar paneles en paneles 
+
+		// Insertar paneles en paneles
 		panelInferior.add(botonRegistrar);
 		panelCentral.add(panelDNI);
 		panelCentral.add(panelMetros);
@@ -116,25 +122,47 @@ public class VentanaRegistroAnfitrion extends JFrame{
 		panelCentral.add(panelDireccion);
 		panelCentral.add(panelTrabajo);
 		panelCentral.add(panelTipoVivienda);
-		
-		
+
 		panelSuperior.add(lbDatosPer);
 		panelSuperior.add(lbEspacio);
 		panelSuperior.add(lbVivienda);
-		
-		//Cambiar color del fondo
-		
+
+		// Cambiar color del fondo
+
 		panelSuperior.setBackground(new Color(173, 216, 230));
 		panelInferior.setBackground(new Color(173, 216, 230));
+
+		// Acci髇 del bot髇 registrar
 		
-		//Insertar paneles en la ventana
+		botonRegistrar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Duenio nuevoDuenio = new Duenio();
+				nuevoDuenio.setDni(txtDNI.toString());
+				nuevoDuenio.setCargo(txtpuesto.toString());
+				//nuevoDuenio.setContrasenya(txt); Introducir campo para contrase馻
+				//nuevoDuenio.setEdad(txt); Introducir campo para edad
+				//nuevoDuenio.setMail(txt); Introducir campo para email
+				nuevoDuenio.setNombre(txtNombre.toString());
+				nuevoDuenio.setTlfNum(txtTelefono.toString());
+				
+				guardarDuenio(nuevoDuenio);
+				
+
+			}
+		});
+
+		// Insertar paneles en la ventana
 		add(panelSuperior, BorderLayout.NORTH);
 		add(panelCentral, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
-	
+
 	}
 	
-	
+	private void guardarDuenio(Duenio nuevoDuenio) {
+		propietarios.add(nuevoDuenio);
+	}
+
 }
-
-
