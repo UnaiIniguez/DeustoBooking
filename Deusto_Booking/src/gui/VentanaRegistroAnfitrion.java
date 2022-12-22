@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -13,10 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import deustoBooking.Duenio;
+import deustoBooking.Gestor;
 
 public class VentanaRegistroAnfitrion extends JFrame {
 	
@@ -28,9 +31,9 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	private static JTextField txtmetros = new JTextField(12);
 	private static JTextField txtLocalidad = new JTextField(12);
 	private static JTextField txtDireccion = new JTextField(12);
-	private static List<Duenio> propietarios;
+	private List<Duenio> propietarios;
 
-	public VentanaRegistroAnfitrion( List<Duenio> propietarios) {
+	public VentanaRegistroAnfitrion(List<Duenio> propietarios) {
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(700, 500);
@@ -140,15 +143,17 @@ public class VentanaRegistroAnfitrion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Duenio nuevoDuenio = new Duenio();
-				nuevoDuenio.setDni(txtDNI.toString());
+				nuevoDuenio.setDni(txtDNI.getText().toString());
 				nuevoDuenio.setCargo(txtpuesto.toString());
 				//nuevoDuenio.setContrasenya(txt); Introducir campo para contraseña
 				//nuevoDuenio.setEdad(txt); Introducir campo para edad
 				//nuevoDuenio.setMail(txt); Introducir campo para email
-				nuevoDuenio.setNombre(txtNombre.toString());
-				nuevoDuenio.setTlfNum(txtTelefono.toString());
+				nuevoDuenio.setNombre(txtNombre.getText().toString());
+				nuevoDuenio.setTlfNum(txtTelefono.getText().toString());
 				
+				System.out.println(nuevoDuenio);
 				guardarDuenio(nuevoDuenio);
+				dispose();
 				
 
 			}
@@ -162,6 +167,7 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	}
 	
 	private void guardarDuenio(Duenio nuevoDuenio) {
+		
 		propietarios.add(nuevoDuenio);
 	}
 

@@ -25,5 +25,11 @@ public class Duenio extends Persona {
 		this.cargo = cargo;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return super.getNombre()+" "+super.getDni();
+	}
+	
 
 }

@@ -1,7 +1,10 @@
 package controlador;
 
+import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
@@ -16,7 +19,7 @@ public class Main {
 	private static Gestor gestor;
 	private static VentanaPrincipal ventana;
 	private static Connection cn;
-	private static boolean isChanged;
+	
 	
 
 	public static void main(String[] args) {
@@ -25,7 +28,7 @@ public class Main {
 		ventana = new VentanaPrincipal(gestor);
 		ventana.setVisible(true);
 		cn = gestor.conectar();
-		isChanged = false;
+		
 		
 //========================Leer la Base de Datos===============================
 
