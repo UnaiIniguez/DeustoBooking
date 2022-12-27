@@ -32,7 +32,7 @@ public class Main {
 		
 //========================Leer la Base de Datos===============================
 
-		leerBaseDeDatos(cn, TipoBusqueda.INMUEBLE);
+		leerBaseDeDatos(cn, TipoBusqueda.DUENYO);
 
 	}
 
@@ -40,6 +40,8 @@ public class Main {
 	// Datos======================================================================================================================================================
 
 	private static void leerBaseDeDatos(Connection cn, TipoBusqueda tb) {
+		
+		System.out.println("Ejecución método leerBaseDatos");
 
 		String sqlQuery = "";
 		ResultSet rs = null;

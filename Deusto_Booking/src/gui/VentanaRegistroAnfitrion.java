@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
+import deustoBooking.Inmueble;
 
 public class VentanaRegistroAnfitrion extends JFrame {
 	
@@ -28,25 +29,30 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	private static JTextField txtApellido = new JTextField(12);
 	private static JTextField txtpuesto = new JTextField(12);
 	private static JTextField txtTelefono = new JTextField(12);
+	private static JTextField txtContrasenya = new JTextField(12);
 	private static JTextField txtmetros = new JTextField(12);
-	private static JTextField txtLocalidad = new JTextField(12);
-	private static JTextField txtDireccion = new JTextField(12);
-	private List<Duenio> propietarios;
+	private static JTextField txtUbicacion= new JTextField(12);
+	private static JTextField txtPrecio = new JTextField(12);
+	private static JTextField txtMaxHuespedes = new JTextField(10);
+	
+	JComboBox boxHabi = new JComboBox();
+	JComboBox boxBan = new JComboBox();
+	JComboBox comboBoxTipoVivienda = new JComboBox();
+	JComboBox boxOcupacion = new JComboBox();
 
-	public VentanaRegistroAnfitrion(List<Duenio> propietarios) {
+	public VentanaRegistroAnfitrion() {
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(700, 500);
 		setLocationRelativeTo(null);
 		setTitle("Registro duenyo");
-		this.propietarios = propietarios;
 		
 
 		setLayout(new BorderLayout());
 
 		// Creaci√≥n de contenedores
 		JPanel panelInferior = new JPanel();
-		JPanel panelCentral = new JPanel(new GridLayout(5, 4));
+		JPanel panelCentral = new JPanel(new GridLayout(6, 4));
 		JPanel panelSuperior = new JPanel(new FlowLayout());
 
 		JPanel panelDNI = new JPanel();
@@ -54,11 +60,12 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		JPanel panelApellido = new JPanel();
 		JPanel panelTrabajo = new JPanel();
 		JPanel panelTelefono = new JPanel();
+		JPanel panelContrasenya = new JPanel();
 		JPanel panelMetros = new JPanel();
 		JPanel panelServicios = new JPanel();
-		JPanel panelLocalidad = new JPanel();
-		JPanel panelDireccion = new JPanel();
+		JPanel panelUbicacion = new JPanel();
 		JPanel panelTipoVivienda = new JPanel();
+		JPanel panelPrecio = new JPanel();
 
 		// Creaci√≥n de objetos
 		JButton botonRegistrar = new JButton("Registrarse");
@@ -68,26 +75,35 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		JLabel lbApellidos = new JLabel("Apellidos:");
 		JLabel lbPuestoDeTrabajo = new JLabel("Puesto de trabajo:");
 		JLabel lbTelefono = new JLabel("Tel√©fono:");
+		JLabel lbContrasenya = new JLabel( "ContraseÒa" );
 		JLabel lbMetros2 = new JLabel("Metros cuadrados:");
 		JLabel lbNumHabi = new JLabel("N. Habitaciones:");
 		JLabel lbNumBan = new JLabel("N. ba√±os:");
-		JLabel lbLocalidad = new JLabel("Localidad:");
-		JLabel lbDireccion = new JLabel("Direcci√≥n:");
+		JLabel lbNumHues = new JLabel( "N. Huespedes" );
+		JLabel lbOcupacion = new JLabel( "Ocupacion" ); 
+		JLabel lbUbicacion = new JLabel("Ubicacion:");
 		JLabel lbTipoVivienda = new JLabel("Tipo de vivienda:");
+		JLabel lbPrecio = new JLabel( " Precio por noche " );
 		JLabel lbDatosPer = new JLabel("DATOS PERSONALES ");
 		JLabel lbVivienda = new JLabel("PRIMERA VIVIENDA");
 		JLabel lbEspacio = new JLabel("                                            ");
 
 		
 		
-		JComboBox boxHabi = new JComboBox();
+		//Asignaciond el numero de Habitaciones
+		
 		boxHabi.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "+" }));
-		JComboBox boxBan = new JComboBox();
+		
+		//Asignacion del numero de BaÒos
+		
 		boxBan.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "+" }));
 		
-		JComboBox comboBoxTipoVivienda = new JComboBox();
-		comboBoxTipoVivienda.setModel(
-				new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
+		//Asignacion del tipo de vivienda
+		comboBoxTipoVivienda.setModel(new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
+		
+		//Asignacion de si esta ocupado o no (1: ocupado, 0: disponible)
+		
+		boxOcupacion.setModel( new DefaultComboBoxModel( new String[] { "0", "1" }));
 
 		// Anyadir los objetos a los paneles
 		panelDNI.add(lbDNI);
@@ -100,18 +116,24 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		panelTrabajo.add(txtpuesto);
 		panelTelefono.add(lbTelefono);
 		panelTelefono.add(txtTelefono);
+		panelContrasenya.add(lbContrasenya);
+		panelContrasenya.add(txtContrasenya);
 		panelMetros.add(lbMetros2);
 		panelMetros.add(txtmetros);
 		panelServicios.add(lbNumBan);
 		panelServicios.add(boxBan);
 		panelServicios.add(lbNumHabi);
 		panelServicios.add(boxHabi);
-		panelLocalidad.add(lbLocalidad);
-		panelLocalidad.add(txtLocalidad);
-		panelDireccion.add(lbDireccion);
-		panelDireccion.add(txtDireccion);
+		panelServicios.add(txtMaxHuespedes);
+		panelServicios.add(lbNumHues);
+		panelServicios.add(lbOcupacion);
+		panelServicios.add(boxOcupacion);
+		panelUbicacion.add(lbUbicacion);
+		panelUbicacion.add(txtUbicacion);
 		panelTipoVivienda.add(lbTipoVivienda);
 		panelTipoVivienda.add(comboBoxTipoVivienda);
+		panelPrecio.add(txtPrecio);
+		panelPrecio.add(lbPrecio);
 
 		// Insertar paneles en paneles
 		panelInferior.add(botonRegistrar);
@@ -120,11 +142,13 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		panelCentral.add(panelNombre);
 		panelCentral.add(panelServicios);
 		panelCentral.add(panelApellido);
-		panelCentral.add(panelLocalidad);
+		panelCentral.add(panelUbicacion);
 		panelCentral.add(panelTelefono);
-		panelCentral.add(panelDireccion);
+		panelCentral.add(panelUbicacion);
 		panelCentral.add(panelTrabajo);
 		panelCentral.add(panelTipoVivienda);
+		panelCentral.add(panelContrasenya);
+		panelCentral.add(panelPrecio);
 
 		panelSuperior.add(lbDatosPer);
 		panelSuperior.add(lbEspacio);
@@ -142,20 +166,39 @@ public class VentanaRegistroAnfitrion extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				//AÒado un nuevo Duenyo
 				Duenio nuevoDuenio = new Duenio();
 				nuevoDuenio.setDni(txtDNI.getText().toString());
-				nuevoDuenio.setCargo(txtpuesto.toString());
-				//nuevoDuenio.setContrasenya(txt); Introducir campo para contraseÒa
+				nuevoDuenio.setCargo(txtpuesto.getText().toString());
+				nuevoDuenio.setContrasenya(txtContrasenya.getText().toString()); //Introducir campo para contraseÒa
 				//nuevoDuenio.setEdad(txt); Introducir campo para edad
 				//nuevoDuenio.setMail(txt); Introducir campo para email
 				nuevoDuenio.setNombre(txtNombre.getText().toString());
 				nuevoDuenio.setTlfNum(txtTelefono.getText().toString());
 				
-				System.out.println(nuevoDuenio);
-				guardarDuenio(nuevoDuenio);
-				dispose();
+				//AÒado un nuevo Inmueble
+				Inmueble nuevoInmueble = new Inmueble();
+				nuevoInmueble.setPrecioNoche( Float.parseFloat( txtPrecio.getText().toString() ) );
+				nuevoInmueble.setMaxHuespedes( Integer.parseInt (txtMaxHuespedes.getText().toString() ) );
+				nuevoInmueble.setOcupado( Integer.parseInt( boxOcupacion.getSelectedItem().toString() ) );
+				nuevoInmueble.setNumHab( Integer.parseInt( boxHabi.getSelectedItem().toString() ) );
+				nuevoInmueble.setNumBany( Integer.parseInt (boxBan.getSelectedItem().toString() ) );
+				nuevoInmueble.setUbicacion( txtUbicacion.getText().toString() );
+//				nuevoInmueble.setTipo( comboBoxTipoVivienda.getSelectedItem() );
+				nuevoInmueble.setMetrosCuadrados( Float.parseFloat( txtmetros.getText().toString() ) );
+				nuevoInmueble.setDuenio( nuevoDuenio );
 				
-
+				
+				System.out.println(nuevoDuenio);
+				System.out.println(nuevoInmueble);
+				
+				Gestor.getPropietarios().add(nuevoDuenio);
+				Gestor.getInmuebles().add(nuevoInmueble);
+				
+				Gestor.setChangedP(true);
+				Gestor.setChangedI(true);
+				
+				dispose();
 			}
 		});
 
@@ -165,10 +208,6 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		add(panelInferior, BorderLayout.SOUTH);
 
 	}
-	
-	private void guardarDuenio(Duenio nuevoDuenio) {
-		
-		propietarios.add(nuevoDuenio);
-	}
+
 
 }

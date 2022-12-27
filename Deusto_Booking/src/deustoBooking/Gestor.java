@@ -17,17 +17,18 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Gestor {
 
-	private List<Duenio> propietarios = new ArrayList<>();
+	private static List<Duenio> propietarios = new ArrayList<>();
 
-	private List<Huesped> huespedes = new ArrayList<>(); // GuardarÃ¡ a todos los huespedes de la base de datos
+	private static List<Huesped> huespedes = new ArrayList<>(); // GuardarÃ¡ a todos los huespedes de la base de datos
 
-	private List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
+	private static List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
 
 	private Map<String, ArrayList<Inmueble>> reservas = new HashMap<>(); // En este mapa se almacenaran todos los
 																			// huespedes y los inmuebles que tien //															// reservados.(Clave DNI)
-	private Connection conectar;
+	private static Connection conectar;
 	
-	private static boolean isChanged;
+	private static boolean isChangedP;//MArcador de cambio de Propietario
+	private static boolean isChangedI;//Marcador de cambio de Inmueble
 
 	public void datosTest() {
 
@@ -39,34 +40,46 @@ public class Gestor {
 
 	public Gestor() {
 		conectar();
-		isChanged = false;
+		isChangedP = false;
+		isChangedI = false;
 		inicializarBD();
 
 	}
 
-	public List<Duenio> getPropietarios() {
+	public static List<Duenio> getPropietarios() {
 		return propietarios;
 	}
 
 	public void setPropietarios(List<Duenio> duenios) {
 		propietarios = duenios;
 	}
+	
+	public static List<Inmueble> getInmuebles() {
+		return inmuebles;
+	}
 
+	public static void setInmuebles(List<Inmueble> inmuebles) {
+		Gestor.inmuebles = inmuebles;
+	}
+	
 	public Map<String, ArrayList<Inmueble>> getHuespedes() {
 		return reservas;
 	}
 
-	public List<Inmueble> getInmuebles() {
-		return inmuebles;
+	public static boolean isChangedP() {
+		return isChangedP;
+	}
+
+	public static void setChangedP(boolean value) {
+		isChangedP = value;
 	}
 	
-
-	public static boolean isChanged() {
-		return isChanged;
+	public static boolean isChangedI() {
+		return isChangedI;
 	}
 
-	public static void setChanged(boolean value) {
-		isChanged = value;
+	public static void setChangedI(boolean isChangedI) {
+		Gestor.isChangedI = isChangedI;
 	}
 
 //**************************METODOS COMUNES**********************************************
@@ -289,6 +302,23 @@ public class Gestor {
 		}
 
 	}
+	
+	public static void actualizarBD() {
+
+
+		String sql_TablaDuenyo = "DELETE from Duenyo;";
+
+		try {
+			Statement st = conectar.createStatement();
+			st.execute(sql_TablaDuenyo);
+			guardarDatosBD();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	// ================Test de la Base de Datos==========================
 
@@ -308,6 +338,7 @@ public class Gestor {
 			pst.setString(7, "Casa");
 			pst.setInt(8, 12);
 			pst.setInt(9, 11223344);
+			pst.executeUpdate();
 			System.out.println("Inserciï¿½n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -316,7 +347,7 @@ public class Gestor {
 
 	}
 
-	public void anyadirInmuebleBD(Inmueble inmueble) { // Añade un inmueble a la Base de Datos
+	public static void anyadirInmuebleBD(Inmueble inmueble) { // Añade un inmueble a la Base de Datos
 
 		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -338,7 +369,7 @@ public class Gestor {
 
 	}
 
-	public void anyadirDuenyoBD(Duenio duenio) { // Añade un dueño a la Base de Datos
+	public static void anyadirDuenyoBD(Duenio duenio) { // Añade un dueño a la Base de Datos
 
 		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -350,6 +381,7 @@ public class Gestor {
 			pst.setString(5, duenio.getTlfNum());
 			pst.setString(6, duenio.getContrasenya());
 			pst.setString(7, duenio.getCargo());
+			pst.executeUpdate();
 			System.out.println("Inserciï¿½n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -358,7 +390,7 @@ public class Gestor {
 
 	}
 
-	public void anyadirHuespedBD(Huesped huesped) { // Añade un huesped a la Base de Datos
+	public static void anyadirHuespedBD(Huesped huesped) { // Añade un huesped a la Base de Datos
 
 		String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -383,7 +415,7 @@ public class Gestor {
 
 //=============================Metodo para guardar en la Base de Datos==============================================================================
 
-	public void guardarDatosBD() {
+	public static void guardarDatosBD() {
 
 		if (!propietarios.isEmpty()) { // Si el array de propietarios contiene propietarios entonces ejecutará los métodos de anyadirDuenyo
 			for (int i = 0; i < propietarios.size(); i++) {
@@ -391,12 +423,12 @@ public class Gestor {
 			}
 		}
 
-		if (!huespedes.isEmpty()) {
-			for (int i = 0; i < huespedes.size(); i++) {
-				anyadirHuespedBD(huespedes.get(i));
-			}
-		}
-
+//		if (!huespedes.isEmpty()) {
+//			for (int i = 0; i < huespedes.size(); i++) {
+//				anyadirHuespedBD(huespedes.get(i));
+//			}
+//		}
+//
 		if (!inmuebles.isEmpty()) {
 			for (int i = 0; i < inmuebles.size(); i++) {
 				anyadirInmuebleBD(inmuebles.get(i));

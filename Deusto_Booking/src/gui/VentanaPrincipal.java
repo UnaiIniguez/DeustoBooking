@@ -100,7 +100,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion(gestor.getPropietarios());
+				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
 				ventana.setVisible(true);
 
 			}
@@ -198,13 +198,18 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 	}
 
+	// Hacer un gurdado extra cuando se cierre la ventana principal(Por seguridad)
+
 	private void cerrarVentana() {
-		
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(null, gestor.getPropietarios().get(0).toString(), "Informacion",
-						JOptionPane.INFORMATION_MESSAGE);
+				if (Gestor.isChangedP()) {
+					JOptionPane.showMessageDialog(null, "Se ha agregado un nuevo propietario", "Informacion",
+							JOptionPane.INFORMATION_MESSAGE);
+				Gestor.actualizarBD();
+				
+				}
 			}
 		});
 
