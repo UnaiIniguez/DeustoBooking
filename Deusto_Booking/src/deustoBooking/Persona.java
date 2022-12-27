@@ -14,6 +14,10 @@ public abstract class Persona implements Serializable {
 	private String mail;
 	private String tlfNum;		//He cambiado el telefono de int a String porque sino no daba el rango
 	private String contrasenya;		//He cambiado la contraseña a String porque cada uno puede poner la contraseña com desea
+	
+	public Persona() {
+		
+	}
 
 
 	

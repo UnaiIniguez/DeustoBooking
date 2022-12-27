@@ -22,14 +22,25 @@ public class DuenioTest {
 	
 	@Test
 	public void  getInmueblesTest() {
+<<<<<<< HEAD
 		duenio.getInmuebles();
+=======
+		ArrayList<Inmueble> inmueble = new ArrayList<Inmueble>(); 
+		//duenio.getInmuebles();
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	}
 	
 	@Test 
 	public void setInmuebleTest() {
+<<<<<<< HEAD
 		List<Inmueble> inmueble= new ArrayList<Inmueble>(); 
 		duenio.setInmueble(duenio.getInmuebles());
 		assertEquals(inmueble, duenio.getInmuebles());
+=======
+		ArrayList<Inmueble> inmueble = new ArrayList<Inmueble>(); 
+		
+		//duenio.setInmueble(inmueble);
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	}
 	
 	@Test 

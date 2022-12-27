@@ -6,9 +6,7 @@ import java.util.Objects;
 public class Inmueble {
 
 	Duenio duenio;
-	Boolean ocupado = false;
-
-	String Huesped = null;		//Nombre del huesped que estará en la casa
+	private int ocupado;
 
 	private int numHab;
 	private int numBany;
@@ -17,9 +15,13 @@ public class Inmueble {
 	TipoVivienda tipo;
 	private float metrosCuadrados;
 	private float precioNoche;
+	
+	public Inmueble() {
+		
+	}
 
 	public Inmueble(Duenio duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados, int numBany, int numHab,
-			int maxHuespedes, float precioNoche) {
+			int maxHuespedes, float precioNoche, int ocupado) {
 		super();
 		this.duenio = duenio;
 		this.numHab = numHab;
@@ -29,25 +31,28 @@ public class Inmueble {
 		this.tipo = tipo;
 		this.metrosCuadrados = metrosCuadrados;
 		this.precioNoche = precioNoche;
+		this.ocupado = ocupado;
 
 	}
 
 //*************************************GETTERS Y SETTERS*****************************************************
+	
+	
 
-	public Boolean getOcupado() {
+	public int getOcupado() {
 		return ocupado;
 	}
 
-	public void setOcupado(Boolean ocupado) {
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public void setMetrosCuadrados(float metrosCuadrados) {
+		this.metrosCuadrados = metrosCuadrados;
+	}
+
+	public void setOcupado(int ocupado) {
 		this.ocupado = ocupado;
-	}
-
-	public String getHuesped() {
-		return Huesped;
-	}
-
-	public void setHuesped(String huesped) {
-		Huesped = huesped;
 	}
 
 	public int getNumHab() {
@@ -91,6 +96,10 @@ public class Inmueble {
 		return tipo;
 	}
 
+	public void setTipo(TipoVivienda tipo) {
+		this.tipo = tipo;
+	}
+
 	public float getPrecioNoche() {
 		return precioNoche;
 	}
@@ -98,10 +107,14 @@ public class Inmueble {
 	public void setPrecioNoche(float precioNoche) {
 		this.precioNoche = precioNoche;
 	}
+	
+	public void setDuenio(Duenio duenio) {
+		this.duenio = duenio;
+	}
 
 	@Override
 	public String toString() {
-		return "Inmueble [duenio=" + duenio + ", ocupado=" + ocupado + ", Huesped=" + Huesped + ", numHab=" + numHab
+		return "Inmueble [duenio=" + duenio + ", ocupado=" + ocupado + ", numHab=" + numHab
 				+ ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes + ", tipo="
 				+ tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
 	}

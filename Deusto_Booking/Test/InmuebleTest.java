@@ -17,9 +17,13 @@ public class InmuebleTest {
 	
 	@Before
 	public void setUp() {
+<<<<<<< HEAD
 		ArrayList<Inmueble> inmueble= new ArrayList<Inmueble>(); 
 		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327","perro23",inmueble), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
 		
+=======
+		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327", "perro23", "Jefe", new ArrayList<Inmueble>()), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	}
 	
 	
@@ -28,11 +32,19 @@ public class InmuebleTest {
 		assertEquals(false, i.getOcupado());
 	}
 	
+<<<<<<< HEAD
 	@Test
 	public void testSetOcupado() {
 		i.setOcupado(i.getOcupado());
 		assertEquals(false, i.getOcupado());
 	}
+=======
+//	@Test
+//	public void testSetOcupado() {
+//		i.setOcupado(true);
+//		assertEquals(true, i.getOcupado());
+//	}
+>>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	@Test
 	public void testGetHuesped() {
 		assertEquals(null,i.getHuesped());
