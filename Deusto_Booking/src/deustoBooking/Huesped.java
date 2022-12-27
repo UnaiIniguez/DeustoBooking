@@ -22,13 +22,26 @@ public class Huesped extends Persona {
 			this.setNomEmpresa(null);
 		}
 	}
+	
 
-	public String getCargo() {
+	public Huesped() {
+		super();
+		
+	}
+
+
+	public Huesped(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya, String cargo) {
+		super(dni, nombre, edad, mail, tlfNum, contrasenya);
+		this.cargo = cargo;
+	}
+
+
+	public  String getCargo() {
 		return cargo;
 	}
 
 
-	public void setCargo(String cargo) {
+	public  void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
 

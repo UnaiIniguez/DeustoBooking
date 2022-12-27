@@ -6,7 +6,7 @@ import java.util.List;
 public class Duenio extends Persona {
 
 	private static final long serialVersionUID = 1L;
-	private List<Inmueble> inmueble = new ArrayList<>();
+	private List<Inmueble> inmueble = new ArrayList<Inmueble>();
 
 	public Duenio(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya,
 			List<Inmueble> inmueble) {
@@ -18,7 +18,7 @@ public class Duenio extends Persona {
 		return inmueble;
 	}
 
-	public void setInmueble(ArrayList<Inmueble> inmueble) {
+	public void setInmueble(List<Inmueble> inmueble) {
 		this.inmueble = inmueble;
 	}
 	

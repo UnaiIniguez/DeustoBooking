@@ -16,6 +16,11 @@ public abstract class Persona implements Serializable {
 	private String contrasenya;		//He cambiado la contraseña a String porque cada uno puede poner la contraseña com desea
 
 
+	
+	public Persona() {
+		
+	}
+
 	public Persona(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya) {
 		super();
 		this.dni = dni;
