@@ -12,15 +12,22 @@ import deustoBooking.Duenio;
 import deustoBooking.Gestor;
 import deustoBooking.Huesped;
 import deustoBooking.Inmueble;
+import deustoBooking.TipoVivienda;
 
 public class GestionTest {
 	
 	private Gestor gestor;
-	
+	private Duenio duenio;
+	private Inmueble i;
+	private Huesped huesped;
 	
 	
 	@Before
 	public void setUp() {
+		ArrayList<Inmueble> inmueble= new ArrayList<Inmueble>(); 
+		duenio = new Duenio("11111111J", "Andres", 32, "andres@opendeusto.es", "607343434", "Deusto24", inmueble);
+		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327","perro23",inmueble), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
+		huesped = new Huesped("11111111J", "Andres", 32, "andres@opendeusto.es", "607343434", "Deusto24", "Empresario","Eroski");
 		
 		gestor = new Gestor();
 		
@@ -35,8 +42,6 @@ public class GestionTest {
 	public void anadirInmueblePersonaTest() {
 		
 		Duenio d = gestor.getPropietarios().get(0);
-		Inmueble i = new Inmueble(d, "Santnader", null, 0, 0, 0, 0, 0);
-		
 		gestor.anadirInmueble( d, i );
 		assertEquals( i, d.getInmuebles().get(0) );//Comparo si el inmueble de test con el que he introducido
 		
@@ -44,12 +49,8 @@ public class GestionTest {
 	
 	@Test
 	public void borrarInmuebleTest() {
-		
 		Duenio d = gestor.getPropietarios().get(0);
-		Inmueble i = new Inmueble(d, "Santnader", null, 0, 0, 0, 0, 0);
-		
 		gestor.borrarInmueble( d , i);
-		assertEquals( null, null);
 	}
 	
 	
@@ -61,12 +62,9 @@ public class GestionTest {
 		gestor.editarInmueble(d, inmuebleviejo, nuevoInmueble);
 	}
 	
-	/*
 	@Test 
 	public void anularReservaTest(){
-		Huesped h = new Huesped("1405809J", "Fernando", 19, "fernando@opendeusto.es", "608111111", "Deusto24", "Estudiante", null);
-		Inmueble i= new Inmueble(h, "Getxo", null, 0, 0, 0, 0, 0);
-		gestor.anularReserva(h, in);
+		gestor.anularReserva(huesped, i);
 	
 		
 	}
@@ -74,11 +72,9 @@ public class GestionTest {
 	
 	@Test
 	public void reservarTest() {
-		Huesped h = new Huesped("1405809J", "Fernando", 19, "fernando@opendeusto.es", "608111111", "Deusto24", "Estudiante", null);
-		Inmueble i = new Inmueble(h, "Getxo", null, 0, 0, 0, 0, 0);
-		gestor.reservar(h, i);
+		gestor.reservar(huesped, i);
 	}
-	*/	
+	
 	@Test 
 	public void iniciarSesionDBTest() {
 		String dni = "1405809J";

@@ -6,16 +6,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import deustoBooking.Duenio;
+import deustoBooking.Huesped;
 import deustoBooking.Inmueble;
 import deustoBooking.TipoVivienda;
 
 public class InmuebleTest {
 
 	private Inmueble i;
+
 	
 	@Before
 	public void setUp() {
-		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327","perro23",new ArrayList<Inmueble>()), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
+		ArrayList<Inmueble> inmueble= new ArrayList<Inmueble>(); 
+		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327","perro23",inmueble), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
+		
 	}
 	
 	
@@ -26,18 +30,17 @@ public class InmuebleTest {
 	
 	@Test
 	public void testSetOcupado() {
-		i.setOcupado(true);
-		assertEquals(true, i.getOcupado());
+		i.setOcupado(i.getOcupado());
+		assertEquals(false, i.getOcupado());
 	}
 	@Test
 	public void testGetHuesped() {
-		i.setHuesped("58033622J");
-		assertEquals("58033622J",i.getHuesped());
+		assertEquals(null,i.getHuesped());
 	}
 	@Test
 	public void testSetHuesped() {
-		i.setHuesped("58033622A");
-		assertEquals("58033622A", i.getHuesped());	
+		i.setHuesped(i.getHuesped());
+		assertEquals(null, i.getHuesped());	
 	}
 	@Test
 	public void testGetNumHab() {
@@ -45,8 +48,8 @@ public class InmuebleTest {
 	}
 	@Test
 	public void testSetNumHab() {
-		i.setNumHab(4);
-		assertEquals(4, i.getNumHab());
+		i.setNumHab(i.getNumHab());
+		assertEquals(3, i.getNumHab());
 	}
 	@Test
 	public void testGetNumBany() {
@@ -54,8 +57,8 @@ public class InmuebleTest {
 	}
 	@Test
 	public void testSetNumBany() {
-		i.setNumBany(4);
-		assertEquals(4, i.getNumBany());
+		i.setNumBany( i.getNumBany());
+		assertEquals(1, i.getNumBany());
 	}
 	@Test
 	public void testGetMaxHuespedes() {
@@ -63,8 +66,8 @@ public class InmuebleTest {
 	}
 	@Test
 	public void testSetMaxHuespedes() {
-		i.setMaxHuespedes(4);
-		assertEquals(4,i.getMaxHuespedes());
+		i.setMaxHuespedes(i.getMaxHuespedes());
+		assertEquals(3,i.getMaxHuespedes());
 	}
 	@Test
 	public void testGetMetrosCuadrados() {
@@ -86,8 +89,8 @@ public class InmuebleTest {
 	}
 	@Test
 	public void testSetPrecioNoche() {
-		i.setPrecioNoche(40f);
-		assertEquals(40f,i.getPrecioNoche(),0.1f);
+		i.setPrecioNoche(i.getPrecioNoche());
+		assertEquals(45f,i.getPrecioNoche(),0.1f);
 	}
 	
 }
