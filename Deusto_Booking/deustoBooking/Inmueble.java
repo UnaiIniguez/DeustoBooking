@@ -1,13 +1,16 @@
 package deustoBooking;
 
+import java.lang.reflect.Array;
+import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Inmueble {
 
 	Duenio duenio;
-	private int ocupado;
-
+	private Blob[] imagenes;
+	private int id_Inmueble;
 	private int numHab;
 	private int numBany;
 	private String ubicacion; // Poner: (Pais/Comunidad/Ciudad)
@@ -15,14 +18,18 @@ public class Inmueble {
 	private TipoVivienda tipo;
 	private float metrosCuadrados;
 	private float precioNoche;
+	private int ocupado;
+	
 	
 	public Inmueble() {
 		
 	}
 
-	public Inmueble(Duenio duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados, int numBany, int numHab,
+	public Inmueble(List<Blob> imagenes, int id_Inmueble, Duenio duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados, int numBany, int numHab,
 			int maxHuespedes, float precioNoche, int ocupado) {
 		super();
+		this.imagenes = new Blob[4];
+		this.id_Inmueble = id_Inmueble;
 		this.duenio = duenio;
 		this.numHab = numHab;
 		this.numBany = numBany;
