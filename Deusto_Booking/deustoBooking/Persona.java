@@ -19,12 +19,6 @@ public abstract class Persona implements Serializable {
 		
 	}
 
-
-	
-	public Persona() {
-		
-	}
-
 	public Persona(String dni, String nombre, int edad, String mail, String tlfNum, String contrasenya) {
 		super();
 		this.dni = dni;
