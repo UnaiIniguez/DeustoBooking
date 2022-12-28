@@ -11,16 +11,15 @@ import deustoBooking.Gestor;
 import deustoBooking.Huesped;
 import deustoBooking.Inmueble;
 import deustoBooking.TipoBusqueda;
+import deustoBooking.TipoVivienda;
 import gui.VentanaLogin;
 import gui.VentanaPrincipal;
 
 public class Main {
-	
+
 	private static Gestor gestor;
 	private static VentanaPrincipal ventana;
 	private static Connection cn;
-	
-	
 
 	public static void main(String[] args) {
 
@@ -28,11 +27,11 @@ public class Main {
 		ventana = new VentanaPrincipal(gestor);
 		ventana.setVisible(true);
 		cn = gestor.conectar();
-		
-		
+
 //========================Leer la Base de Datos===============================
 
 		leerBaseDeDatos(cn, TipoBusqueda.DUENYO);
+		leerBaseDeDatos(cn, TipoBusqueda.INMUEBLE);
 
 	}
 
@@ -40,7 +39,7 @@ public class Main {
 	// Datos======================================================================================================================================================
 
 	private static void leerBaseDeDatos(Connection cn, TipoBusqueda tb) {
-		
+
 		System.out.println("Ejecución método leerBaseDatos");
 
 		String sqlQuery = "";
@@ -69,6 +68,7 @@ public class Main {
 					// Lo muestro por pantalla
 					System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo
 							+ " " + contrasenya);
+					Gestor.getPropietarios().add(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
 				}
 
 				break;
@@ -93,13 +93,14 @@ public class Main {
 
 				break;
 			case INMUEBLE:
+				//PRUEBA
 				sqlQuery = "SELECT * FROM Inmueble";
 				rs = st.executeQuery(sqlQuery);
 				while (rs.next()) {
 					// Columnas Inmueble
 					float precio = rs.getFloat(1);
 					int max_hu = rs.getInt(2);
-					boolean ocupado = rs.getBoolean(3);
+					int ocupado = rs.getInt(3);
 					int num_hab = rs.getInt(4);
 					int num_bany = rs.getInt(5);
 					String ubi = rs.getString(6);
@@ -110,6 +111,13 @@ public class Main {
 					// Lo muestro por pantalla
 					System.out.println(precio + " " + max_hu + " " + ocupado + " " + num_hab + " " + num_bany + " "
 							+ ubi + " " + tipo + " " + m2 + " " + dni_d);
+					// public Inmueble(Duenio duenio, String ubicacion, TipoVivienda tipo, float
+					// metrosCuadrados, int numBany, int numHab,
+					// int maxHuespedes, float precioNoche, int ocupado)
+					Duenio d = buscarDuenio(dni_d);
+					TipoVivienda tipo_vivienda = tipoVivienda(tipo);
+
+					Gestor.getInmuebles().add(new Inmueble(d, ubi, tipo_vivienda, m2, num_bany, num_hab, max_hu, precio, ocupado));
 				}
 
 				break;
@@ -122,5 +130,33 @@ public class Main {
 
 	}
 
+	private static Duenio buscarDuenio(String dni) {
+
+		for (int i = 0; i < Gestor.getPropietarios().size(); i++) {
+			if (Gestor.getPropietarios().get(i).getDni().equals(dni)) {
+				return Gestor.getPropietarios().get(i);
+			}
+		}
+		return null;
+
+	}
+
+	private static TipoVivienda tipoVivienda(String tipo) {
+		switch (tipo) {
+		case "CHALET":
+			return TipoVivienda.CHALET;
+
+		case "PISO":
+			return TipoVivienda.PISO;
+
+		case "ADOSADO":
+			return TipoVivienda.ADOSADO;
+
+		case "ESTUDIO":
+			return TipoVivienda.ESTUDIO;
+
+		}
+		return null;
+	}
 
 }

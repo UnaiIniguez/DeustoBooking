@@ -205,7 +205,7 @@ public class VentanaPrincipal extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				if (Gestor.isChangedP()) {
-					JOptionPane.showMessageDialog(null, "Se ha agregado un nuevo propietario", "Informacion",
+					JOptionPane.showMessageDialog(null, "Cambios guardados", "Informacion",
 							JOptionPane.INFORMATION_MESSAGE);
 				Gestor.actualizarBD();
 				

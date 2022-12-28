@@ -12,7 +12,7 @@ public class Inmueble {
 	private int numBany;
 	private String ubicacion; // Poner: (Pais/Comunidad/Ciudad)
 	private int MaxHuespedes;
-	TipoVivienda tipo;
+	private TipoVivienda tipo;
 	private float metrosCuadrados;
 	private float precioNoche;
 	

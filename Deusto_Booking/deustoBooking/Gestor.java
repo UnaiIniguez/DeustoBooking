@@ -24,11 +24,12 @@ public class Gestor {
 	private static List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
 
 	private Map<String, ArrayList<Inmueble>> reservas = new HashMap<>(); // En este mapa se almacenaran todos los
-																			// huespedes y los inmuebles que tien //															// reservados.(Clave DNI)
+																			// huespedes y los inmuebles que tien // //
+																			// reservados.(Clave DNI)
 	private static Connection conectar;
-	
-	private static boolean isChangedP;//MArcador de cambio de Propietario
-	private static boolean isChangedI;//Marcador de cambio de Inmueble
+
+	private static boolean isChangedP;// MArcador de cambio de Propietario
+	private static boolean isChangedI;// Marcador de cambio de Inmueble
 
 	public void datosTest() {
 
@@ -53,7 +54,7 @@ public class Gestor {
 	public void setPropietarios(List<Duenio> duenios) {
 		propietarios = duenios;
 	}
-	
+
 	public static List<Inmueble> getInmuebles() {
 		return inmuebles;
 	}
@@ -61,7 +62,7 @@ public class Gestor {
 	public static void setInmuebles(List<Inmueble> inmuebles) {
 		Gestor.inmuebles = inmuebles;
 	}
-	
+
 	public Map<String, ArrayList<Inmueble>> getHuespedes() {
 		return reservas;
 	}
@@ -73,7 +74,7 @@ public class Gestor {
 	public static void setChangedP(boolean value) {
 		isChangedP = value;
 	}
-	
+
 	public static boolean isChangedI() {
 		return isChangedI;
 	}
@@ -83,7 +84,6 @@ public class Gestor {
 	}
 
 //**************************METODOS COMUNES**********************************************
-
 
 	public Map<String, ArrayList<Inmueble>> getReservas() {
 		return reservas;
@@ -302,22 +302,51 @@ public class Gestor {
 		}
 
 	}
-	
+
 	public static void actualizarBD() {
 
+		// Este método detecta qué tablas han sido modificadas y a continuación borra la
+		// información
+		// antigua y guarda la nueva
 
-		String sql_TablaDuenyo = "DELETE from Duenyo;";
+		if (isChangedP) {
+			String sql_TablaDuenyo = "DELETE from Duenyo;";
 
-		try {
-			Statement st = conectar.createStatement();
-			st.execute(sql_TablaDuenyo);
-			guardarDatosBD();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				Statement st = conectar.createStatement();
+				st.execute(sql_TablaDuenyo);
+				guardarDatosBD(TipoBusqueda.DUENYO);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
+		if (isChangedI) {
+			String sql_TablaDuenyo = "DELETE from Inmueble;";
+
+			try {
+				Statement st = conectar.createStatement();
+				st.execute(sql_TablaDuenyo);
+				guardarDatosBD(TipoBusqueda.INMUEBLE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+//		if (isChangedH) {
+//			String sql_TablaDuenyo = "DELETE from Inmueble;";
+//
+//			try {
+//				Statement st = conectar.createStatement();
+//				st.execute(sql_TablaDuenyo);
+//				guardarDatosBD(TipoBusqueda.INMUEBLE);
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+
+
+		
 	}
 
 	// ================Test de la Base de Datos==========================
@@ -349,7 +378,7 @@ public class Gestor {
 
 	public static void anyadirInmuebleBD(Inmueble inmueble) { // Añade un inmueble a la Base de Datos
 
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );";
+		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
 			PreparedStatement pst = conectar.prepareStatement(datos_sql);
 			pst.setFloat(1, inmueble.getPrecioNoche());
@@ -358,9 +387,10 @@ public class Gestor {
 			pst.setInt(4, inmueble.getNumHab());
 			pst.setInt(5, inmueble.getNumBany());
 			pst.setString(6, inmueble.getUbicacion());
-			pst.setString(7, "Casa");// no se porque no me deja hacer inmueble.getTipo(
+			pst.setString(7, inmueble.getTipo().toString());
 			pst.setFloat(8, inmueble.getMetrosCuadrados());
 			pst.setString(9, inmueble.getDuenio().getDni());
+			pst.executeUpdate();
 			System.out.println("Inserciï¿½n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -415,26 +445,32 @@ public class Gestor {
 
 //=============================Metodo para guardar en la Base de Datos==============================================================================
 
-	public static void guardarDatosBD() {
+	public static void guardarDatosBD(TipoBusqueda tipo) {
 
-		if (!propietarios.isEmpty()) { // Si el array de propietarios contiene propietarios entonces ejecutará los métodos de anyadirDuenyo
+		switch (tipo) {
+		case DUENYO:
 			for (int i = 0; i < propietarios.size(); i++) {
 				anyadirDuenyoBD(propietarios.get(i));
 			}
-		}
-
-//		if (!huespedes.isEmpty()) {
-//			for (int i = 0; i < huespedes.size(); i++) {
-//				anyadirHuespedBD(huespedes.get(i));
-//			}
-//		}
-//
-		if (!inmuebles.isEmpty()) {
+			break;
+		case HUESPED:
+			for (int i = 0; i < inmuebles.size(); i++) {
+				anyadirHuespedBD(huespedes.get(i));
+			}
+			break;
+		case INMUEBLE:
 			for (int i = 0; i < inmuebles.size(); i++) {
 				anyadirInmuebleBD(inmuebles.get(i));
 			}
+			break;
 		}
 
 	}
+	
+	//========================================Persistencia de datos==================================================================
+	
+	
+	
+	
 
 }

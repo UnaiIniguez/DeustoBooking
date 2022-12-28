@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
 import deustoBooking.Inmueble;
+import deustoBooking.TipoVivienda;
 
 public class VentanaRegistroAnfitrion extends JFrame {
 	
@@ -184,7 +185,7 @@ public class VentanaRegistroAnfitrion extends JFrame {
 				nuevoInmueble.setNumHab( Integer.parseInt( boxHabi.getSelectedItem().toString() ) );
 				nuevoInmueble.setNumBany( Integer.parseInt (boxBan.getSelectedItem().toString() ) );
 				nuevoInmueble.setUbicacion( txtUbicacion.getText().toString() );
-//				nuevoInmueble.setTipo( comboBoxTipoVivienda.getSelectedItem() );
+				nuevoInmueble.setTipo( tipoVivienda(comboBoxTipoVivienda.getSelectedItem().toString()));
 				nuevoInmueble.setMetrosCuadrados( Float.parseFloat( txtmetros.getText().toString() ) );
 				nuevoInmueble.setDuenio( nuevoDuenio );
 				
@@ -207,6 +208,24 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		add(panelCentral, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
 
+	}
+	
+	private static TipoVivienda tipoVivienda(String tipo) {
+		switch (tipo) {
+		case "CHALET":
+			return TipoVivienda.CHALET;
+
+		case "PISO":
+			return TipoVivienda.PISO;
+
+		case "ADOSADO":
+			return TipoVivienda.ADOSADO;
+
+		case "ESTUDIO":
+			return TipoVivienda.ESTUDIO;
+
+		}
+		return null;
 	}
 
 
