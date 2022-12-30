@@ -1,6 +1,7 @@
 package deustoBooking;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Reserva {
 
@@ -65,6 +66,19 @@ public class Reserva {
 	public String toString() {
 		return "Reserva [id de la reserva =" + id_Reserva + ", la fecha de entrada será=" + fecha_Entrada + " y la fecha de salida será =" + fecha_Salida
 				 + "]";
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reserva other = (Reserva) obj;
+		return id_Reserva == other.id_Reserva;
 	}  
 	
 	

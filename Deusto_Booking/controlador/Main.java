@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.WindowEvent;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -40,7 +41,7 @@ public class Main {
 
 	private static void leerBaseDeDatos(Connection cn, TipoBusqueda tb) {
 
-		System.out.println("Ejecución método leerBaseDatos");
+		System.out.println("Ejecuciï¿½n mï¿½todo leerBaseDatos");
 
 		String sqlQuery = "";
 		ResultSet rs = null;
@@ -98,26 +99,34 @@ public class Main {
 				rs = st.executeQuery(sqlQuery);
 				while (rs.next()) {
 					// Columnas Inmueble
-					float precio = rs.getFloat(1);
-					int max_hu = rs.getInt(2);
-					int ocupado = rs.getInt(3);
-					int num_hab = rs.getInt(4);
-					int num_bany = rs.getInt(5);
-					String ubi = rs.getString(6);
-					String tipo = rs.getString(7);
-					float m2 = rs.getFloat(8);
-					String dni_d = rs.getString(9);
-
-					// Lo muestro por pantalla
-					System.out.println(precio + " " + max_hu + " " + ocupado + " " + num_hab + " " + num_bany + " "
-							+ ubi + " " + tipo + " " + m2 + " " + dni_d);
+					int id_Inmueble = rs.getInt(1);
+					int num_hab = rs.getInt(2);
+					int num_bany = rs.getInt(3);
+					String ubi = rs.getString(4);
+					int max_hu = rs.getInt(5);
+					String tipo = rs.getString(6);
+					float m2 = rs.getFloat(7);
+					float precio = rs.getFloat(8);
+					int ocupado = rs.getInt(9);
+					String dni_d = rs.getString(10);
+					Blob foto_1 = rs.getBlob(11);
+					Blob foto_2 = rs.getBlob(12);
+					Blob foto_3 = rs.getBlob(13);
+					Blob foto_4 = rs.getBlob(14);
+					
+					// Lo muestro por pantalla(Todo menos las fotos)
+					System.out.println(id_Inmueble + " " + num_hab + " " + num_bany + " " + ubi + " " +  max_hu + " " + tipo + " " + m2 + " " + precio + " " +  ocupado + " " +
+							     dni_d);
 					// public Inmueble(Duenio duenio, String ubicacion, TipoVivienda tipo, float
 					// metrosCuadrados, int numBany, int numHab,
 					// int maxHuespedes, float precioNoche, int ocupado)
-					Duenio d = buscarDuenio(dni_d);
+					
 					TipoVivienda tipo_vivienda = tipoVivienda(tipo);
-
-					Gestor.getInmuebles().add(new Inmueble(d, ubi, tipo_vivienda, m2, num_bany, num_hab, max_hu, precio, ocupado));
+					Blob[] imagenes; 
+					imagenes = new Blob[4];
+					//imagenes = new Blob[foto_1,foto_2,foto_3,foto_4];
+					
+					Gestor.getInmuebles().add(new Inmueble(id_Inmueble, dni_d, ubi,tipo_vivienda,m2,num_bany,num_hab,max_hu,precio,ocupado, imagenes));
 				}
 
 				break;
@@ -130,16 +139,9 @@ public class Main {
 
 	}
 
-	private static Duenio buscarDuenio(String dni) {
 
-		for (int i = 0; i < Gestor.getPropietarios().size(); i++) {
-			if (Gestor.getPropietarios().get(i).getDni().equals(dni)) {
-				return Gestor.getPropietarios().get(i);
-			}
-		}
-		return null;
 
-	}
+	
 
 	private static TipoVivienda tipoVivienda(String tipo) {
 		switch (tipo) {

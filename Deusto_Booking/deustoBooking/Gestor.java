@@ -9,21 +9,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Gestor {
 
-	private static List<Duenio> propietarios = new ArrayList<>();
+	private static Set<Duenio> propietarios = new HashSet<>();
 
-	private static List<Huesped> huespedes = new ArrayList<>(); // GuardarÃ¡ a todos los huespedes de la base de datos
+	private static Set<Huesped> huespedes = new HashSet<>(); // GuardarÃ¡ a todos los huespedes de la base de datos
 
-	private static List<Inmueble> inmuebles = new ArrayList<>(); // Las viviendas que hay en la pagina web
+	private static Set<Inmueble> inmuebles = new TreeSet<>(); // Las viviendas que hay en la pagina web
 
-	private Map<String, ArrayList<Inmueble>> reservas = new HashMap<>(); // En este mapa se almacenaran todos los
+	private Map<String, ArrayList<Reserva>> reservas = new HashMap<>(); // En este mapa se almacenaran todos los
 																			// huespedes y los inmuebles que tien // //
 																			// reservados.(Clave DNI)
 	private static Connection conectar;
@@ -47,23 +50,23 @@ public class Gestor {
 
 	}
 
-	public static List<Duenio> getPropietarios() {
+	public static Set<Duenio> getPropietarios() {
 		return propietarios;
 	}
 
-	public void setPropietarios(List<Duenio> duenios) {
+	public void setPropietarios(Set<Duenio> duenios) {
 		propietarios = duenios;
 	}
 
-	public static List<Inmueble> getInmuebles() {
+	public static Set<Inmueble> getInmuebles() {
 		return inmuebles;
 	}
 
-	public static void setInmuebles(List<Inmueble> inmuebles) {
+	public static void setInmuebles(Set<Inmueble> inmuebles) {
 		Gestor.inmuebles = inmuebles;
 	}
 
-	public Map<String, ArrayList<Inmueble>> getHuespedes() {
+	public Map<String, ArrayList<Reserva>> getHuespedes() {
 		return reservas;
 	}
 
@@ -85,7 +88,7 @@ public class Gestor {
 
 //**************************METODOS COMUNES**********************************************
 
-	public Map<String, ArrayList<Inmueble>> getReservas() {
+	public Map<String, ArrayList<Reserva>> getReservas() {
 		return reservas;
 	}
 
@@ -171,42 +174,84 @@ public class Gestor {
 //	}
 
 	// ********************METODOS DEL HUESPED********************************
-
+	
 	/**
 	 * 
-	 * Anular reserva
+	 * Hace el registro de un huesped
 	 * 
-	 * @param h = Huesped que anula la reserva
-	 * @param i = Inmueble reservado pendiente de anular
+	 * @param DNI = el dni del huesped(SerÃ¡ el usuario a la hora de iniciar sesion)
+	 * @param Nombre = Nombre del huesped
+	 * @param Edad = edad del huesped
+	 * @param Gmail = el gmail del huesped
+	 * @param Telefono = El numero de telefono del huesped
+	 * @param El puesto de trabajo = El puesto de trabajo o cargo que tiene el huesped
+	 * @param La compaÃ±ia = La compaÃ±ia en la que trabaja el cliente
+	 * @param ContraseÃ±a = La contrasenya que quiere tener el huesped. 
 	 *
 	 */
-	public void anularReserva(Huesped h, Inmueble i) {
-		if (reservas.containsKey(h.getDni())) {
-			if (reservas.get(h.getDni()).contains(i)) {
-				reservas.get(h.getDni()).remove(i);
-			}
+	public void registroHuesped(String dni, String nombre, int edad, String mail, String tlf, String cargo,
+			String nomEmpresa, String contrasenya) {
+
+		Huesped h = new Huesped(dni, nombre, edad, mail, tlf, contrasenya, cargo, nomEmpresa);
+
+		if (!huespedes.contains(h)) {
+			huespedes.add(h);
 		}
 	}
-
 	/**
 	 * 
 	 * Reservar
 	 * 
 	 * @param h = Huesped que ejecuta la reserva
-	 * @param i = Inmueble pendiente de reservar
+	 * @param reserva = la reserva que desea realizar
 	 *
 	 */
-	public void reservar(Huesped h, Inmueble i) {
+	public void reservar(Huesped h, Reserva reserva) {
 		if (reservas.containsKey(h.getDni())) {
-			if (!reservas.get(h.getDni()).contains(i)) {
-				reservas.get(h.getDni()).add(i);
-			}
+			reservas.get(h.getDni()).add(reserva);
+			
 		} else {
-			reservas.put(h.getDni(), new ArrayList<Inmueble>());
-			reservas.get(h.getDni()).add(i);
+			reservas.put(h.getDni(), new ArrayList<Reserva>());
+			reservas.get(h.getDni()).add(reserva);
 		}
 	}
-
+	
+	
+	/**
+	 * 
+	 * Anular una reserva
+	 * 
+	 * @param h = Huesped que desea anular una reserva
+	 * @param reserva = la reserva que desea anular
+	 *
+	 */
+	public void anularReserva(Huesped h , Reserva reserva) {
+		if (reservas.containsKey(h.getDni())) {
+			reservas.get(h.getDni()).remove(reserva);
+			
+		} else {
+			//Crear un problema o algo
+		}
+	}
+	
+	public void EditarFechaReserva(Huesped h , Reserva reserva, Date FechaEntrada, Date FechaSalida ) {
+		if (reservas.containsKey(h.getDni())) {
+			ArrayList<Reserva> res = reservas.get(h.getDni());
+			for(Reserva r : res) {
+				if(r.equals(reserva)) {
+					r.setFecha_Entrada(FechaEntrada);
+					r.setFecha_Salida(FechaSalida);				
+				}
+			}
+			reservas.remove(h.getDni());
+			reservas.put(h.getDni(), res);
+			
+		} else {
+			//Crear un problema o algo
+		}
+	}
+	
+	
 	public boolean iniciarSesionDB(String dni, String contrasenya) {
 
 		Connection conn = null;
@@ -247,15 +292,7 @@ public class Gestor {
 
 	}
 
-	public void registroHuesped(String dni, String nombre, int edad, String mail, String tlf, String cargo,
-			String nomEmpresa, String contrasenya) {
 
-		Huesped h = new Huesped(dni, nombre, edad, mail, tlf, contrasenya, cargo, nomEmpresa);
-
-		if (!huespedes.contains(h)) {
-			huespedes.add(h);
-		}
-	}
 
 	// ========================Metodo para conenctarme a la Base de
 	// Datos======================================================================================================================================================
@@ -305,8 +342,8 @@ public class Gestor {
 
 	public static void actualizarBD() {
 
-		// Este método detecta qué tablas han sido modificadas y a continuación borra la
-		// información
+		// Este metodo detecta que tablas han sido modificadas y a continuacion borra la
+		// informacion
 		// antigua y guarda la nueva
 
 		if (isChangedP) {
@@ -315,7 +352,7 @@ public class Gestor {
 			try {
 				Statement st = conectar.createStatement();
 				st.execute(sql_TablaDuenyo);
-				guardarDatosBD(TipoBusqueda.DUENYO);
+				//guardarDatosBD(TipoBusqueda.DUENYO);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -327,7 +364,7 @@ public class Gestor {
 			try {
 				Statement st = conectar.createStatement();
 				st.execute(sql_TablaDuenyo);
-				guardarDatosBD(TipoBusqueda.INMUEBLE);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -376,22 +413,24 @@ public class Gestor {
 
 	}
 
-	public static void anyadirInmuebleBD(Inmueble inmueble) { // Añade un inmueble a la Base de Datos
+	public static void anyadirInmuebleBD(Inmueble inmueble) { // Aï¿½ade un inmueble a la Base de Datos
 
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
+		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ? , ? , ? );";
 		try {
 			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setFloat(1, inmueble.getPrecioNoche());
-			pst.setInt(2, inmueble.getMaxHuespedes());
-			pst.setInt(3, inmueble.getOcupado());
-			pst.setInt(4, inmueble.getNumHab());
-			pst.setInt(5, inmueble.getNumBany());
-			pst.setString(6, inmueble.getUbicacion());
-			pst.setString(7, inmueble.getTipo().toString());
-			pst.setFloat(8, inmueble.getMetrosCuadrados());
-			pst.setString(9, inmueble.getDuenio().getDni());
+			pst.setInt(1, inmueble.getId_Inmueble());
+			pst.setInt(2, inmueble.getNumHab());
+			pst.setInt(3, inmueble.getNumBany());
+			pst.setString(4, inmueble.getUbicacion());
+			pst.setInt(5, inmueble.getMaxHuespedes());
+			pst.setString(6, inmueble.getTipo().toString());
+			pst.setFloat(7, inmueble.getMetrosCuadrados());
+			pst.setFloat(8, inmueble.getPrecioNoche());
+			pst.setInt(9, inmueble.getOcupado());
+			pst.setString(10, inmueble.getDni_Duenio());
+			//pst.setBlob(11, );
 			pst.executeUpdate();
-			System.out.println("Inserciï¿½n correcta");
+			System.out.println("Insercion correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -399,7 +438,7 @@ public class Gestor {
 
 	}
 
-	public static void anyadirDuenyoBD(Duenio duenio) { // Añade un dueño a la Base de Datos
+	public static void anyadirDuenyoBD(Duenio duenio) { // Aï¿½ade un dueï¿½o a la Base de Datos
 
 		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -420,7 +459,7 @@ public class Gestor {
 
 	}
 
-	public static void anyadirHuespedBD(Huesped huesped) { // Añade un huesped a la Base de Datos
+	public static void anyadirHuespedBD(Huesped huesped) { // Aï¿½ade un huesped a la Base de Datos
 
 		String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -441,34 +480,9 @@ public class Gestor {
 
 	}
 
-	// Obtener de Inmueble los datos necesarios para introducir en la Base de Datos,
-
-//=============================Metodo para guardar en la Base de Datos==============================================================================
-
-	public static void guardarDatosBD(TipoBusqueda tipo) {
-
-		switch (tipo) {
-		case DUENYO:
-			for (int i = 0; i < propietarios.size(); i++) {
-				anyadirDuenyoBD(propietarios.get(i));
-			}
-			break;
-		case HUESPED:
-			for (int i = 0; i < inmuebles.size(); i++) {
-				anyadirHuespedBD(huespedes.get(i));
-			}
-			break;
-		case INMUEBLE:
-			for (int i = 0; i < inmuebles.size(); i++) {
-				anyadirInmuebleBD(inmuebles.get(i));
-			}
-			break;
-		}
-
-	}
 	
-	//========================================Persistencia de datos==================================================================
-	
+
+
 	
 	
 	

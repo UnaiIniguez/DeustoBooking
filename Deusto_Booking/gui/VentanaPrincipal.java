@@ -95,6 +95,15 @@ public class VentanaPrincipal extends JFrame {
 
 		// Eventos
 
+		regisCliente.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaRegistroHuesped ventana = new VentanaRegistroHuesped();
+				ventana.setVisible(true);		
+				
+			}
+		});
 		regisDuenio.addActionListener(new ActionListener() {
 
 			@Override
@@ -140,6 +149,8 @@ public class VentanaPrincipal extends JFrame {
 
 			}
 		});
+		
+		
 
 		cerrarVentana();
 

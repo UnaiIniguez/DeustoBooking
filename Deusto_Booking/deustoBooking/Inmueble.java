@@ -8,8 +8,7 @@ import java.util.Objects;
 
 public class Inmueble {
 
-	Duenio duenio;
-	private Blob[] imagenes;
+	
 	private int id_Inmueble;
 	private int numHab;
 	private int numBany;
@@ -19,18 +18,19 @@ public class Inmueble {
 	private float metrosCuadrados;
 	private float precioNoche;
 	private int ocupado;
-	
+	private String dni_Duenio;
+	private Blob[] imagenes;
 	
 	public Inmueble() {
 		
 	}
 
-	public Inmueble(List<Blob> imagenes, int id_Inmueble, Duenio duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados, int numBany, int numHab,
-			int maxHuespedes, float precioNoche, int ocupado) {
+	public Inmueble( int id_Inmueble,String dni_Duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados, int numBany, int numHab,
+			int maxHuespedes, float precioNoche, int ocupado, Blob[] imagenes) {
 		super();
 		this.imagenes = new Blob[4];
 		this.id_Inmueble = id_Inmueble;
-		this.duenio = duenio;
+		this.dni_Duenio = dni_Duenio;
 		this.numHab = numHab;
 		this.numBany = numBany;
 		this.ubicacion = ubicacion;
@@ -45,6 +45,16 @@ public class Inmueble {
 //*************************************GETTERS Y SETTERS*****************************************************
 	
 	
+	public String getDni_Duenio() {
+		return dni_Duenio;
+	}
+	public int getId_Inmueble() {
+		return id_Inmueble;
+	}
+
+	public Blob[] getImagenes() {
+		return imagenes;
+	}
 
 	public int getOcupado() {
 		return ocupado;
@@ -91,8 +101,8 @@ public class Inmueble {
 	}
 
 
-	public Duenio getDuenio() {
-		return duenio;
+	public String getDuenio() {
+		return dni_Duenio;
 	}
 
 	public String getUbicacion() {
@@ -115,13 +125,13 @@ public class Inmueble {
 		this.precioNoche = precioNoche;
 	}
 	
-	public void setDuenio(Duenio duenio) {
-		this.duenio = duenio;
+	public void setDuenio(String duenio) {
+		this.dni_Duenio = duenio;
 	}
 
 	@Override
 	public String toString() {
-		return "Inmueble [duenio=" + duenio + ", ocupado=" + ocupado + ", numHab=" + numHab
+		return "Inmueble [duenio=" + dni_Duenio + ", ocupado=" + ocupado + ", numHab=" + numHab
 				+ ", numBany=" + numBany + ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes + ", tipo="
 				+ tipo + ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
 	}
