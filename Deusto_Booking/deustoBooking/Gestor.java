@@ -18,6 +18,8 @@ import java.util.TreeSet;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import utilidades.Cifrar;
+
 public class Gestor {
 
 	private static Set<Duenio> propietarios = new HashSet<>();
@@ -258,6 +260,8 @@ public class Gestor {
 		{
 			try {
 
+				contrasenya = Cifrar.cifrar(contrasenya);
+				
 				Class.forName("org.sqlite.JDBC");
 				conn = DriverManager.getConnection("jdbc:sqlite:db/Deusto_Booking.db");
 				System.out.println("Abre la DB");
@@ -273,7 +277,7 @@ public class Gestor {
 				List<String> contrasenyas = new ArrayList<>();
 				ResultSet rs2 = stmt.executeQuery(" SELECT Contrasenya_H FROM Huesped");
 				while (rs2.next()) {
-					usuarios.add(rs2.getString("Contrasenya_H"));
+					contrasenyas.add(rs2.getString("Contrasenya_H"));
 				}
 
 				if (usuarios.contains(dni) && contrasenyas.contains(contrasenya)
@@ -448,7 +452,7 @@ public class Gestor {
 			pst.setInt(3, duenio.getEdad());
 			pst.setString(4, duenio.getMail());
 			pst.setString(5, duenio.getTlfNum());
-			pst.setString(6, duenio.getContrasenya());
+			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
 			pst.setString(7, duenio.getCargo());
 			pst.executeUpdate();
 			System.out.println("Inserci�n correcta");
@@ -471,7 +475,7 @@ public class Gestor {
 			pst.setString(5, huesped.getTlfNum());
 			pst.setString(6, huesped.getCargo());
 			pst.setString(7, huesped.getNomEmpresa());
-			pst.setString(8, huesped.getContrasenya());
+			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
 			System.out.println("Inserci�n correcta");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
