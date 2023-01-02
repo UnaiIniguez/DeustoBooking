@@ -227,16 +227,16 @@ public class Gestor {
 	 * @param reserva = la reserva que desea anular
 	 *
 	 */
-	public void anularReserva(Huesped h , Reserva reserva) {
+	public void anularReserva(Huesped h , Reserva reserva)throws ReservaInexistenteException {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).remove(reserva);
 			
 		} else {
-			//Crear un problema o algo
+			throw new ReservaInexistenteException("No existe esa reserva");
 		}
 	}
 	
-	public void EditarFechaReserva(Huesped h , Reserva reserva, Date FechaEntrada, Date FechaSalida ) {
+	public void EditarFechaReserva(Huesped h , Reserva reserva, Date FechaEntrada, Date FechaSalida )throws ReservaInexistenteException {
 		if (reservas.containsKey(h.getDni())) {
 			ArrayList<Reserva> res = reservas.get(h.getDni());
 			for(Reserva r : res) {
@@ -249,7 +249,7 @@ public class Gestor {
 			reservas.put(h.getDni(), res);
 			
 		} else {
-			//Crear un problema o algo
+			throw new ReservaInexistenteException("No existe esa reserva");
 		}
 	}
 	
