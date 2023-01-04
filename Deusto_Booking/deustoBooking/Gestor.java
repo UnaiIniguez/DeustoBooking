@@ -442,8 +442,41 @@ public class Gestor {
 	
 	}
 	
-	public void eliminarInmueble(Inmueble inmueble) {
-		String borrar_sql = "DELETE FROM Inmueble WHERE id_Inmueble =" + inmueble.getId_Inmueble() + "ON DELETE CASCADE";
+	public void eliminarInmuebleBD(Inmueble inmueble) {
+		String s = "DELETE FROM Inmueble WHERE id_Inmueble =" + inmueble.getId_Inmueble() + "ON DELETE CASCADE;";
+		
+		try {
+			PreparedStatement eliminarSQL = conectar.prepareStatement(s);
+			eliminarSQL.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void editarNumBanInmuebleBD(Inmueble inmueble, int ban) {
+		String s = "UPDATE Inmueble SET numBany = " + ban + "WHERE id_Inmueble = " + inmueble.getId_Inmueble()+ ";";
+		
+		try {
+			PreparedStatement editarSQL = conectar.prepareStatement(s);
+			editarSQL.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void editarNumHabInmuebleBD(Inmueble inmueble, int Hab) {
+		String s = "UPDATE Inmueble SET numHabi = " + Hab + "WHERE id_Inmueble = " + inmueble.getId_Inmueble()+ ";";
+		
+		try {
+			PreparedStatement editarSQL = conectar.prepareStatement(s);
+			editarSQL.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
