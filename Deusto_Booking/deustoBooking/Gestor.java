@@ -439,7 +439,11 @@ public class Gestor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	
+	}
+	
+	public void eliminarInmueble(Inmueble inmueble) {
+		String borrar_sql = "DELETE FROM Inmueble WHERE id_Inmueble =" + inmueble.getId_Inmueble() + "ON DELETE CASCADE";
 	}
 
 	public static void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos

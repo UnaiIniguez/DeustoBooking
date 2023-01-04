@@ -122,9 +122,12 @@ public class Main {
 					// int maxHuespedes, float precioNoche, int ocupado)
 					
 					TipoVivienda tipo_vivienda = tipoVivienda(tipo);
-					Blob[] imagenes; 
-					imagenes = new Blob[4];
-					//imagenes = new Blob[foto_1,foto_2,foto_3,foto_4];
+					
+					ArrayList<Blob> imagenes = new ArrayList<Blob>();
+					imagenes.add(foto_1);
+					imagenes.add(foto_2);
+					imagenes.add(foto_3);
+					imagenes.add(foto_4);
 					
 					Gestor.getInmuebles().add(new Inmueble(id_Inmueble, dni_d, ubi,tipo_vivienda,m2,num_bany,num_hab,max_hu,precio,ocupado, imagenes));
 				}
