@@ -22,6 +22,13 @@ public class Reserva {
 	}
 
 
+	
+	public int getId_Reserva() {
+		return id_Reserva;
+	}
+
+
+
 	public int getId_Inmueble() {
 		return id_Inmueble;
 	}

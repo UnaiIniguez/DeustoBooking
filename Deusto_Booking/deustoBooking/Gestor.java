@@ -1,6 +1,7 @@
 package deustoBooking;
 
 import java.sql.Connection;
+
 import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
+
 
 import utilidades.Cifrar;
 
@@ -28,9 +29,9 @@ public class Gestor {
 
 	private static Set<Inmueble> inmuebles = new TreeSet<>(); // Las viviendas que hay en la pagina web
 
-	private Map<String, ArrayList<Reserva>> reservas = new HashMap<>(); // En este mapa se almacenaran todos los
-																			// huespedes y los inmuebles que tien // //
-																			// reservados.(Clave DNI)
+	private Map<String, ArrayList<Reserva>> reservas = new HashMap<>(); // En este mapa se almacenaran todas las
+																			// reservas. La clave será el DNI del huesped
+																			// que ha hecho esas reservas.
 	private static Connection conectar;
 
 	private static boolean isChangedP;// MArcador de cambio de Propietario
@@ -124,56 +125,81 @@ public class Gestor {
 
 	}
 
-//********************METODOS DEL ANFITRIÓN********************************
+//********************METODOS DEL DUENIO********************************
 
 	/**
 	 * 
 	 * Anyade un inmueble a la web
 	 * 
-	 * @param Duenio   = El duenio que quiere anyadir el inmueble
+	 * 
 	 * @param Inmueble = inmueble que quiere anyadir
 	 *
 	 */
-//	public void anadirInmueble(Duenio duenio, Inmueble inmueble) {
-//
-//		duenio.getInmuebles().add(inmueble);
-//		inmuebles.add(inmueble);
-//
-//	}
+	public void anadirInmueble( Inmueble inmueble) {
+
+		inmuebles.add(inmueble);
+		anyadirInmuebleBD(inmueble);
+		
+	}
 
 	/**
 	 * 
 	 * Borra un inmueble de la web
 	 * 
-	 * @param Duenio   = El duenio que quiere eliminar el inmueble
+	 *
 	 * @param Inmueble = inmueble que quiere eliminar
 	 *
 	 */
-//	public void borrarInmueble(Duenio duenio, Inmueble inmueble) {
-//
-//		duenio.getInmuebles().remove(inmueble);
-//		inmuebles.remove(inmueble);
-//
-//	}
+	public void eliminarInmueble( Inmueble inmueble) {
+
+		inmuebles.remove(inmueble);
+		eliminarInmuebleBD(inmueble);
+
+	}
 
 	/**
 	 * 
-	 * Editar el inmueble (Cambios en el espacio, mas habitaciones...)
+	 * Editar el numero de baños que tiene el inmueble 
 	 * 
-	 * @param Duenio   = El duenio que quiere editar el inmueble
-	 * @param Inmueble viejo = El viejo inmueble que se quiere editar
-	 * @param Inmueble nuevo = El inmueble con los cambios
+	 * @param 
+	 * @param Inmueble = El inmueble que se desea modificar
+	 * @param Baños = Nuevo numero de baños que tendrá el inmueble
 	 *
 	 */
-//	public void editarInmueble(Duenio duenio, Inmueble inmuebleviejo, Inmueble nuevoInmueble) {
-//
-//		duenio.getInmuebles().remove(inmuebleviejo);
-//		inmuebles.remove(inmuebleviejo);
-//
-//		duenio.getInmuebles().add(nuevoInmueble);
-//		inmuebles.add(nuevoInmueble);
-//
-//	}
+	public void editarNumBanInmueble(Inmueble inmueble, int Ban) {
+		
+		ArrayList<Inmueble> inm = new ArrayList<>(inmuebles);
+		for(Inmueble i : inm) {
+			if(i.getId_Inmueble() == inmueble.getId_Inmueble()) {
+				i.setNumBany(Ban);
+			}
+		}
+		editarNumBanInmuebleBD(inmueble, Ban);
+	}
+	
+	/**
+	 * 
+	 * Editar el numero de habitaciones que tiene el inmueble 
+	 * 
+	 * @param 
+	 * @param Inmueble = El inmueble que se desea modificar
+	 * @param Habitación = Nuevo numero de habitaciones que va a tener el inmueble
+	 *
+	 */
+	public void editarNumHabInmueble(Inmueble inmueble, int Hab) {
+		
+		ArrayList<Inmueble> inm = new ArrayList<>(inmuebles);
+		for(Inmueble i : inm) {
+			if(i.getId_Inmueble() == inmueble.getId_Inmueble()) {
+				i.setNumHab(Hab);
+			}
+		}
+		
+		editarNumHabInmuebleBD(inmueble, Hab);
+	}
+	
+	
+	
 
 	// ********************METODOS DEL HUESPED********************************
 	
@@ -211,11 +237,14 @@ public class Gestor {
 	public void reservar(Huesped h, Reserva reserva) {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).add(reserva);
+			reservarBD(reserva);
 			
 		} else {
 			reservas.put(h.getDni(), new ArrayList<Reserva>());
 			reservas.get(h.getDni()).add(reserva);
+			reservarBD(reserva);
 		}
+		
 	}
 	
 	
@@ -230,24 +259,35 @@ public class Gestor {
 	public void anularReserva(Huesped h , Reserva reserva)throws ReservaInexistenteException {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).remove(reserva);
-			
+			anularReservaBD(reserva);
 		} else {
 			throw new ReservaInexistenteException("No existe esa reserva");
 		}
 	}
 	
-	public void EditarFechaReserva(Huesped h , Reserva reserva, Date FechaEntrada, Date FechaSalida )throws ReservaInexistenteException {
+	/**
+	 * 
+	 * Cambiar una reserva de fechas
+	 * 
+	 * @param h = Huesped que desea cambiar la reserva
+	 * @param reserva = la reserva que desea modificar
+	 * @param Fecha_Entrada = Nueva fecha entrada que se quiere añadir
+	 * @param Fecha_Salida = Nueva fecha de salida que se quiere añadir
+	 *
+	 */
+	public void editarFechaReserva(Huesped h , Reserva reserva, Date FechaEntrada, Date FechaSalida )throws ReservaInexistenteException {
 		if (reservas.containsKey(h.getDni())) {
 			ArrayList<Reserva> res = reservas.get(h.getDni());
 			for(Reserva r : res) {
 				if(r.equals(reserva)) {
 					r.setFecha_Entrada(FechaEntrada);
-					r.setFecha_Salida(FechaSalida);				
+					r.setFecha_Salida(FechaSalida);		
+					
 				}
 			}
 			reservas.remove(h.getDni());
 			reservas.put(h.getDni(), res);
-			
+			editarFechaReservaBD( reserva, FechaEntrada, FechaSalida);
 		} else {
 			throw new ReservaInexistenteException("No existe esa reserva");
 		}
@@ -338,7 +378,7 @@ public class Gestor {
 			st.execute(sql_TablaDuenyo);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -396,18 +436,41 @@ public class Gestor {
 
 		datosTest();
 
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? );";
+		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?);";
 		try {
 			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setInt(1, 100);
-			pst.setInt(2, 20);
+			pst.setInt(1, 9999);
+			pst.setInt(2, 3);
 			pst.setInt(3, 1);
-			pst.setInt(4, 4);
-			pst.setInt(5, 2);
-			pst.setString(6, "Bilbao");
-			pst.setString(7, "Casa");
-			pst.setInt(8, 12);
-			pst.setInt(9, 11223344);
+			pst.setString(4, "Bilbao");
+			pst.setInt(5, 4);
+			pst.setString(6, "Casa");
+			pst.setFloat(7, 70);
+			pst.setFloat(8, (float) 55.99);
+			pst.setInt(9, 0);
+			pst.setString(10, "58000000S");
+			
+			pst.executeUpdate();
+			System.out.println("Insercion correcta");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
+
+		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
+		try {
+			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			pst.setString(1, duenio.getDni());
+			pst.setString(2, duenio.getNombre());
+			pst.setInt(3, duenio.getEdad());
+			pst.setString(4, duenio.getMail());
+			pst.setString(5, duenio.getTlfNum());
+			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
+			pst.setString(7, duenio.getCargo());
 			pst.executeUpdate();
 			System.out.println("Inserci�n correcta");
 		} catch (SQLException e) {
@@ -416,7 +479,8 @@ public class Gestor {
 		}
 
 	}
-
+	
+	
 	public static void anyadirInmuebleBD(Inmueble inmueble) { // A�ade un inmueble a la Base de Datos
 
 		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ? , ? , ? );";
@@ -436,7 +500,7 @@ public class Gestor {
 			pst.executeUpdate();
 			System.out.println("Insercion correcta");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	
@@ -478,29 +542,15 @@ public class Gestor {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 
-	public static void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
-
-		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setString(1, duenio.getDni());
-			pst.setString(2, duenio.getNombre());
-			pst.setInt(3, duenio.getEdad());
-			pst.setString(4, duenio.getMail());
-			pst.setString(5, duenio.getTlfNum());
-			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
-			pst.setString(7, duenio.getCargo());
-			pst.executeUpdate();
-			System.out.println("Inserci�n correcta");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void anyadirHuespedBD(Huesped huesped) { // A�ade un huesped a la Base de Datos
+	public void anyadirHuespedBD(Huesped huesped) { // A�ade un huesped a la Base de Datos
 
 		String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -513,15 +563,74 @@ public class Gestor {
 			pst.setString(6, huesped.getCargo());
 			pst.setString(7, huesped.getNomEmpresa());
 			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
+			pst.executeUpdate();
 			System.out.println("Inserci�n correcta");
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			
 		}
 
 	}
 
+	public void reservarBD( Reserva reserva) {
+		String datos_sql = "INSERT INTO Reserva VALUES(? , ? , ? , ? , ? );";
+		
+		try {
+			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			pst.setInt(0, reserva.getId_Reserva());
+			pst.setInt(1, reserva.getId_Inmueble());
+			
+			long dato1 = reserva.getFecha_Entrada().getTime();
+	        java.sql.Date fechaEntrada = new java.sql.Date(dato1);
+			pst.setDate(2,fechaEntrada);
+			
+			long dato2 = reserva.getFecha_Salida().getTime();
+	        java.sql.Date fechaSalida = new java.sql.Date(dato2);
+			pst.setDate(3,fechaSalida);
+			
+			pst.setString(4, reserva.getDni_Huesped());
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+	}
+	
+	
+	public void anularReservaBD(Reserva reserva) {
+		
+		String datos_sql = "DELETE FROM Reserva WHERE Id_Reserva = " + reserva.getId_Reserva() + ";";
+		
+		try {
+			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public void editarFechaReservaBD( Reserva reserva, Date FechaEntrada, Date FechaSalida) {
+		
+		long dato1 = FechaEntrada.getTime();
+        java.sql.Date entrada = new java.sql.Date(dato1);
+        long dato2 = FechaSalida.getTime();
+        java.sql.Date salida = new java.sql.Date(dato2);
+        
+		String datos_sql = "UPDATE Reserva SET fecha_Entrada = '" + entrada + "', fecha_Salida = '" + salida + "' WHERE Id_Reserva = " + reserva.getId_Reserva()+ ";";
+		try {
+			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 
 	
