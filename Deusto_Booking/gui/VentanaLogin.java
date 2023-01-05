@@ -110,7 +110,7 @@ public class VentanaLogin extends JFrame {
 		
 		@Override
 		public void focusLost(FocusEvent e) {
-			txtUsuario.setText("Nombre de Usuario");
+			txtUsuario.setText(null);
 		}
 		
 		@Override
