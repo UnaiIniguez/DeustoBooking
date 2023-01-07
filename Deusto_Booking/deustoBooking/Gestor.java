@@ -17,8 +17,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-
-
+import controlBD.GestorBD;
 import utilidades.Cifrar;
 
 public class Gestor {
@@ -34,6 +33,7 @@ public class Gestor {
 																			// que ha hecho esas reservas.
 	private static Connection conectar;
 
+	private GestorBD gestorBD;
 	private static boolean isChangedP;// MArcador de cambio de Propietario
 	private static boolean isChangedI;// Marcador de cambio de Inmueble
 
@@ -46,10 +46,10 @@ public class Gestor {
 	}
 
 	public Gestor() {
-		conectar();
+		gestorBD.conectar();
 		isChangedP = false;
 		isChangedI = false;
-		inicializarBD();
+		gestorBD.inicializarBD();
 
 	}
 
@@ -138,7 +138,7 @@ public class Gestor {
 	public void anadirInmueble( Inmueble inmueble) {
 
 		inmuebles.add(inmueble);
-		anyadirInmuebleBD(inmueble);
+		gestorBD.anyadirInmuebleBD(inmueble);
 		
 	}
 
@@ -153,7 +153,7 @@ public class Gestor {
 	public void eliminarInmueble( Inmueble inmueble) {
 
 		inmuebles.remove(inmueble);
-		eliminarInmuebleBD(inmueble);
+		gestorBD.eliminarInmuebleBD(inmueble);
 
 	}
 
@@ -174,7 +174,7 @@ public class Gestor {
 				i.setNumBany(Ban);
 			}
 		}
-		editarNumBanInmuebleBD(inmueble, Ban);
+		gestorBD.editarNumBanInmuebleBD(inmueble, Ban);
 	}
 	
 	/**
@@ -195,7 +195,7 @@ public class Gestor {
 			}
 		}
 		
-		editarNumHabInmuebleBD(inmueble, Hab);
+		gestorBD.editarNumHabInmuebleBD(inmueble, Hab);
 	}
 	
 	
@@ -237,12 +237,12 @@ public class Gestor {
 	public void reservar(Huesped h, Reserva reserva) {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).add(reserva);
-			reservarBD(reserva);
+			gestorBD.reservarBD(reserva);
 			
 		} else {
 			reservas.put(h.getDni(), new ArrayList<Reserva>());
 			reservas.get(h.getDni()).add(reserva);
-			reservarBD(reserva);
+			gestorBD.reservarBD(reserva);
 		}
 		
 	}
@@ -259,7 +259,7 @@ public class Gestor {
 	public void anularReserva(Huesped h , Reserva reserva)throws ReservaInexistenteException {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).remove(reserva);
-			anularReservaBD(reserva);
+			gestorBD.anularReservaBD(reserva);
 		} else {
 			throw new ReservaInexistenteException("No existe esa reserva");
 		}
@@ -287,7 +287,7 @@ public class Gestor {
 			}
 			reservas.remove(h.getDni());
 			reservas.put(h.getDni(), res);
-			editarFechaReservaBD( reserva, FechaEntrada, FechaSalida);
+			gestorBD.editarFechaReservaBD( reserva, FechaEntrada, FechaSalida);
 		} else {
 			throw new ReservaInexistenteException("No existe esa reserva");
 		}
@@ -338,303 +338,6 @@ public class Gestor {
 
 
 
-	// ========================Metodo para conenctarme a la Base de
-	// Datos======================================================================================================================================================
-
-	public Connection conectar() {
-		try {
-			Class.forName("org.sqlite.JDBC");
-
-			conectar = DriverManager.getConnection("jdbc:sqlite:Deusto_Booking.db");
-			System.out.println("Conexion establecida");
-			inicializarBD();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return conectar;
-
-	}
-
-	public void inicializarBD() {
-
-		String sql_TablaInmueble = " CREATE TABLE IF NOT EXISTS Inmueble (" + "Precio DECIMAL," + "Max_Hu INTEGER,"
-				+ "Ocupado INTEGER," + "Num_Hab INTEGER," + "Num_Bany INTEGER," + "Ubi TEXT," + "Tipo TEXT,"
-				+ "m2	DECIMAL," + "DNI_D INTEGER," + "PRIMARY KEY (Ubi) "
-				+ "FOREIGN KEY (DNI_D) REFERENCES Duenyo (DNI_D) );";
-
-		String sql_TablaHuesped = " CREATE TABLE IF NOT EXISTS Huesped (" + "DNI_H INTEGER," + "NOM_H TEXT,"
-				+ "EDAD_H INTEGER," + "MAIL_H TEXT," + "TLF_H TEXT," + "Cargo TEXT," + "NOM_EMP TEXT,"
-				+ "Contrasenya_H	TEXT," + "PRIMARY KEY (DNI_H) );";
-
-		String sql_TablaDuenyo = " CREATE TABLE IF NOT EXISTS Duenyo (" + "DNI_D TEXT," + "NOM_D TEXT,"
-				+ "EDAD_D INTEGER," + "MAIL_D TEXT," + "TLF_D INTEGER," + "Contrasenya	TEXT," + "Cargo TEXT,"
-				+ "PRIMARY KEY (DNI_D) );";
-
-		try {
-			Statement st = conectar.createStatement();
-			st.execute(sql_TablaInmueble);
-			st.execute(sql_TablaHuesped);
-			st.execute(sql_TablaDuenyo);
-
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void actualizarBD() {
-
-		// Este metodo detecta que tablas han sido modificadas y a continuacion borra la
-		// informacion
-		// antigua y guarda la nueva
-
-		if (isChangedP) {
-			String sql_TablaDuenyo = "DELETE from Duenyo;";
-
-			try {
-				Statement st = conectar.createStatement();
-				st.execute(sql_TablaDuenyo);
-				//guardarDatosBD(TipoBusqueda.DUENYO);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (isChangedI) {
-			String sql_TablaDuenyo = "DELETE from Inmueble;";
-
-			try {
-				Statement st = conectar.createStatement();
-				st.execute(sql_TablaDuenyo);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-//		if (isChangedH) {
-//			String sql_TablaDuenyo = "DELETE from Inmueble;";
-//
-//			try {
-//				Statement st = conectar.createStatement();
-//				st.execute(sql_TablaDuenyo);
-//				guardarDatosBD(TipoBusqueda.INMUEBLE);
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-
-
-		
-	}
-
-	// ================Test de la Base de Datos==========================
-
-	public void bdTest() {
-
-		datosTest();
-
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?);";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setInt(1, 9999);
-			pst.setInt(2, 3);
-			pst.setInt(3, 1);
-			pst.setString(4, "Bilbao");
-			pst.setInt(5, 4);
-			pst.setString(6, "Casa");
-			pst.setFloat(7, 70);
-			pst.setFloat(8, (float) 55.99);
-			pst.setInt(9, 0);
-			pst.setString(10, "58000000S");
-			
-			pst.executeUpdate();
-			System.out.println("Insercion correcta");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
-
-		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setString(1, duenio.getDni());
-			pst.setString(2, duenio.getNombre());
-			pst.setInt(3, duenio.getEdad());
-			pst.setString(4, duenio.getMail());
-			pst.setString(5, duenio.getTlfNum());
-			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
-			pst.setString(7, duenio.getCargo());
-			pst.executeUpdate();
-			System.out.println("Inserci�n correcta");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	
-	
-	public static void anyadirInmuebleBD(Inmueble inmueble) { // A�ade un inmueble a la Base de Datos
-
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ? , ? , ? );";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setInt(1, inmueble.getId_Inmueble());
-			pst.setInt(2, inmueble.getNumHab());
-			pst.setInt(3, inmueble.getNumBany());
-			pst.setString(4, inmueble.getUbicacion());
-			pst.setInt(5, inmueble.getMaxHuespedes());
-			pst.setString(6, inmueble.getTipo().toString());
-			pst.setFloat(7, inmueble.getMetrosCuadrados());
-			pst.setFloat(8, inmueble.getPrecioNoche());
-			pst.setInt(9, inmueble.getOcupado());
-			pst.setString(10, inmueble.getDni_Duenio());
-			//pst.setBlob(11, );
-			pst.executeUpdate();
-			System.out.println("Insercion correcta");
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
-	
-	}
-	
-	public void eliminarInmuebleBD(Inmueble inmueble) {
-		String s = "DELETE FROM Inmueble WHERE id_Inmueble =" + inmueble.getId_Inmueble() + "ON DELETE CASCADE;";
-		
-		try {
-			PreparedStatement eliminarSQL = conectar.prepareStatement(s);
-			eliminarSQL.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void editarNumBanInmuebleBD(Inmueble inmueble, int ban) {
-		String s = "UPDATE Inmueble SET numBany = " + ban + "WHERE id_Inmueble = " + inmueble.getId_Inmueble()+ ";";
-		
-		try {
-			PreparedStatement editarSQL = conectar.prepareStatement(s);
-			editarSQL.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void editarNumHabInmuebleBD(Inmueble inmueble, int Hab) {
-		String s = "UPDATE Inmueble SET numHabi = " + Hab + "WHERE id_Inmueble = " + inmueble.getId_Inmueble()+ ";";
-		
-		try {
-			PreparedStatement editarSQL = conectar.prepareStatement(s);
-			editarSQL.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-
-	public void anyadirHuespedBD(Huesped huesped) { // A�ade un huesped a la Base de Datos
-
-		String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setString(1, huesped.getDni());
-			pst.setString(2, huesped.getNombre());
-			pst.setInt(3, huesped.getEdad());
-			pst.setString(4, huesped.getMail());
-			pst.setString(5, huesped.getTlfNum());
-			pst.setString(6, huesped.getCargo());
-			pst.setString(7, huesped.getNomEmpresa());
-			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
-			pst.executeUpdate();
-			System.out.println("Inserci�n correcta");
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-
-	}
-
-	public void reservarBD( Reserva reserva) {
-		String datos_sql = "INSERT INTO Reserva VALUES(? , ? , ? , ? , ? );";
-		
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setInt(0, reserva.getId_Reserva());
-			pst.setInt(1, reserva.getId_Inmueble());
-			
-			long dato1 = reserva.getFecha_Entrada().getTime();
-	        java.sql.Date fechaEntrada = new java.sql.Date(dato1);
-			pst.setDate(2,fechaEntrada);
-			
-			long dato2 = reserva.getFecha_Salida().getTime();
-	        java.sql.Date fechaSalida = new java.sql.Date(dato2);
-			pst.setDate(3,fechaSalida);
-			
-			pst.setString(4, reserva.getDni_Huesped());
-			pst.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-	}
-	
-	
-	public void anularReservaBD(Reserva reserva) {
-		
-		String datos_sql = "DELETE FROM Reserva WHERE Id_Reserva = " + reserva.getId_Reserva() + ";";
-		
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-	}
-	
-	public void editarFechaReservaBD( Reserva reserva, Date FechaEntrada, Date FechaSalida) {
-		
-		long dato1 = FechaEntrada.getTime();
-        java.sql.Date entrada = new java.sql.Date(dato1);
-        long dato2 = FechaSalida.getTime();
-        java.sql.Date salida = new java.sql.Date(dato2);
-        
-		String datos_sql = "UPDATE Reserva SET fecha_Entrada = '" + entrada + "', fecha_Salida = '" + salida + "' WHERE Id_Reserva = " + reserva.getId_Reserva()+ ";";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-
-	
-	
 	
 
 }

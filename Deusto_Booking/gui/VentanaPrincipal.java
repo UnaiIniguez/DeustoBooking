@@ -218,7 +218,7 @@ public class VentanaPrincipal extends JFrame {
 				if (Gestor.isChangedP()) {
 					JOptionPane.showMessageDialog(null, "Cambios guardados", "Informacion",
 							JOptionPane.INFORMATION_MESSAGE);
-				Gestor.actualizarBD();
+				
 				
 				}
 			}

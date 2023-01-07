@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import controlBD.GestorBD;
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
 import deustoBooking.Huesped;
@@ -19,15 +20,17 @@ import gui.VentanaPrincipal;
 public class Main {
 
 	private static Gestor gestor;
+	private static GestorBD gestorBD;
 	private static VentanaPrincipal ventana;
 	private static Connection cn;
 
 	public static void main(String[] args) {
 
 		gestor = new Gestor();
+		gestorBD = new GestorBD();
 		ventana = new VentanaPrincipal(gestor);
 		ventana.setVisible(true);
-		cn = gestor.conectar();
+		cn = gestorBD.conectar();
 
 //========================Leer la Base de Datos===============================
 
@@ -41,7 +44,7 @@ public class Main {
 
 	private static void leerBaseDeDatos(Connection cn, TipoBusqueda tb) {
 
-		System.out.println("Ejecuci�n m�todo leerBaseDatos");
+		System.out.println("Ejecucion metodo leerBaseDatos");
 
 		String sqlQuery = "";
 		ResultSet rs = null;
