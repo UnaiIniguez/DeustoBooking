@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagLayout;
@@ -12,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -31,13 +34,17 @@ import com.toedter.calendar.JDateChooser;
 
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
+import deustoBooking.Inmueble;
+import deustoBooking.Reserva;
+import deustoBooking.TipoVivienda;
+
 
 public class VentanaPrincipal extends JFrame {
 
 	private Gestor gestor;
-
+	TipoVivienda tipo;
 	public VentanaPrincipal(Gestor g) {
-
+		
 		this.gestor = g;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(950, 650);
@@ -80,9 +87,9 @@ public class VentanaPrincipal extends JFrame {
 		JDateChooser diaLlegada = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
 		JLabel salida = new JLabel("SALIDA:");
 		JDateChooser diaSalida = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
-		JLabel numhuespedes = new JLabel("NÚMERO DE HUESPEDES:");
-		JComboBox comboBoxHuespedes = new JComboBox();
-		comboBoxHuespedes.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7+" }));
+		JLabel lbHuespedes = new JLabel("HUESPEDES:");
+		JTextField huespedes = new JTextField(5);
+		
 		JComboBox comboBoxTipoVivienda = new JComboBox();
 		comboBoxTipoVivienda.setModel(
 				new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
@@ -137,13 +144,51 @@ public class VentanaPrincipal extends JFrame {
 
 			}
 		});
-
+		
+		
+		comboBoxTipoVivienda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(comboBoxTipoVivienda.getSelectedIndex() == 1) {
+					tipo = TipoVivienda.PISO;
+				}else if(comboBoxTipoVivienda.getSelectedIndex() == 2) {
+					tipo = TipoVivienda.CHALET;
+				}else if(comboBoxTipoVivienda.getSelectedIndex() == 3) {	
+					tipo = TipoVivienda.ADOSADO;
+				}else if(comboBoxTipoVivienda.getSelectedIndex() == 4) {
+					tipo = TipoVivienda.ESTUDIO;
+				}
+			}
+		});
+		
+		
 		buscar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				VisualizarInmuebles ventana = new VisualizarInmuebles(gestor);
+				ArrayList<Inmueble> inmuebles = new ArrayList<>(gestor.getInmuebles());
+				Collection<ArrayList<Reserva>> listaReservas = gestor.getReservas().values();
+				ArrayList<Inmueble> seleccionadas = new ArrayList<>();
+				
+				for(Inmueble i : inmuebles) {
+					if(destinotxt.getText().equals( i.getUbicacion())) {
+						
+						for( ArrayList<Reserva> lr : listaReservas){
+							for(Reserva re : lr) {
+								if(diaLlegada.getDate().equals(re.getFecha_Entrada()) && diaLlegada.getDate().compareTo(diaSalida.getDate()) < 0 &&
+										diaSalida.getDate().equals(re.getFecha_Salida())) {
+									if( i.getMaxHuespedes() >= Integer.parseInt(huespedes.getText()) && i.getTipo().equals(tipo)) {
+										seleccionadas.add(i);
+									}
+								}
+							}
+						}	
+					}
+				}
+				
+				
+				VisualizarInmuebles ventana = new VisualizarInmuebles(gestor, seleccionadas);
 				ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventana.setVisible(true);
 
@@ -193,9 +238,9 @@ public class VentanaPrincipal extends JFrame {
 		panelSalida.add(diaSalida);
 		panelLlegada.add(llegada);
 		panelLlegada.add(diaLlegada);
-		panelHuesped.add(numhuespedes);
-		panelHuesped.add(vacio4);
-		panelHuesped.add(comboBoxHuespedes);
+		
+		panelHuesped.add(lbHuespedes);
+		panelHuesped.add(huespedes);
 		panelBuscar.add(buscar);
 		panelTipoVivienda.add(comboBoxTipoVivienda);
 
@@ -206,7 +251,9 @@ public class VentanaPrincipal extends JFrame {
 		add(panelCentral, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
 
-		setVisible(true);
+		
+		
+		
 	}
 
 	// Hacer un gurdado extra cuando se cierre la ventana principal(Por seguridad)
@@ -218,8 +265,7 @@ public class VentanaPrincipal extends JFrame {
 				if (Gestor.isChangedP()) {
 					JOptionPane.showMessageDialog(null, "Cambios guardados", "Informacion",
 							JOptionPane.INFORMATION_MESSAGE);
-				
-				
+									
 				}
 			}
 		});

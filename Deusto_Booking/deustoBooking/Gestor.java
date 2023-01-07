@@ -1,5 +1,6 @@
 package deustoBooking;
 
+import java.io.IOException;
 import java.sql.Connection;
 
 import java.util.Date;
@@ -16,12 +17,16 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 
 import controlBD.GestorBD;
 import utilidades.Cifrar;
 
 public class Gestor {
 
+	private static final Logger LOGGER = Logger.getLogger(Gestor.class.getName());
+	
 	private static Set<Duenio> propietarios = new HashSet<>();
 
 	private static Set<Huesped> huespedes = new HashSet<>(); // Guardará a todos los huespedes de la base de datos
@@ -31,9 +36,11 @@ public class Gestor {
 	private Map<String, ArrayList<Reserva>> reservas = new HashMap<>(); // En este mapa se almacenaran todas las
 																			// reservas. La clave será el DNI del huesped
 																			// que ha hecho esas reservas.
+	
+	
 	private static Connection conectar;
 
-	private GestorBD gestorBD;
+	private GestorBD gestorBD = new GestorBD();
 	private static boolean isChangedP;// MArcador de cambio de Propietario
 	private static boolean isChangedI;// Marcador de cambio de Inmueble
 
@@ -50,6 +57,16 @@ public class Gestor {
 		isChangedP = false;
 		isChangedI = false;
 		gestorBD.inicializarBD();
+		
+		FileHandler fileHandler;
+		try {
+			fileHandler = new FileHandler("log.txt" , false);
+			LOGGER.addHandler(fileHandler);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 
@@ -261,7 +278,9 @@ public class Gestor {
 			reservas.get(h.getDni()).remove(reserva);
 			gestorBD.anularReservaBD(reserva);
 		} else {
+			
 			throw new ReservaInexistenteException("No existe esa reserva");
+			
 		}
 	}
 	

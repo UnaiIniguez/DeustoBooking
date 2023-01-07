@@ -202,8 +202,8 @@ public class GestorBD {
 		String s = "DELETE FROM Inmueble WHERE id_Inmueble =" + inmueble.getId_Inmueble() + "ON DELETE CASCADE;";
 		
 		try {
-			PreparedStatement eliminarSQL = conectar.prepareStatement(s);
-			eliminarSQL.executeUpdate();
+			Statement eliminarSQL = conectar.createStatement();
+			eliminarSQL.executeUpdate(s);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -256,7 +256,7 @@ public class GestorBD {
 			pst.setString(7, huesped.getNomEmpresa());
 			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
 			pst.executeUpdate();
-			System.out.println("Inserci�n correcta");
+			System.out.println("Insercion correcta");
 			
 		} catch (SQLException e) {
 			
@@ -302,6 +302,7 @@ public class GestorBD {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	

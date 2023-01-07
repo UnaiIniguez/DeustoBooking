@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +16,7 @@ public class VisualizarInmuebles extends JFrame{
 		private Gestor gestor;
 		
 		
-		public VisualizarInmuebles(Gestor g) {
+		public VisualizarInmuebles(Gestor g, List Inmuebles) {
 			
 			this.gestor = g;
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

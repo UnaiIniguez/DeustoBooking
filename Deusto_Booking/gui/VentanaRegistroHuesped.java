@@ -122,7 +122,7 @@ public class VentanaRegistroHuesped extends JFrame {
 		
 		
 		//Especificaciones de ventana
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Registro Huesped");
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(173, 216, 230));

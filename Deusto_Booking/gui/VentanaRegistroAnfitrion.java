@@ -31,9 +31,11 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	private static JTextField txtpuesto = new JTextField(12);
 	private static JTextField txtTelefono = new JTextField(12);
 	private static JTextField txtContrasenya = new JTextField(12);
+	private static JTextField txtEdad = new JTextField(7);
 	private static JTextField txtmetros = new JTextField(12);
 	private static JTextField txtUbicacion= new JTextField(12);
 	private static JTextField txtPrecio = new JTextField(12);
+	private static JTextField txtCorreo = new JTextField(12);
 	private static JTextField txtMaxHuespedes = new JTextField(5);
 	
 	
@@ -50,7 +52,7 @@ public class VentanaRegistroAnfitrion extends JFrame {
 
 		// Creación de contenedores
 		JPanel panelInferior = new JPanel();
-		JPanel panelCentral = new JPanel(new GridLayout(6, 4));
+		JPanel panelCentral = new JPanel(new GridLayout(8, 4));
 		JPanel panelSuperior = new JPanel(new FlowLayout());
 
 		JPanel panelDNI = new JPanel();
@@ -59,22 +61,31 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		JPanel panelTrabajo = new JPanel();
 		JPanel panelTelefono = new JPanel();
 		JPanel panelContrasenya = new JPanel();
+		JPanel panelEdad = new JPanel();
 		JPanel panelMetros = new JPanel();
 		JPanel panelServicios = new JPanel();
 		JPanel panelOcupacion = new JPanel();
 		JPanel panelUbicacion = new JPanel();
 		JPanel panelTipoVivienda = new JPanel();
 		JPanel panelPrecio = new JPanel();
+		JPanel panelImagenes = new JPanel();
+		JPanel panelCorreo = new JPanel();
 
 		// Creación de objetos
 		JButton botonRegistrar = new JButton("Registrarse");
-
+		JButton imagen1 = new JButton("1");
+		JButton imagen2 = new JButton("2");
+		JButton imagen3 = new JButton("3");
+		JButton imagen4 = new JButton("4");
+		
+		
 		JLabel lbDNI = new JLabel("DNI:");
 		JLabel lbNombre = new JLabel("Nombre:");
 		JLabel lbApellidos = new JLabel("Apellidos:");
 		JLabel lbPuestoDeTrabajo = new JLabel("Puesto de trabajo:");
 		JLabel lbTelefono = new JLabel("Teléfono:");
 		JLabel lbContrasenya = new JLabel( "Contraseña:" );
+		JLabel lbEdad = new JLabel("Edad: ");
 		JLabel lbMetros2 = new JLabel("Metros cuadrados:");
 		JLabel lbNumHabi = new JLabel("N. Habitaciones:");
 		JLabel lbNumBan = new JLabel("N. baños:");
@@ -83,6 +94,8 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		JLabel lbUbicacion = new JLabel("Ubicacion:");
 		JLabel lbTipoVivienda = new JLabel("Tipo de vivienda:");
 		JLabel lbPrecio = new JLabel( " Precio por noche: " );
+		JLabel lbImagenes = new JLabel("Imagenes:");
+		JLabel lbCorreo = new JLabel("Gmail: ");
 		JLabel lbDatosPer = new JLabel("DATOS PERSONALES ");
 		JLabel lbVivienda = new JLabel("PRIMERA VIVIENDA");
 		JLabel lbEspacio = new JLabel("                                            ");
@@ -129,8 +142,15 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		panelTipoVivienda.add(boxTipoVivienda);
 		panelPrecio.add(lbPrecio);
 		panelPrecio.add(txtPrecio);
+		panelEdad.add(lbEdad);
+		panelEdad.add(txtEdad);
+		panelImagenes.add(imagen1);
+		panelImagenes.add(imagen2);
+		panelImagenes.add(imagen3);
+		panelImagenes.add(imagen4);
+		panelCorreo.add(lbCorreo);
+		panelCorreo.add(txtCorreo);
 		
-
 		// Insertar paneles en paneles
 		panelInferior.add(botonRegistrar);
 		panelCentral.add(panelDNI);
@@ -145,7 +165,10 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		panelCentral.add(panelTipoVivienda);
 		panelCentral.add(panelTrabajo);
 		panelCentral.add(panelPrecio);
-		
+		panelCentral.add(panelEdad);
+		panelCentral.add(lbImagenes);
+		panelCentral.add(panelCorreo);
+		panelCentral.add(panelImagenes);
 
 		panelSuperior.add(lbDatosPer);
 		panelSuperior.add(lbEspacio);
@@ -163,12 +186,12 @@ public class VentanaRegistroAnfitrion extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//A�ado un nuevo Duenyo
+				//Añado un nuevo Duenyo
 				Duenio nuevoDuenio = new Duenio();
 				nuevoDuenio.setDni(txtDNI.getText().toString());
 				nuevoDuenio.setCargo(txtpuesto.getText().toString());
 				nuevoDuenio.setContrasenya(txtContrasenya.getText().toString()); //Introducir campo para contrase�a
-				//nuevoDuenio.setEdad(txt); Introducir campo para edad
+				nuevoDuenio.setEdad(Integer.parseInt(txtEdad.getText())); 
 				//nuevoDuenio.setMail(txt); Introducir campo para email
 				nuevoDuenio.setNombre(txtNombre.getText().toString());
 				nuevoDuenio.setTlfNum(txtTelefono.getText().toString());
