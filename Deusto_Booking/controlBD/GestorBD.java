@@ -145,13 +145,13 @@ public class GestorBD {
 			pst.executeUpdate();
 			System.out.println("Insercion correcta");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
+	public void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
 
 		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
 		try {
@@ -166,14 +166,14 @@ public class GestorBD {
 			pst.executeUpdate();
 			System.out.println("Inserci�n correcta");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
 	}
 	
 	
-	public static void anyadirInmuebleBD(Inmueble inmueble) { // A�ade un inmueble a la Base de Datos
+	public void anyadirInmuebleBD(Inmueble inmueble) { // A�ade un inmueble a la Base de Datos
 
 		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ? , ? , ? );";
 		try {

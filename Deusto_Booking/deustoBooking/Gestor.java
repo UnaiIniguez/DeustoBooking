@@ -63,7 +63,7 @@ public class Gestor {
 			fileHandler = new FileHandler("log.txt" , false);
 			LOGGER.addHandler(fileHandler);
 		} catch (SecurityException | IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -105,9 +105,7 @@ public class Gestor {
 	public static void setChangedI(boolean isChangedI) {
 		Gestor.isChangedI = isChangedI;
 	}
-
-//**************************METODOS COMUNES**********************************************
-
+	
 	public Map<String, ArrayList<Reserva>> getReservas() {
 		return reservas;
 	}
@@ -116,34 +114,44 @@ public class Gestor {
 		return conectar;
 	}
 
-	/**
-	 * 
-	 * Iniciar sesión
-	 * 
-	 * @param Persona = La persona que desea iniciar sesión.
-	 *
-	 */
-	public boolean iniSesion(String dni, String contrasena) {
+//**************************METODOS COMUNES**********************************************
 
-		for (Duenio d : propietarios) {
-			if (d.getContrasenya() == contrasena && d.getDni() == dni) {
-				return true;
 
-			}
-		}
 
-		for (Huesped p : huespedes) {
-			if (p.getContrasenya() == contrasena && p.getDni() == dni) {
-				return true;
-			}
 
-		}
-		return false;
-
-	}
 
 //********************METODOS DEL DUENIO********************************
 
+	
+	
+	
+	public boolean anyadirDuenio ( Duenio duenio) {
+		
+		ArrayList<Duenio> p = new ArrayList<>(propietarios);
+		
+		if( p.contains(duenio)) {
+			return false;
+		}else {
+			Thread d = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					gestorBD.anyadirDuenyoBD(duenio);
+					
+				}
+			});
+			d.start();
+			
+			return true;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
 	/**
 	 * 
 	 * Anyade un inmueble a la web
@@ -155,7 +163,15 @@ public class Gestor {
 	public void anadirInmueble( Inmueble inmueble) {
 
 		inmuebles.add(inmueble);
-		gestorBD.anyadirInmuebleBD(inmueble);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				gestorBD.anyadirInmuebleBD(inmueble);
+				
+			}
+		});
+		t.start();
 		
 	}
 
@@ -170,7 +186,16 @@ public class Gestor {
 	public void eliminarInmueble( Inmueble inmueble) {
 
 		inmuebles.remove(inmueble);
-		gestorBD.eliminarInmuebleBD(inmueble);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				gestorBD.eliminarInmuebleBD(inmueble);
+				
+			}
+		});
+		t.start();
+		
 
 	}
 
@@ -191,7 +216,16 @@ public class Gestor {
 				i.setNumBany(Ban);
 			}
 		}
-		gestorBD.editarNumBanInmuebleBD(inmueble, Ban);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				gestorBD.editarNumBanInmuebleBD(inmueble, Ban);
+			}
+		});
+		t.start();
+		
 	}
 	
 	/**
@@ -211,8 +245,15 @@ public class Gestor {
 				i.setNumHab(Hab);
 			}
 		}
-		
-		gestorBD.editarNumHabInmuebleBD(inmueble, Hab);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				gestorBD.editarNumHabInmuebleBD(inmueble, Hab);
+			}
+		});
+		t.start();
 	}
 	
 	
@@ -242,7 +283,20 @@ public class Gestor {
 		if (!huespedes.contains(h)) {
 			huespedes.add(h);
 		}
+		Thread p = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				gestorBD.anyadirHuespedBD(h);
+				
+			}
+		});
+		p.start();
 	}
+	
+	
+	
+	
 	/**
 	 * 
 	 * Reservar
@@ -254,14 +308,22 @@ public class Gestor {
 	public void reservar(Huesped h, Reserva reserva) {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).add(reserva);
-			gestorBD.reservarBD(reserva);
+			
 			
 		} else {
 			reservas.put(h.getDni(), new ArrayList<Reserva>());
 			reservas.get(h.getDni()).add(reserva);
-			gestorBD.reservarBD(reserva);
+			
 		}
-		
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				gestorBD.reservarBD(reserva);
+				
+			}
+		});
+		t.start();
 	}
 	
 	
@@ -276,7 +338,16 @@ public class Gestor {
 	public void anularReserva(Huesped h , Reserva reserva)throws ReservaInexistenteException {
 		if (reservas.containsKey(h.getDni())) {
 			reservas.get(h.getDni()).remove(reserva);
-			gestorBD.anularReservaBD(reserva);
+			Thread r = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					gestorBD.anularReservaBD(reserva);
+					
+				}
+			});
+			r.start();
+			
 		} else {
 			
 			throw new ReservaInexistenteException("No existe esa reserva");
@@ -306,57 +377,23 @@ public class Gestor {
 			}
 			reservas.remove(h.getDni());
 			reservas.put(h.getDni(), res);
-			gestorBD.editarFechaReservaBD( reserva, FechaEntrada, FechaSalida);
+			Thread f = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					gestorBD.editarFechaReservaBD( reserva, FechaEntrada, FechaSalida);
+					
+				}
+			});
+			
+			f.start();
+			
 		} else {
 			throw new ReservaInexistenteException("No existe esa reserva");
 		}
 	}
 	
 	
-	public boolean iniciarSesionDB(String dni, String contrasenya) {
-
-		Connection conn = null;
-		{
-			try {
-
-				contrasenya = Cifrar.cifrar(contrasenya);
-				
-				Class.forName("org.sqlite.JDBC");
-				conn = DriverManager.getConnection("jdbc:sqlite:db/Deusto_Booking.db");
-				System.out.println("Abre la DB");
-
-				Statement stmt = conn.createStatement();
-
-				List<String> usuarios = new ArrayList<>();
-				ResultSet rs1 = stmt.executeQuery(" SELECT DNI_H FROM Huesped");
-				while (rs1.next()) {
-					usuarios.add(rs1.getString("DNI_H"));
-				}
-
-				List<String> contrasenyas = new ArrayList<>();
-				ResultSet rs2 = stmt.executeQuery(" SELECT Contrasenya_H FROM Huesped");
-				while (rs2.next()) {
-					contrasenyas.add(rs2.getString("Contrasenya_H"));
-				}
-
-				if (usuarios.contains(dni) && contrasenyas.contains(contrasenya)
-						&& usuarios.indexOf(dni) == contrasenyas.indexOf(contrasenya)) {
-					return true;
-				}
-
-				stmt.close();
-				conn.close();
-			} catch (Exception e) {
-				System.out.println("Error de conexion a la BD");
-			}
-
-		}
-		return false;
-
-	}
-
-
-
 	
 
 }
