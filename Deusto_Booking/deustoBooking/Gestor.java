@@ -27,11 +27,11 @@ public class Gestor {
 
 	private static final Logger LOGGER = Logger.getLogger(Gestor.class.getName());
 	
-	private static Set<Duenio> propietarios = new HashSet<>();
+	private  Set<Duenio> propietarios = new HashSet<>();
 
-	private static Set<Huesped> huespedes = new HashSet<>(); // Guardará a todos los huespedes de la base de datos
+	private  Set<Huesped> huespedes = new HashSet<>(); // Guardará a todos los huespedes de la base de datos
 
-	private static Set<Inmueble> inmuebles = new TreeSet<>(); // Las viviendas que hay en la pagina web
+	private  Set<Inmueble> inmuebles = new TreeSet<>(); // Las viviendas que hay en la pagina web
 
 	private Map<String, ArrayList<Reserva>> reservas = new HashMap<>(); // En este mapa se almacenaran todas las
 																			// reservas. La clave será el DNI del huesped
@@ -70,7 +70,7 @@ public class Gestor {
 
 	}
 
-	public static Set<Duenio> getPropietarios() {
+	public   Set<Duenio> getPropietarios() {
 		return propietarios;
 	}
 
@@ -78,12 +78,12 @@ public class Gestor {
 		propietarios = duenios;
 	}
 
-	public static Set<Inmueble> getInmuebles() {
+	public   Set<Inmueble> getInmuebles() {
 		return inmuebles;
 	}
 
-	public static void setInmuebles(Set<Inmueble> inmuebles) {
-		Gestor.inmuebles = inmuebles;
+	public void setInmuebles(Set<Inmueble> inmuebles) {
+		this.inmuebles = inmuebles;
 	}
 
 	public Map<String, ArrayList<Reserva>> getHuespedes() {
@@ -122,9 +122,35 @@ public class Gestor {
 
 //********************METODOS DEL DUENIO********************************
 
+	/**
+	 * 
+	 * Este metodo busca si un duenio esta en la memoria o no 
+	 * 
+	 * 
+	 * @param DNI = El dni que se desea buscar
+	 * @param Contrasenya = La clave del duenio
+	 *
+	 */
+	public boolean buscarDuenio(String dni, String contrasenya) {
+		ArrayList<Duenio> duenios = new ArrayList<>(getPropietarios());	
+		for(Duenio d : duenios) {
+			if(d.getDni() == dni && d.getContrasenya() == contrasenya ) {
+				return true;
+			}
+			
+		}
+		return false;
+		
+	}
 	
-	
-	
+	/**
+	 * 
+	 * Anyade un duenio
+	 * 
+	 * 
+	 * @param Duenio = El nuevo duenio que se quiere anyadir.
+	 *
+	 */
 	public boolean anyadirDuenio ( Duenio duenio) {
 		
 		ArrayList<Duenio> p = new ArrayList<>(propietarios);
@@ -147,8 +173,6 @@ public class Gestor {
 		
 		
 	}
-	
-	
 	
 	
 	

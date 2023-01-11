@@ -14,7 +14,7 @@ import deustoBooking.Huesped;
 import deustoBooking.Inmueble;
 import deustoBooking.TipoBusqueda;
 import deustoBooking.TipoVivienda;
-import gui.VentanaLogin;
+import gui.VentanaLogCliente;
 import gui.VentanaPrincipal;
 
 public class Main {
@@ -72,7 +72,7 @@ public class Main {
 					// Lo muestro por pantalla
 					System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo
 							+ " " + contrasenya);
-					Gestor.getPropietarios().add(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
+					gestor.anyadirDuenio(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
 				}
 
 				break;
@@ -132,7 +132,7 @@ public class Main {
 					imagenes.add(foto_3);
 					imagenes.add(foto_4);
 					
-					Gestor.getInmuebles().add(new Inmueble(id_Inmueble, dni_d, ubi,tipo_vivienda,m2,num_bany,num_hab,max_hu,precio,ocupado, imagenes));
+					gestor.anadirInmueble(new Inmueble(id_Inmueble, dni_d, ubi,tipo_vivienda,m2,num_bany,num_hab,max_hu,precio,ocupado, imagenes));
 				}
 
 				break;

@@ -25,6 +25,9 @@ import deustoBooking.TipoVivienda;
 
 public class VentanaRegistroAnfitrion extends JFrame {
 	
+	
+	private Gestor gestor;
+	
 	private static JTextField txtDNI = new JTextField(12);
 	private static JTextField txtNombre = new JTextField(12);
 	private static JTextField txtApellido = new JTextField(12);
@@ -40,8 +43,10 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	
 	
 
-	public VentanaRegistroAnfitrion() {
-
+	public VentanaRegistroAnfitrion(Gestor g) {
+		
+		this.gestor = g;
+		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(700, 500);
 		setLocationRelativeTo(null);
@@ -215,8 +220,8 @@ public class VentanaRegistroAnfitrion extends JFrame {
 				System.out.println(nuevoDuenio);
 				System.out.println(nuevoInmueble);
 				
-				Gestor.getPropietarios().add(nuevoDuenio);
-				Gestor.getInmuebles().add(nuevoInmueble);
+				gestor.anyadirDuenio(nuevoDuenio);
+				gestor.anadirInmueble(nuevoInmueble);
 				
 				Gestor.setChangedP(true);
 				Gestor.setChangedI(true);

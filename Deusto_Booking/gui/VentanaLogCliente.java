@@ -13,7 +13,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class VentanaLogin extends JFrame {
+public class VentanaLogCliente extends JFrame {
 
 
 
@@ -21,7 +21,7 @@ public class VentanaLogin extends JFrame {
 	JPasswordField pfContrasenya;
 	JTextField txtUsuario;
 	
-	public VentanaLogin(Gestor gestor) {
+	public VentanaLogCliente(Gestor gestor) {
 	
 		
 	g = gestor;
@@ -30,7 +30,7 @@ public class VentanaLogin extends JFrame {
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setTitle("Inicio de sesión");
 	setLocationRelativeTo(null);
-	setLayout(new GridLayout(4,1));
+	setLayout(new GridLayout(5,1));
 	setSize(300,450);
 	
 	//Creación de contenedores
@@ -38,7 +38,7 @@ public class VentanaLogin extends JFrame {
 	JPanel panel2 = new	JPanel(new FlowLayout());
 	JPanel panel3 = new	JPanel(new FlowLayout());
 	JPanel panel4 = new	JPanel(new FlowLayout());
-	
+	JPanel panelError = new JPanel();
 	
 	//Icono de Deusto Booking
 	ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/icono.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
@@ -49,7 +49,7 @@ public class VentanaLogin extends JFrame {
 
 	//Textfield de usuario
 	txtUsuario = new JTextField(15);
-	txtUsuario.setText("Nombre de usuario");
+	txtUsuario.setText("Introduccir DNI");
 	txtUsuario.setForeground(Color.GRAY);
 	panel2.add(txtUsuario);
 	panel2.setBackground(new Color(173, 216, 230));
@@ -60,13 +60,20 @@ public class VentanaLogin extends JFrame {
 	panel3.setBackground(new Color(173, 216, 230));
 	
 	//Boton de login
-	JButton btnLogin = new JButton("Iniciar sesión");
+	JButton btnLogin = new JButton("Iniciar como cliente");
 	btnLogin.setSize(200,100);
 	btnLogin.setLocation(300, 200);
 	panel4.add(btnLogin);
 	panel4.setBackground(new Color(173, 216, 230));
 	
 	final JButton BTNLOGIN = btnLogin;
+	
+	// Texto de error 
+	JLabel error = new JLabel("Contraseña o usuario erroneo");
+	error.setVisible(false);
+	panelError.add(error);
+	panelError.setBackground(new Color(173, 216, 230));
+	
 	SwingUtilities.invokeLater(new Runnable() {
 		
 		@Override
@@ -83,7 +90,9 @@ public class VentanaLogin extends JFrame {
 	add(panel1);
 	add(panel2);
 	add(panel3);
+	add(panelError);
 	add(panel4);
+	
 	
 	
 	//Eventos de ventana
@@ -91,18 +100,16 @@ public class VentanaLogin extends JFrame {
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == 10 || BTNLOGIN.isSelected()) {
-				if (g.iniSesion(txtUsuario.getText(), pfContrasenya.getText()) == true) {
-					System.out.println("Inicio de sesion correcto");
-					dispose();	
-				}else {
-					System.out.println("Inicio de sesion incorrecto");
+			if (e.getKeyCode() == 10) {
+				String dni = txtUsuario.getText();
+				String contrasenya = pfContrasenya.getText();
+				if(gestor.buscarDuenio(dni, contrasenya) == false) {
+					error.setVisible(true);
 				}
-				
-
 			}
-			
 		}
+			
+		
 	});
 	
 	
@@ -116,6 +123,22 @@ public class VentanaLogin extends JFrame {
 		@Override
 		public void focusGained(FocusEvent e) {
 			txtUsuario.setText(null);		
+		}
+	});
+	
+	btnLogin.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		
+			String dni = txtUsuario.getText();
+			String contrasenya = pfContrasenya.getText();
+			
+			if(gestor.buscarDuenio(dni, contrasenya) == false) {
+				error.setVisible(true);
+			}
+			
+			
 		}
 	});
 	
