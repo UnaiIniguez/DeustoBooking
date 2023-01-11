@@ -114,7 +114,7 @@ public class Gestor {
 		return conectar;
 	}
 
-//**************************METODOS COMUNES**********************************************
+
 
 
 
@@ -183,18 +183,23 @@ public class Gestor {
 	 * @param Inmueble = inmueble que quiere eliminar
 	 *
 	 */
-	public void eliminarInmueble( Inmueble inmueble) {
-
-		inmuebles.remove(inmueble);
-		Thread t = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				gestorBD.eliminarInmuebleBD(inmueble);
+	public void eliminarInmueble( Inmueble inmueble)throws InmuebleInexistenteException {
+		ArrayList<Inmueble> lista = new ArrayList<>(inmuebles);
+		
+		if(lista.contains(inmueble)) {
+			inmuebles.remove(inmueble);
+			Thread t = new Thread(new Runnable() {
 				
-			}
-		});
-		t.start();
+				@Override
+				public void run() {
+					gestorBD.eliminarInmuebleBD(inmueble);
+					
+				}
+			});
+			t.start();
+		}else {
+			throw new InmuebleInexistenteException("No existe un inmueble con ese ID");
+		}
 		
 
 	}
@@ -208,23 +213,17 @@ public class Gestor {
 	 * @param Baños = Nuevo numero de baños que tendrá el inmueble
 	 *
 	 */
-	public void editarNumBanInmueble(Inmueble inmueble, int Ban) {
+	public void editarNumBanInmueble(Inmueble inmueble, int Ban) throws InmuebleInexistenteException{
 		
 		ArrayList<Inmueble> inm = new ArrayList<>(inmuebles);
-		for(Inmueble i : inm) {
-			if(i.getId_Inmueble() == inmueble.getId_Inmueble()) {
-				i.setNumBany(Ban);
-			}
-		}
-		Thread t = new Thread(new Runnable() {
+		if(inm.contains(inmueble)) {
 			
-			@Override
-			public void run() {
-				
-				gestorBD.editarNumBanInmuebleBD(inmueble, Ban);
-			}
-		});
-		t.start();
+				inmueble.setNumBany(Ban);
+			
+		}else {
+			throw new InmuebleInexistenteException("No existe un inmueble con ese ID");
+		}
+		
 		
 	}
 	
@@ -237,23 +236,27 @@ public class Gestor {
 	 * @param Habitación = Nuevo numero de habitaciones que va a tener el inmueble
 	 *
 	 */
-	public void editarNumHabInmueble(Inmueble inmueble, int Hab) {
+	public void editarNumHabInmueble(Inmueble inmueble, int Hab) throws InmuebleInexistenteException{
 		
 		ArrayList<Inmueble> inm = new ArrayList<>(inmuebles);
-		for(Inmueble i : inm) {
-			if(i.getId_Inmueble() == inmueble.getId_Inmueble()) {
-				i.setNumHab(Hab);
-			}
-		}
-		Thread t = new Thread(new Runnable() {
+		
+		if(inm.contains(inmueble)){
+			inmueble.setNumHab(Hab);
 			
-			@Override
-			public void run() {
+			Thread t = new Thread(new Runnable() {
 				
-				gestorBD.editarNumHabInmuebleBD(inmueble, Hab);
-			}
-		});
-		t.start();
+				@Override
+				public void run() {
+					
+					gestorBD.editarNumHabInmuebleBD(inmueble, Hab);
+				}
+			});
+			t.start();
+		}else {
+			throw new InmuebleInexistenteException("No existe un inmueble con ese ID");
+		}
+		
+		
 	}
 	
 	

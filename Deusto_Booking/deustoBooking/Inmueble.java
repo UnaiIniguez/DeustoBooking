@@ -131,6 +131,20 @@ public Inmueble() {
 		this.dni_Duenio = duenio;
 	}
 
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Inmueble other = (Inmueble) obj;
+		return id_Inmueble == other.id_Inmueble;
+	}
+	
+
 	@Override
 	public String toString() {
 		return "Inmueble [duenio=" + dni_Duenio + ", ocupado=" + ocupado + ", numHab=" + numHab
