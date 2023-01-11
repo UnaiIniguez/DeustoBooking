@@ -1,12 +1,12 @@
+package Test;
+
 import static org.junit.Assert.*;
 
+import java.sql.Blob;
 import java.util.ArrayList;
-
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-
-import deustoBooking.Duenio;
-import deustoBooking.Huesped;
 import deustoBooking.Inmueble;
 import deustoBooking.TipoVivienda;
 
@@ -17,43 +17,77 @@ public class InmuebleTest {
 	
 	@Before
 	public void setUp() {
-<<<<<<< HEAD
-		ArrayList<Inmueble> inmueble= new ArrayList<Inmueble>(); 
-		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327","perro23",inmueble), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
-		
-=======
-		i = new Inmueble(new Duenio("58050922A","Javier",0, "Javier@gmail.com","62660030327", "perro23", "Jefe", new ArrayList<Inmueble>()), "Blas de Otero 58", TipoVivienda.PISO, 100f, 1, 3, 3,45f);
->>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
 	}
 	
 	
+	
+ @Test
+   public  void testGetDni_Duenio() {
+        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
+        String esperado = "12345678A";
+        String result = inmueble.getDni_Duenio();
+        assertEquals(esperado, result);
+    }
+ 
+	    @Test
+   public  void testSetDni_Duenio() {
+        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
+        inmueble.setDni_Duenio("87654321B");
+        String esperado = "87654321B";
+        String result = inmueble.getDni_Duenio();
+        assertEquals(esperado, result);
+    }
+	    
+ 	    
+	@Test
+    public void testGetId_Inmueble() {
+        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
+        int esperado = 1;
+        int result = inmueble.getId_Inmueble();
+        assertEquals(esperado, result);
+    }
+ 
+ 
+ @Test
+    public void testSetId_Inmueble() {
+        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
+        inmueble.setId_Inmueble(2);
+        int esperado = 2;
+        int result = inmueble.getId_Inmueble();
+        assertEquals(esperado, result);
+    }
+	    
+
+
+	   @Test
+    void testGetImagenes() {
+        List<Blob> imagenes = new ArrayList<>();
+        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, imagenes);
+        List<Blob> esperado = imagenes;
+        List<Blob> result = inmueble.getImagenes();
+        assertEquals(esperado, result);
+    } 
+	   
+	   
+	 
 	@Test 
 	public void testGetOcupado() {
 		assertEquals(false, i.getOcupado());
 	}
 	
-<<<<<<< HEAD
-	@Test
-	public void testSetOcupado() {
-		i.setOcupado(i.getOcupado());
-		assertEquals(false, i.getOcupado());
-	}
-=======
-//	@Test
-//	public void testSetOcupado() {
-//		i.setOcupado(true);
-//		assertEquals(true, i.getOcupado());
-//	}
->>>>>>> branch 'master' of https://github.com/UnaiIniguez/DeustoBooking.git
+	
+
 	@Test
 	public void testGetHuesped() {
-		assertEquals(null,i.getHuesped());
+		assertEquals(4,i.getMaxHuespedes());
 	}
 	@Test
 	public void testSetHuesped() {
-		i.setHuesped(i.getHuesped());
-		assertEquals(null, i.getHuesped());	
+		i.setMaxHuespedes(i.getMaxHuespedes());
+		assertEquals(4, i.getMaxHuespedes());	
 	}
+	
+	
 	@Test
 	public void testGetNumHab() {
 		assertEquals(3, i.getNumHab());
@@ -63,6 +97,8 @@ public class InmuebleTest {
 		i.setNumHab(i.getNumHab());
 		assertEquals(3, i.getNumHab());
 	}
+	
+	
 	@Test
 	public void testGetNumBany() {
 		assertEquals(1, i.getNumBany());
@@ -72,6 +108,8 @@ public class InmuebleTest {
 		i.setNumBany( i.getNumBany());
 		assertEquals(1, i.getNumBany());
 	}
+	
+	
 	@Test
 	public void testGetMaxHuespedes() {
 		assertEquals(3, i.getMaxHuespedes());
@@ -81,11 +119,12 @@ public class InmuebleTest {
 		i.setMaxHuespedes(i.getMaxHuespedes());
 		assertEquals(3,i.getMaxHuespedes());
 	}
+	
+
 	@Test
 	public void testGetMetrosCuadrados() {
 		assertEquals(100f,(float) i.getMetrosCuadrados(),0.01f);
 	}
-	
 
 	@Test
 	public void testGetUbicacion() {

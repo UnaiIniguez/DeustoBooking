@@ -53,6 +53,9 @@ public Inmueble() {
 	public int getId_Inmueble() {
 		return id_Inmueble;
 	}
+	public void setId_Inmueble(int id_Inmueble) {
+		this.id_Inmueble = id_Inmueble;
+	}
 
 	public List<Blob> getImagenes() {
 		return imagenes;

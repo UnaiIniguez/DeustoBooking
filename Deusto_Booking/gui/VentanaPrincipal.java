@@ -72,8 +72,8 @@ public class VentanaPrincipal extends JFrame {
 		// Creación de componentes
 
 		JButton regisDuenio = new JButton("Hazte anfitrión");
-		JButton iniSesionCl = new JButton("Ver reservas");
-		JButton iniSesionAf = new JButton("Ver mis casas");
+		JButton iniSesionCl = new JButton("Iniciar como cliente");
+		JButton iniSesionAf = new JButton("Iniciar como anfitrión");
 		JButton regisCliente = new JButton("Hazte cliente");
 		JButton buscar = new JButton("Buscar");
 		JLabel vacio1 = new JLabel("       ");
@@ -116,7 +116,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion(gestor);
+				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
 				ventana.setVisible(true);
 
 			}
@@ -126,7 +126,7 @@ public class VentanaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogCliente ventanaInicio = new VentanaLogCliente(gestor);
+				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
 
@@ -138,7 +138,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				VentanaLogAnfitrion ventanaInicio = new VentanaLogAnfitrion(gestor);
+				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
 
@@ -188,7 +188,8 @@ public class VentanaPrincipal extends JFrame {
 				}
 				
 				
-				VisualizarInmuebles ventana = new VisualizarInmuebles(gestor, seleccionadas);
+				//VisualizarInmuebles ventana = new VisualizarInmuebles(gestor, seleccionadas);
+				VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, inmuebles);
 				ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventana.setVisible(true);
 
