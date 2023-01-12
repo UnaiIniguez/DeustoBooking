@@ -1,6 +1,7 @@
 package controlBD;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -108,11 +109,28 @@ public class GestorBD {
 				+ "PRIMARY KEY (DNI_D) );";
 
 		try {
+			conectar();
+			
+			DatabaseMetaData meta = conectar.getMetaData();
+			
+			ResultSet rs = meta.getTables(null, null, null, new String[] { "TABLE" });
+			
+			int tablas = 0;
+			
+			while (rs.next()) {
+				tablas++;
+			}
+			
+			
+			if (tablas == 0) {
 			Statement st = conectar.createStatement();
 			st.execute(sql_TablaInmueble);
 			st.execute(sql_TablaHuesped);
 			st.execute(sql_TablaDuenyo);
-
+			}
+			
+			conectar.close();
+			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
