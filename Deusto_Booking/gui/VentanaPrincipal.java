@@ -72,8 +72,8 @@ public class VentanaPrincipal extends JFrame {
 		// Creación de componentes
 
 		JButton regisDuenio = new JButton("Hazte anfitrión");
-		JButton iniSesionCl = new JButton("Iniciar como cliente");
-		JButton iniSesionAf = new JButton("Iniciar como anfitrión");
+		JButton iniSesionCl = new JButton("Ver reservas");
+		JButton iniSesionAf = new JButton("Ver mis casas");
 		JButton regisCliente = new JButton("Hazte cliente");
 		JButton buscar = new JButton("Buscar");
 		JLabel vacio1 = new JLabel("       ");
@@ -187,11 +187,15 @@ public class VentanaPrincipal extends JFrame {
 					}
 				}
 				
+				if(seleccionadas.isEmpty()) {
+					System.out.println("No hay casas que cumplan esas caracteristicas");
+				}else {
+					VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas);
+					ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+					ventana.setVisible(true);
+				}
 				
-				//VisualizarInmuebles ventana = new VisualizarInmuebles(gestor, seleccionadas);
-				VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, inmuebles);
-				ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				ventana.setVisible(true);
+				
 
 			}
 		});
