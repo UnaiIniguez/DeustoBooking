@@ -56,8 +56,8 @@ public class VentanaLogAnfitrion extends JFrame{
 
 	//Textfield de usuario
 	txtUsuario = new JTextField(15);
-	txtUsuario.setText("Introduccir DNI");
-	txtUsuario.setForeground(Color.GRAY);
+	//txtUsuario.setText("Introduccir DNI");
+	txtUsuario.setForeground(Color.BLACK);
 	panelUsuario.add(txtUsuario);
 	panelUsuario.setBackground(new Color(173, 216, 230));
 		
@@ -75,20 +75,14 @@ public class VentanaLogAnfitrion extends JFrame{
 		
 	final JButton BTNLOGIN = btnLogin;
 	
-	// Texto de error 
+	// Label de error 
 	JLabel error = new JLabel("Contraseña o usuario erroneo");
 	error.setVisible(false);
-	panelError.add(error);
 	panelError.setBackground(new Color(173, 216, 230));
+	ImageIcon logoError = new ImageIcon(new ImageIcon("imagenes/error_img.jpg").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+	error.setIcon(logoError);
+	panelError.add(error);
 	
-	SwingUtilities.invokeLater(new Runnable() {
-			
-		@Override
-		public void run() {
-			BTNLOGIN.requestFocus();
-				
-		}
-	});
 		
 
 	//Anyadir los contenedores 
@@ -122,18 +116,7 @@ public class VentanaLogAnfitrion extends JFrame{
 	});
 		
 		
-	txtUsuario.addFocusListener(new FocusListener() {
-			
-		@Override
-		public void focusLost(FocusEvent e) {
-			txtUsuario.setText(null);
-		}
-			
-		@Override
-		public void focusGained(FocusEvent e) {
-			txtUsuario.setText(null);		
-		}
-	});
+	
 		
 	
 	btnLogin.addActionListener(new ActionListener() {
