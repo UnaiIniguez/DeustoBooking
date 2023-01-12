@@ -50,6 +50,8 @@ public Inmueble() {
 	public String getDni_Duenio() {
 		return dni_Duenio;
 	}
+	
+
 	public int getId_Inmueble() {
 		return id_Inmueble;
 	}

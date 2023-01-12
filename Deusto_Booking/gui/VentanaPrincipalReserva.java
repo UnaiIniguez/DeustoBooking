@@ -24,99 +24,283 @@ import javax.swing.table.DefaultTableModel;
 
 import deustoBooking.Gestor;
 import deustoBooking.Inmueble;
-import deustoBooking.TipoVivienda;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
+import java.awt.EventQueue;
+
+import javax.swing.AbstractListModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.border.LineBorder;
+
+import javax.swing.JTextField;
+import javax.swing.ListModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 public class VentanaPrincipalReserva extends JFrame {
 
-	/**
-	* 
-	*/
-	private static final long serialVersionUID = 1L;
+	private static class ListModelInmuebles extends AbstractListModel {
 
-	private DefaultTableModel mFotos = new DefaultTableModel(new Object[] { "Propietario", "N.Habitaciones", "Fecha" },
-			0);
-	private ArrayList<JLabelAjustado> imagenes = new ArrayList<>();
-	DefaultListModel<String> modeloCasas = new DefaultListModel<>();
-	private JList<String> lCasas = new JList(modeloCasas);
-	Gestor gestor;
-	JPanel pnlInformacion;
-	JLabel propietario;
-	JLabel habitaciones;
-	JLabel fecha;
-	JPanel pnlImagenes;
+		private ArrayList<Inmueble> lista = new ArrayList<>();
+
+		ListModelInmuebles(ArrayList<Inmueble> seleccionadas) {
+			for (Inmueble inmueble : seleccionadas) {
+				System.out.println("..");
+				lista.add(inmueble);
+			}
+
+		}
+
+		@Override
+		public int getSize() {
+			return lista.size();
+		}
+
+		@Override
+		public String getElementAt(int index) {
+			Inmueble i = lista.get(index);
+			return Integer.toString(i.getId_Inmueble());
+		}
+
+		public Inmueble getInmueble(int index) {
+			return lista.get(index);
+		}
+	}
+
+	private JPanel contentPane;
+	private JTextField txtNumHab, txtNumBany, txtUbicacion, txtMaxHuespedes;
+	private JTextField txtTipo, txtMetros, txtPrecio, txtOcupado;
+
+	private ArrayList<JLabel> lblImages;
+	private ListModelInmuebles modeloCasas;
+	private JList lstCasas;
 
 	public VentanaPrincipalReserva(Gestor g, ArrayList<Inmueble> seleccionadas) {
 
-		gestor = g;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(900, 600);
+		setSize(800, 600);
 		setTitle("Ventana de Reservas");
 
-		JPanel pnlCasas = new JPanel();
-		JLabel texto = new JLabel("Casas");
-		pnlCasas.add(texto);
-		pnlCasas.add(lCasas);
-		for (Inmueble inmueble : seleccionadas) {
-			System.out.println("..");
-			modeloCasas.addElement(inmueble.getId_Inmueble() + " " + inmueble.getUbicacion());
-		}
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		pnlImagenes = new JPanel();
-		pnlImagenes.setLayout(new GridLayout(2, 2));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
-		JLabel l1 = new JLabel("Imagen 1");
-		JLabel l2 = new JLabel("Imagen 2");
-		JLabel l3 = new JLabel("Imagen 3");
-		JLabel l4 = new JLabel("Imagen 4");
-		pnlImagenes.add(l1);
-		pnlImagenes.add(l2);
-		pnlImagenes.add(l3);
-		pnlImagenes.add(l4);
+		JLabel lblNewLabel = new JLabel("Listado de inmuebles");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setBounds(36, 11, 163, 14);
+		contentPane.add(lblNewLabel);
 
-		JPanel pnlInformacion = new JPanel();
-		pnlInformacion.setLayout(new BoxLayout(pnlInformacion, BoxLayout.Y_AXIS));
-		propietario = new JLabel("Propietario: ");
-		habitaciones = new JLabel("Habitaciones: ");
-		fecha = new JLabel("Fecha: ");
-		pnlInformacion.add(propietario);
-		pnlInformacion.add(habitaciones);
-		pnlInformacion.add(fecha);
+		modeloCasas = new ListModelInmuebles(seleccionadas);
+		lstCasas = new JList(modeloCasas);
+		lstCasas.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int selection = lstCasas.getSelectedIndex();
+				if (selection != -1) {
+					Inmueble i = modeloCasas.getInmueble(selection);
+
+					txtNumHab.setText(i.getNumHab() + "");
+					txtNumBany.setText(i.getNumBany() + "");
+					txtUbicacion.setText(i.getUbicacion());
+					txtMaxHuespedes.setText(i.getMaxHuespedes() + "");
+					txtTipo.setText(i.getTipo() + "");
+					txtMetros.setText(i.getMetrosCuadrados() + "");
+					txtPrecio.setText(i.getPrecioNoche() + "");
+					txtOcupado.setText(i.getOcupado() + "");
+				}
+			}
+		});
+		lstCasas.setBounds(10, 36, 215, 512);
+		contentPane.add(lstCasas);
+
+		lblImages = new ArrayList<>(4);
+		JLabel lblImage = new JLabel("");
+		lblImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblImage.setBounds(233, 36, 268, 193);
+		contentPane.add(lblImage);
+		lblImages.add(lblImage);
+
+		lblImage = new JLabel("");
+		lblImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblImage.setBounds(506, 36, 268, 193);
+		contentPane.add(lblImage);
+		lblImages.add(lblImage);
+
+		lblImage = new JLabel("");
+		lblImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblImage.setBounds(233, 240, 268, 193);
+		contentPane.add(lblImage);
+		lblImages.add(lblImage);
+
+		lblImage = new JLabel("");
+		lblImage.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblImage.setBounds(506, 240, 268, 193);
+		contentPane.add(lblImage);
+		lblImages.add(lblImage);
+
+		JLabel lblNewLabel_1_1 = new JLabel("Ubicación:");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_1_1.setBounds(235, 448, 101, 14);
+		contentPane.add(lblNewLabel_1_1);
+
+		txtUbicacion = new JTextField();
+		txtUbicacion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtUbicacion.setBounds(346, 444, 120, 20);
+		txtUbicacion.setColumns(10);
+		contentPane.add(txtUbicacion);
+
+		JLabel lblNewLabel_2_1 = new JLabel("Habitaciones:");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_1.setBounds(235, 473, 101, 14);
+		contentPane.add(lblNewLabel_2_1);
+
+		txtNumHab = new JTextField();
+		txtNumHab.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtNumHab.setBounds(346, 469, 120, 20);
+		txtNumHab.setColumns(10);
+		contentPane.add(txtNumHab);
+
+		JLabel lblNewLabel_2_2 = new JLabel("Baños:");
+		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_2.setBounds(235, 498, 101, 14);
+		contentPane.add(lblNewLabel_2_2);
+
+		txtNumBany = new JTextField();
+		txtNumBany.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtNumBany.setBounds(346, 494, 120, 20);
+		txtNumBany.setColumns(10);
+		contentPane.add(txtNumBany);
+
+		JLabel lblNewLabel_2_3 = new JLabel("Máx.Huéspedes:");
+		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_3.setBounds(235, 523, 101, 14);
+		contentPane.add(lblNewLabel_2_3);
+
+		txtMaxHuespedes = new JTextField();
+		txtMaxHuespedes.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtMaxHuespedes.setBounds(346, 519, 120, 20);
+		txtMaxHuespedes.setColumns(10);
+		contentPane.add(txtMaxHuespedes);
+
+		JLabel lblNewLabel_2 = new JLabel("Ocupado:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2.setBounds(490, 521, 67, 14);
+		contentPane.add(lblNewLabel_2);
+
+		txtOcupado = new JTextField();
+		txtOcupado.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtOcupado.setColumns(10);
+		txtOcupado.setBounds(559, 519, 120, 20);
+		contentPane.add(txtOcupado);
+
+		JLabel lblNewLabel_2_4 = new JLabel("Precio:");
+		lblNewLabel_2_4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_4.setBounds(490, 496, 67, 14);
+		contentPane.add(lblNewLabel_2_4);
+
+		txtPrecio = new JTextField();
+		txtPrecio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtPrecio.setColumns(4);
+		txtPrecio.setBounds(559, 494, 120, 20);
+		contentPane.add(txtPrecio);
+
+		JLabel lblNewLabel_2_5 = new JLabel("Metros:");
+		lblNewLabel_2_5.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_5.setBounds(490, 471, 67, 14);
+		contentPane.add(lblNewLabel_2_5);
+
+		txtMetros = new JTextField();
+		txtMetros.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtMetros.setColumns(4);
+		txtMetros.setBounds(559, 469, 120, 20);
+		contentPane.add(txtMetros);
+
+		JLabel lblNewLabel_1 = new JLabel("Tipo:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_1.setBounds(490, 444, 67, 14);
+		contentPane.add(lblNewLabel_1);
+
+		txtTipo = new JTextField();
+		txtTipo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtTipo.setColumns(10);
+		txtTipo.setBounds(559, 444, 120, 20);
+		contentPane.add(txtTipo);
 
 		JButton btnReservar = new JButton("Reservar");
-
-		JPanel pnlDerecho = new JPanel();
-		pnlDerecho.setLayout(new BoxLayout(pnlDerecho, BoxLayout.Y_AXIS));
-		pnlDerecho.add(pnlImagenes);
-		pnlDerecho.add(pnlInformacion);
-		pnlDerecho.add(btnReservar);
-
-		setLayout(new GridBagLayout());
-		GridBagConstraints c1 = new GridBagConstraints();
-		c1.fill = GridBagConstraints.HORIZONTAL;
-		c1.weightx = 0.25;
-		c1.gridx = 0;
-		c1.gridy = 0;
-		c1.gridwidth = 1;
-		c1.gridheight = 1;
-		c1.weighty = 1.0;
-		c1.fill = GridBagConstraints.VERTICAL;
-		add(pnlCasas, c1);
-
-		GridBagConstraints c2 = new GridBagConstraints();
-		c2.fill = GridBagConstraints.BOTH;
-		c2.weightx = 0.75;
-		c2.gridx = 1;
-		c2.gridy = 0;
-		c2.gridwidth = 1;
-		c2.gridheight = 1;
-		c2.weighty = 1.0;
-		c2.fill = GridBagConstraints.BOTH;
-		add(pnlDerecho, c2);
+		btnReservar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnReservar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnReservar.setBounds(685, 467, 89, 45);
+		contentPane.add(btnReservar);
 
 	}
+
+	/*
+	 * public class VentanaPrincipalReserva extends JFrame {
+	 * 
+	 * private static final long serialVersionUID = 1L;
+	 * 
+	 * private DefaultTableModel mFotos = new DefaultTableModel(new Object[] {
+	 * "Propietario", "N.Habitaciones", "Fecha" }, 0); private
+	 * ArrayList<JLabelAjustado> imagenes = new ArrayList<>();
+	 * DefaultListModel<String> modeloCasas = new DefaultListModel<>(); private
+	 * JList<String> lCasas = new JList<String>(modeloCasas); JPanel pnlInformacion;
+	 * JLabel propietario; JLabel habitaciones; JLabel fecha; JPanel pnlImagenes;
+	 * 
+	 * public VentanaPrincipalReserva(Gestor g, ArrayList<Inmueble> seleccionadas) {
+	 * 
+	 * setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); setSize(900, 600);
+	 * setTitle("Ventana de Reservas");
+	 * 
+	 * JPanel pnlCasas = new JPanel(); JLabel texto = new JLabel("Casas");
+	 * pnlCasas.add(texto); pnlCasas.add(lCasas); for (Inmueble inmueble :
+	 * seleccionadas) { System.out.println("..");
+	 * modeloCasas.addElement(inmueble.getId_Inmueble() + " " +
+	 * inmueble.getUbicacion()); }
+	 * 
+	 * pnlImagenes = new JPanel(); pnlImagenes.setLayout(new GridLayout(2, 2));
+	 * 
+	 * JLabel l1 = new JLabel("Imagen 1"); JLabel l2 = new JLabel("Imagen 2");
+	 * JLabel l3 = new JLabel("Imagen 3"); JLabel l4 = new JLabel("Imagen 4");
+	 * pnlImagenes.add(l1); pnlImagenes.add(l2); pnlImagenes.add(l3);
+	 * pnlImagenes.add(l4);
+	 * 
+	 * JPanel pnlInformacion = new JPanel(); pnlInformacion.setLayout(new
+	 * BoxLayout(pnlInformacion, BoxLayout.Y_AXIS)); propietario = new
+	 * JLabel("Propietario: "); habitaciones = new JLabel("Habitaciones: "); fecha =
+	 * new JLabel("Fecha: "); pnlInformacion.add(propietario);
+	 * pnlInformacion.add(habitaciones); pnlInformacion.add(fecha);
+	 * 
+	 * 
+	 * JButton btnReservar = new JButton("Reservar");
+	 * 
+	 * JPanel pnlDerecho = new JPanel(); pnlDerecho.setLayout(new
+	 * BoxLayout(pnlDerecho, BoxLayout.Y_AXIS)); pnlDerecho.add(pnlImagenes);
+	 * pnlDerecho.add(pnlInformacion); pnlDerecho.add(btnReservar);
+	 * 
+	 * setLayout(new GridBagLayout()); GridBagConstraints c1 = new
+	 * GridBagConstraints(); c1.fill = GridBagConstraints.HORIZONTAL; c1.weightx =
+	 * 0.25; c1.gridx = 0; c1.gridy = 0; c1.gridwidth = 1; c1.gridheight = 1;
+	 * c1.weighty = 1.0; c1.fill = GridBagConstraints.VERTICAL; add(pnlCasas, c1);
+	 * 
+	 * GridBagConstraints c2 = new GridBagConstraints(); c2.fill =
+	 * GridBagConstraints.BOTH; c2.weightx = 0.75; c2.gridx = 1; c2.gridy = 0;
+	 * c2.gridwidth = 1; c2.gridheight = 1; c2.weighty = 1.0; c2.fill =
+	 * GridBagConstraints.BOTH; add(pnlDerecho, c2);
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 
 	private static class JLabelAjustado extends JLabel {
 		private ImageIcon imagen;
@@ -181,6 +365,5 @@ public class VentanaPrincipalReserva extends JFrame {
 			}
 		}
 	}
-	
-	
+
 }
