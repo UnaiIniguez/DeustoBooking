@@ -116,7 +116,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
+				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion(gestor);
 				ventana.setVisible(true);
 
 			}
@@ -126,7 +126,7 @@ public class VentanaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
+				VentanaLogCliente ventanaInicio = new VentanaLogCliente(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
 
@@ -138,7 +138,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
+				VentanaLogAnfitrion ventanaInicio = new VentanaLogAnfitrion(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
 

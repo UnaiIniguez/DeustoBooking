@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 import deustoBooking.Gestor;
 import deustoBooking.Inmueble;
+import deustoBooking.TipoVivienda;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -40,6 +41,7 @@ public class VentanaPrincipalReserva extends JFrame {
 	private ArrayList<JLabelAjustado> imagenes = new ArrayList<>();
 	DefaultListModel<String> modeloCasas = new DefaultListModel<>();
 	private JList<String> lCasas = new JList(modeloCasas);
+	Gestor gestor;
 	JPanel pnlInformacion;
 	JLabel propietario;
 	JLabel habitaciones;
@@ -48,6 +50,7 @@ public class VentanaPrincipalReserva extends JFrame {
 
 	public VentanaPrincipalReserva(Gestor g, ArrayList<Inmueble> seleccionadas) {
 
+		gestor = g;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(900, 600);
 		setTitle("Ventana de Reservas");
@@ -178,5 +181,6 @@ public class VentanaPrincipalReserva extends JFrame {
 			}
 		}
 	}
-
+	
+	
 }
