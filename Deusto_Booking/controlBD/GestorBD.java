@@ -52,19 +52,24 @@ public class GestorBD {
 
 	public void inicializarBD() {
 
-		String sql_TablaInmueble = " CREATE TABLE IF NOT EXISTS Inmueble (" + "Precio DECIMAL," + "Max_Hu INTEGER,"
-				+ "Ocupado INTEGER," + "Num_Hab INTEGER," + "Num_Bany INTEGER," + "Ubi TEXT," + "Tipo TEXT,"
-				+ "m2	DECIMAL," + "DNI_D INTEGER," + "PRIMARY KEY (Ubi) "
+		String sql_TablaInmueble = " CREATE TABLE IF NOT EXISTS Inmueble (" + "id_Inmueble INTEGER," + "Num_Hab INTEGER," + "Num_Bany INTEGER," +
+				"ubicacion TEXT," +  "maxHuespedes INTEGER," + "tipo TEXT,"
+				+ "m2	DECIMAL," + "precioNoche DECIMAL," + "ocupado INTEGER,"   
+				  + "DNI_D TEXT," + "foto1 BLOB," + "foto2 BLOB," + "foto3 BLOB," + "foto4 BLOB," 
+				+ "PRIMARY KEY (id_Inmueble AUTOINCREMENT)"
 				+ "FOREIGN KEY (DNI_D) REFERENCES Duenyo (DNI_D) );";
 
 		String sql_TablaHuesped = " CREATE TABLE IF NOT EXISTS Huesped (" + "DNI_H INTEGER," + "NOM_H TEXT,"
-				+ "EDAD_H INTEGER," + "MAIL_H TEXT," + "TLF_H TEXT," + "Cargo TEXT," + "NOM_EMP TEXT,"
-				+ "Contrasenya_H	TEXT," + "PRIMARY KEY (DNI_H) );";
+				+ "EDAD_H INTEGER," + "MAIL_H TEXT," + "TLF_H TEXT," +  "Contrasenya_H	TEXT," +"Cargo TEXT," + "NOM_EMP TEXT,"
+				 + "PRIMARY KEY (DNI_H) );";
 
 		String sql_TablaDuenyo = " CREATE TABLE IF NOT EXISTS Duenyo (" + "DNI_D TEXT," + "NOM_D TEXT,"
-				+ "EDAD_D INTEGER," + "MAIL_D TEXT," + "TLF_D INTEGER," + "Contrasenya	TEXT," + "Cargo TEXT,"
+				+ "EDAD_D INTEGER," + "MAIL_D TEXT," + "TLF_D INTEGER," + "Contrasenya_D	TEXT," + "Cargo TEXT,"
 				+ "PRIMARY KEY (DNI_D) );";
 
+		String sql_TablaReserva = "CREATE TABLE IF NOT EXISTS Reserva(" + "Id_Reserva INTEGER," + "id_Inmueble," + "fecha_Entrada DATE,"
+				+ "fecha_Salida DATE," + "DNI_H TEXT, " + "PRIMARY KEY (Id_Reserva AUTOINCREMENT)," + "FOREIGN KEY (DNI_H) FROM Huesped(DNI_H) ON DELETE CASCADE,"
+				+ "FOREIGN KEY (Id_Inmueble) FROM Inmueble(Id_Inmueble) ON DELETE CASCADE ); ";
 		try {
 			conectar();
 			
@@ -84,6 +89,7 @@ public class GestorBD {
 			st.execute(sql_TablaInmueble);
 			st.execute(sql_TablaHuesped);
 			st.execute(sql_TablaDuenyo);
+			st.execute(sql_TablaReserva);
 			
 			st.close();
 			}
