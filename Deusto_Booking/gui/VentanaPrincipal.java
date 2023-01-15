@@ -3,12 +3,13 @@ package gui;
 import java.awt.BorderLayout;
 
 
+
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridBagLayout;
+
+
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.SystemColor;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -18,7 +19,7 @@ import java.util.Collection;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,9 +28,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
-import com.toedter.calendar.JCalendar;
+
+
 import com.toedter.calendar.JDateChooser;
 
 import deustoBooking.Duenio;
@@ -41,8 +42,14 @@ import deustoBooking.TipoVivienda;
 
 public class VentanaPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private Gestor gestor;
-	TipoVivienda tipo;
+	
 	public VentanaPrincipal(Gestor g) {
 		
 		this.gestor = g;
@@ -51,6 +58,7 @@ public class VentanaPrincipal extends JFrame {
 		setTitle("Deusto Booking");
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		
 
 		// Creación de contenedores
 		JPanel panelCentral = new JPanel(new BorderLayout());
@@ -79,7 +87,6 @@ public class VentanaPrincipal extends JFrame {
 		JLabel vacio1 = new JLabel("       ");
 		JLabel vacio2 = new JLabel("       ");
 		JLabel vacio3 = new JLabel("       ");
-		JLabel vacio4 = new JLabel(" ");
 		JLabel vacio5 = new JLabel("     ");
 		JLabel destino = new JLabel("DESTINO:");
 		JTextField destinotxt = new JTextField("", 15);
@@ -90,9 +97,9 @@ public class VentanaPrincipal extends JFrame {
 		JLabel lbHuespedes = new JLabel("HUESPEDES:");
 		JTextField huespedes = new JTextField(5);
 		
-		JComboBox comboBoxTipoVivienda = new JComboBox();
+		JComboBox<String> comboBoxTipoVivienda = new JComboBox<>();
 		comboBoxTipoVivienda.setModel(
-				new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
+				new DefaultComboBoxModel<String>(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
 
 		JLabel lblImagen = new JLabel();
 		ImageIcon logo = new ImageIcon(
@@ -106,7 +113,7 @@ public class VentanaPrincipal extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistroHuesped ventana = new VentanaRegistroHuesped();
+				VentanaRegistroHuesped ventana = new VentanaRegistroHuesped(gestor);
 				ventana.setVisible(true);		
 				
 			}
@@ -137,7 +144,7 @@ public class VentanaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 				VentanaLogAnfitrion ventanaInicio = new VentanaLogAnfitrion(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
@@ -146,21 +153,7 @@ public class VentanaPrincipal extends JFrame {
 		});
 		
 		
-		comboBoxTipoVivienda.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(comboBoxTipoVivienda.getSelectedIndex() == 1) {
-					tipo = TipoVivienda.PISO;
-				}else if(comboBoxTipoVivienda.getSelectedIndex() == 2) {
-					tipo = TipoVivienda.CHALET;
-				}else if(comboBoxTipoVivienda.getSelectedIndex() == 3) {	
-					tipo = TipoVivienda.ADOSADO;
-				}else if(comboBoxTipoVivienda.getSelectedIndex() == 4) {
-					tipo = TipoVivienda.ESTUDIO;
-				}
-			}
-		});
+		
 		
 		
 		buscar.addActionListener(new ActionListener() {
@@ -170,6 +163,19 @@ public class VentanaPrincipal extends JFrame {
 				ArrayList<Inmueble> inmuebles = new ArrayList<>(gestor.getInmuebles());
 				Collection<ArrayList<Reserva>> listaReservas = gestor.getReservas().values();
 				ArrayList<Inmueble> seleccionadas = new ArrayList<>();
+				
+				TipoVivienda tipo = null;
+				
+					if(comboBoxTipoVivienda.getSelectedIndex() == 1) {
+						tipo = TipoVivienda.PISO;
+					}else if(comboBoxTipoVivienda.getSelectedIndex() == 2) {
+						tipo = TipoVivienda.CHALET;
+					}else if(comboBoxTipoVivienda.getSelectedIndex() == 3) {	
+						tipo = TipoVivienda.ADOSADO;
+					}else if(comboBoxTipoVivienda.getSelectedIndex() == 4) {
+						tipo = TipoVivienda.ESTUDIO;
+					}
+				
 				
 				for(Inmueble i : inmuebles) {
 					if(destinotxt.getText().equals( i.getUbicacion())) {
@@ -202,7 +208,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 
-		cerrarVentana();
+	
 
 		// Diseño de contenedores
 		panelSDCentro.setBackground(new Color(173, 216, 230));
@@ -256,25 +262,10 @@ public class VentanaPrincipal extends JFrame {
 		add(panelCentral, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
 
-		
+		setVisible(true);
 		
 		
 	}
-
-	// Hacer un gurdado extra cuando se cierre la ventana principal(Por seguridad)
-
-	private void cerrarVentana() {
-
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				if (Gestor.isChangedP()) {
-					JOptionPane.showMessageDialog(null, "Cambios guardados", "Informacion",
-							JOptionPane.INFORMATION_MESSAGE);
-									
-				}
-			}
-		});
-
-	}
-
 }
+
+

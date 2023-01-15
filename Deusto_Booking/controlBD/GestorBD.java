@@ -1,5 +1,7 @@
 package controlBD;
 
+import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -10,17 +12,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
 import deustoBooking.Huesped;
 import deustoBooking.Inmueble;
 import deustoBooking.Reserva;
+import deustoBooking.TipoVivienda;
 import utilidades.Cifrar;
 
 public class GestorBD {
 
-	private static Connection conectar;
+	private Connection conn;
 	private Gestor gestor;
 	
 	
@@ -31,65 +33,20 @@ public class GestorBD {
 
 
 
-	public boolean iniciarSesionDB(String dni, String contrasenya) {
-
-		Connection conn = null;
-		{
-			try {
-
-				contrasenya = Cifrar.cifrar(contrasenya);
-				
-				Class.forName("org.sqlite.JDBC");
-				conn = DriverManager.getConnection("jdbc:sqlite:db/Deusto_Booking.db");
-				System.out.println("Abre la DB");
-
-				Statement stmt = conn.createStatement();
-
-				List<String> usuarios = new ArrayList<>();
-				ResultSet rs1 = stmt.executeQuery(" SELECT DNI_H FROM Huesped");
-				while (rs1.next()) {
-					usuarios.add(rs1.getString("DNI_H"));
-				}
-
-				List<String> contrasenyas = new ArrayList<>();
-				ResultSet rs2 = stmt.executeQuery(" SELECT Contrasenya_H FROM Huesped");
-				while (rs2.next()) {
-					contrasenyas.add(rs2.getString("Contrasenya_H"));
-				}
-
-				if (usuarios.contains(dni) && contrasenyas.contains(contrasenya)
-						&& usuarios.indexOf(dni) == contrasenyas.indexOf(contrasenya)) {
-					return true;
-				}
-
-				stmt.close();
-				conn.close();
-			} catch (Exception e) {
-				System.out.println("Error de conexion a la BD");
-			}
-
-		}
-		return false;
-
-	}
-
-
-
 	// ========================Metodo para conenctarme a la Base de
 	// Datos======================================================================================================================================================
 
-	public Connection conectar() {
+	public void conectar() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 
-			conectar = DriverManager.getConnection("jdbc:sqlite:Deusto_Booking.db");
-			System.out.println("Conexion establecida");
-			inicializarBD();
+			conn = DriverManager.getConnection("jdbc:sqlite:Deusto_Booking.db");
+			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		return conectar;
+		
 
 	}
 
@@ -111,7 +68,7 @@ public class GestorBD {
 		try {
 			conectar();
 			
-			DatabaseMetaData meta = conectar.getMetaData();
+			DatabaseMetaData meta = conn.getMetaData();
 			
 			ResultSet rs = meta.getTables(null, null, null, new String[] { "TABLE" });
 			
@@ -123,13 +80,16 @@ public class GestorBD {
 			
 			
 			if (tablas == 0) {
-			Statement st = conectar.createStatement();
+			Statement st = conn.createStatement();
 			st.execute(sql_TablaInmueble);
 			st.execute(sql_TablaHuesped);
 			st.execute(sql_TablaDuenyo);
+			
+			st.close();
 			}
 			
-			conectar.close();
+			conn.close();
+			
 			
 		} catch (SQLException e) {
 			
@@ -138,42 +98,181 @@ public class GestorBD {
 
 	}
 
+	public void leerBaseDeDatos() {
+
+		System.out.println("Ejecucion metodo leerBaseDatos");
+
+		
+
+		try {
+			
+
+			// Para ver los datos de la BD se usa executeQuery; para borrar y actualizar
+			
+			// datos se usa executeUpdate
+			conectar();
+			Statement duenios = conn.createStatement();
+			ResultSet tablaDuenios = duenios.executeQuery("SELECT * FROM Duenyo ;");
+			
+			while (tablaDuenios.next()) {
+					// Columnas Duenyo
+				String dni_d = tablaDuenios.getString(1);
+				String nom_d = tablaDuenios.getString(2);
+				int edad_d = tablaDuenios.getInt(3);
+				String mail_d = tablaDuenios.getString(4);
+				String tlf_d = tablaDuenios.getString(5);
+				String cargo = tablaDuenios.getString(6);
+				String contrasenya = tablaDuenios.getString(7); 
+
+				// Lo muestro por pantalla
+				System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo
+						+ " " + contrasenya);
+				gestor.anyadirDuenio(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
+			}
+			duenios.close();
+
+			
+			Statement huesped = conn.createStatement();
+			ResultSet tablaHuesped = huesped.executeQuery("SELECT * FROM Huesped ;");
+			
+				while (tablaHuesped.next()) {
+					// Columnas Huesped
+					String dni_h = tablaHuesped.getString(1);
+					String nom_h = tablaHuesped.getString(2);
+					int edad_h = tablaHuesped.getInt(3);
+					String mail_h = tablaHuesped.getString(4);
+					String tlf_h = tablaHuesped.getString(5);
+					String cargo = tablaHuesped.getString(6);
+					String nom_emp = tablaHuesped.getString(7);
+					String contrasenya_h = tablaHuesped.getString(8); // Aqui habia un 9 ( ns si hay que cambiarlo)
+
+					// Lo muestro por pantalla
+					System.out.println(dni_h + " " + nom_h + " " + edad_h + " " + mail_h + " " + tlf_h + " " + cargo
+							+ " " + nom_emp + " " + contrasenya_h);
+				}
+				
+				huesped.close();
+
+				Statement inmueble = conn.createStatement();
+				ResultSet tablaInmuebles = inmueble.executeQuery("SELECT * FROM Inmueble ;");
+				
+				while (tablaInmuebles.next()) {
+					// Columnas Inmueble
+					int id_Inmueble = tablaInmuebles.getInt(1);
+					int num_hab = tablaInmuebles.getInt(2);
+					int num_bany = tablaInmuebles.getInt(3);
+					String ubi = tablaInmuebles.getString(4);
+					int max_hu = tablaInmuebles.getInt(5);
+					String tipo = tablaInmuebles.getString(6);
+					float m2 = tablaInmuebles.getFloat(7);
+					float precio = tablaInmuebles.getFloat(8);
+					int ocupado = tablaInmuebles.getInt(9);
+					String dni_d = tablaInmuebles.getString(10);
+					Blob foto_1 = tablaInmuebles.getBlob(11);
+					Blob foto_2 = tablaInmuebles.getBlob(12);
+					Blob foto_3 = tablaInmuebles.getBlob(13);
+					Blob foto_4 = tablaInmuebles.getBlob(14);
+					
+					// Lo muestro por pantalla(Todo menos las fotos)
+					System.out.println(id_Inmueble + " " + num_hab + " " + num_bany + " " + ubi + " " +  max_hu + " " + tipo + " " + m2 + " " + precio + " " +  ocupado + " " +
+							     dni_d);
+					
+					TipoVivienda tipo_vivienda = tipoVivienda(tipo);
+					
+					ArrayList<Blob> imagenes = new ArrayList<Blob>();
+					imagenes.add(foto_1);
+					imagenes.add(foto_2);
+					imagenes.add(foto_3);
+					imagenes.add(foto_4);
+					
+					gestor.anadirInmueble(new Inmueble(id_Inmueble, dni_d, ubi,tipo_vivienda,m2,num_bany,num_hab,max_hu,precio,ocupado, imagenes));
+				}
+
+				conn.close();
+				inmueble.close();
+			
+
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+
+	}
+
+	//Para averiguar que tipo de vivienda es
+	private TipoVivienda tipoVivienda(String tipo) {
+		switch (tipo) {
+		case "CHALET":
+			return TipoVivienda.CHALET;
+
+		case "PISO":
+			return TipoVivienda.PISO;
+
+		case "ADOSADO":
+			return TipoVivienda.ADOSADO;
+
+		case "ESTUDIO":
+			return TipoVivienda.ESTUDIO;
+
+		}
+		return null;
+	}
 	
 
 	// ================Test de la Base de Datos==========================
+	
+	
+	public boolean iniciarSesionDB(String dni, String contrasenya) {
 
-	public void bdTest() {
+		conectar();
+		
+			try {
 
-		gestor.datosTest();
+				contrasenya = Cifrar.cifrar(contrasenya);
+				
 
-		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?);";
-		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
-			pst.setInt(1, 9999);
-			pst.setInt(2, 3);
-			pst.setInt(3, 1);
-			pst.setString(4, "Bilbao");
-			pst.setInt(5, 4);
-			pst.setString(6, "Casa");
-			pst.setFloat(7, 70);
-			pst.setFloat(8, (float) 55.99);
-			pst.setInt(9, 0);
-			pst.setString(10, "58000000S");
-			
-			pst.executeUpdate();
-			System.out.println("Insercion correcta");
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
+				Statement stmt = conn.createStatement();
+
+				List<String> usuarios = new ArrayList<>();
+				ResultSet rs1 = stmt.executeQuery(" SELECT DNI_H FROM Huesped");
+				while (rs1.next()) {
+					usuarios.add(rs1.getString("DNI_H"));
+				}
+
+				List<String> contrasenyas = new ArrayList<>();
+				ResultSet rs2 = stmt.executeQuery(" SELECT Contrasenya_H FROM Huesped");
+				while (rs2.next()) {
+					contrasenyas.add(rs2.getString("Contrasenya_H"));
+				}
+
+				if (usuarios.contains(dni) && contrasenyas.contains(contrasenya)
+						&& usuarios.indexOf(dni) == contrasenyas.indexOf(contrasenya)) {
+					conn.close();
+					stmt.close();
+					return true;
+				}
+				
+				conn.close();
+				stmt.close();
+				
+				
+			} catch (Exception e) {
+				System.out.println("Error de conexion a la BD");
+			}
+
+		
+		return false;
 
 	}
 
-	public void anyadirDuenyoBD(Duenio duenio) { // A�ade un due�o a la Base de Datos
+	public void anyadirDuenyoBD(Duenio duenio) { // Añade un dueno a la Base de Datos
 
+		conectar();
+		
 		String datos_sql = "INSERT INTO Duenyo VALUES ( ? , ? , ? , ? , ? , ? , ? );";
+		
 		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.setString(1, duenio.getDni());
 			pst.setString(2, duenio.getNombre());
 			pst.setInt(3, duenio.getEdad());
@@ -182,7 +281,17 @@ public class GestorBD {
 			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
 			pst.setString(7, duenio.getCargo());
 			pst.executeUpdate();
-			System.out.println("Inserci�n correcta");
+			System.out.println("Insercion correcta");
+			
+			pst.close();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		try {
+			conn.close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -193,9 +302,12 @@ public class GestorBD {
 	
 	public void anyadirInmuebleBD(Inmueble inmueble) { // A�ade un inmueble a la Base de Datos
 
+		conectar();
+		
 		String datos_sql = "INSERT INTO Inmueble VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?, ? , ? , ? , ? , ? );";
+		
 		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.setInt(1, inmueble.getId_Inmueble());
 			pst.setInt(2, inmueble.getNumHab());
 			pst.setInt(3, inmueble.getNumBany());
@@ -206,9 +318,26 @@ public class GestorBD {
 			pst.setFloat(8, inmueble.getPrecioNoche());
 			pst.setInt(9, inmueble.getOcupado());
 			pst.setString(10, inmueble.getDni_Duenio());
-			//pst.setBlob(11, );
+			pst.setBlob(11, inmueble.getImagenes().get(0));
+			pst.setBlob(12, inmueble.getImagenes().get(1));
+			pst.setBlob(13, inmueble.getImagenes().get(2));
+			pst.setBlob(14, inmueble.getImagenes().get(3));
+			
 			pst.executeUpdate();
+			
 			System.out.println("Insercion correcta");
+		
+			pst.close();
+			
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		try {
+			conn.close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -217,43 +346,70 @@ public class GestorBD {
 	}
 	
 	public void eliminarInmuebleBD(Inmueble inmueble) {
+		
+		conectar();
+		
 		String s = "DELETE FROM Inmueble WHERE id_Inmueble =" + inmueble.getId_Inmueble() + "ON DELETE CASCADE;";
 		
 		try {
-			Statement eliminarSQL = conectar.createStatement();
+			Statement eliminarSQL = conn.createStatement();
 			eliminarSQL.executeUpdate(s);
+			
+			eliminarSQL.close();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	public void editarNumBanInmuebleBD(Inmueble inmueble, int ban) {
+		
+		conectar();
+		
 		String s = "UPDATE Inmueble SET numBany = " + ban + "WHERE id_Inmueble = " + inmueble.getId_Inmueble()+ ";";
 		
 		try {
-			PreparedStatement editarSQL = conectar.prepareStatement(s);
+			PreparedStatement editarSQL = conn.prepareStatement(s);
 			editarSQL.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 	}
 	
 	public void editarNumHabInmuebleBD(Inmueble inmueble, int Hab) {
+		
+		conectar();
+		
 		String s = "UPDATE Inmueble SET numHabi = " + Hab + "WHERE id_Inmueble = " + inmueble.getId_Inmueble()+ ";";
 		
 		try {
-			PreparedStatement editarSQL = conectar.prepareStatement(s);
+			PreparedStatement editarSQL = conn.prepareStatement(s);
 			editarSQL.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	
 	
@@ -262,9 +418,11 @@ public class GestorBD {
 
 	public void anyadirHuespedBD(Huesped huesped) { // A�ade un huesped a la Base de Datos
 
+		conectar();
+		
 		String datos_sql = "INSERT INTO Huesped VALUES ( ? , ? , ? , ? , ? , ? , ? , ? );";
 		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.setString(1, huesped.getDni());
 			pst.setString(2, huesped.getNombre());
 			pst.setInt(3, huesped.getEdad());
@@ -275,20 +433,30 @@ public class GestorBD {
 			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
 			pst.executeUpdate();
 			System.out.println("Insercion correcta");
-			
+			pst.close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 			
 		}
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 
 	}
 
 	public void reservarBD( Reserva reserva) {
+		
+		conectar();
+		
 		String datos_sql = "INSERT INTO Reserva VALUES(? , ? , ? , ? , ? );";
 		
 		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.setInt(0, reserva.getId_Reserva());
 			pst.setInt(1, reserva.getId_Inmueble());
 			
@@ -303,23 +471,46 @@ public class GestorBD {
 			pst.setString(4, reserva.getDni_Huesped());
 			pst.executeUpdate();
 			
+			pst.close();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
+		
+	
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
 	
 	}
 	
 	
 	public void anularReservaBD(Reserva reserva) {
 		
+		conectar();
+		
 		String datos_sql = "DELETE FROM Reserva WHERE Id_Reserva = " + reserva.getId_Reserva() + ";";
 		
 		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.executeUpdate();
+			
+			pst.close();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+			
+			e.printStackTrace();
+		}
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
@@ -328,6 +519,8 @@ public class GestorBD {
 	
 	public void editarFechaReservaBD( Reserva reserva, Date FechaEntrada, Date FechaSalida) {
 		
+		conectar();
+		
 		long dato1 = FechaEntrada.getTime();
         java.sql.Date entrada = new java.sql.Date(dato1);
         long dato2 = FechaSalida.getTime();
@@ -335,10 +528,16 @@ public class GestorBD {
         
 		String datos_sql = "UPDATE Reserva SET fecha_Entrada = '" + entrada + "', fecha_Salida = '" + salida + "' WHERE Id_Reserva = " + reserva.getId_Reserva()+ ";";
 		try {
-			PreparedStatement pst = conectar.prepareStatement(datos_sql);
+			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 	}

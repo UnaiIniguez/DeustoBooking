@@ -223,8 +223,6 @@ public class VentanaRegistroAnfitrion extends JFrame {
 				gestor.anyadirDuenio(nuevoDuenio);
 				gestor.anadirInmueble(nuevoInmueble);
 				
-				Gestor.setChangedP(true);
-				Gestor.setChangedI(true);
 				
 				dispose();
 			}

@@ -22,14 +22,18 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import deustoBooking.Gestor;
+
 
 
 public class VentanaRegistroHuesped extends JFrame {
 
 	private JPanel j;
+	private Gestor gestor;
 
-	public VentanaRegistroHuesped() {
+	public VentanaRegistroHuesped(Gestor g) {
 
+		this.gestor = g;
 		getContentPane().setLayout(new GridLayout(7, 1));
 		//Paneles para personalizar tamaños de componentes
 		JPanel p1 = new JPanel(new GridLayout(1,6));

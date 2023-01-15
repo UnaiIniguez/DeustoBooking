@@ -1,27 +1,24 @@
 package deustoBooking;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 
 import java.util.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import controlBD.GestorBD;
-import utilidades.Cifrar;
+
 
 public class Gestor {
 
@@ -41,21 +38,11 @@ public class Gestor {
 	private static Connection conectar;
 
 	private GestorBD gestorBD = new GestorBD();
-	private static boolean isChangedP;// MArcador de cambio de Propietario
-	private static boolean isChangedI;// Marcador de cambio de Inmueble
-
-	public void datosTest() {
-
-		ArrayList<Inmueble> inmueblesTest = new ArrayList<>();
-		Duenio d = new Duenio("12345678B", "Pepe", 77, "pepe@gmail.com", "656232359", "1234", "Jefe");
-		propietarios.add(d);
-
-	}
+	 
 
 	public Gestor() {
 		gestorBD.conectar();
-		isChangedP = false;
-		isChangedI = false;
+		
 		gestorBD.inicializarBD();
 		
 		FileHandler fileHandler;
@@ -88,22 +75,6 @@ public class Gestor {
 
 	public Map<String, ArrayList<Reserva>> getHuespedes() {
 		return reservas;
-	}
-
-	public static boolean isChangedP() {
-		return isChangedP;
-	}
-
-	public static void setChangedP(boolean value) {
-		isChangedP = value;
-	}
-
-	public static boolean isChangedI() {
-		return isChangedI;
-	}
-
-	public static void setChangedI(boolean isChangedI) {
-		Gestor.isChangedI = isChangedI;
 	}
 	
 	public Map<String, ArrayList<Reserva>> getReservas() {
