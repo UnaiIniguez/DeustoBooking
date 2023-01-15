@@ -193,36 +193,52 @@ public class VentanaRegistroAnfitrion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Añado un nuevo Duenyo
-				Duenio nuevoDuenio = new Duenio();
-				nuevoDuenio.setDni(txtDNI.getText().toString());
-				nuevoDuenio.setCargo(txtpuesto.getText().toString());
-				nuevoDuenio.setContrasenya(txtContrasenya.getText().toString()); //Introducir campo para contrase�a
-				nuevoDuenio.setEdad(Integer.parseInt(txtEdad.getText())); 
-				//nuevoDuenio.setMail(txt); Introducir campo para email
-				nuevoDuenio.setNombre(txtNombre.getText().toString());
-				nuevoDuenio.setTlfNum(txtTelefono.getText().toString());
 				
-				//Añado un nuevo Inmueble
-				Inmueble nuevoInmueble = new Inmueble();
-				nuevoInmueble.setPrecioNoche( Float.parseFloat( txtPrecio.getText().toString() ) );
-				nuevoInmueble.setMaxHuespedes( Integer.parseInt (txtMaxHuespedes.getText().toString() ) );
-				if(boxOcupacion.getSelectedItem().toString() == "NO") {
-					nuevoInmueble.setOcupado(0);
+				if(txtDNI.getText() != null && txtpuesto.getText()!= null && txtContrasenya.getText() != null && Integer.parseInt(txtEdad.getText()) != 0
+						&& txtNombre.getText() != null && txtTelefono.getText() != null && txtCorreo.getText() != null &&
+						Float.parseFloat(txtPrecio.getText()) != 0f && Integer.parseInt(txtMaxHuespedes.getText()) != 0
+						&& txtUbicacion.getText() != null && Float.parseFloat( txtmetros.getText().toString()) != 0) {
+					
+					
+					Duenio nuevoDuenio = new Duenio();
+					nuevoDuenio.setDni(txtDNI.getText().toString());
+					nuevoDuenio.setCargo(txtpuesto.getText().toString());
+					nuevoDuenio.setContrasenya(txtContrasenya.getText().toString()); //Introducir campo para contrase�a
+					nuevoDuenio.setEdad(Integer.parseInt(txtEdad.getText())); 
+					nuevoDuenio.setNombre(txtNombre.getText());
+					nuevoDuenio.setTlfNum(txtTelefono.getText());
+					nuevoDuenio.setMail(txtCorreo.getText());
+					
+					//Añado un nuevo Inmueble
+					Inmueble nuevoInmueble = new Inmueble();
+					nuevoInmueble.setPrecioNoche( Float.parseFloat( txtPrecio.getText().toString() ) );
+					nuevoInmueble.setMaxHuespedes( Integer.parseInt (txtMaxHuespedes.getText().toString() ) );
+					if(boxOcupacion.getSelectedItem().toString() == "NO") {
+						nuevoInmueble.setOcupado(0);
+					}else {
+						nuevoInmueble.setOcupado(1);
+					}
+					nuevoInmueble.setNumHab( Integer.parseInt( boxHabi.getSelectedItem().toString() ) );
+					nuevoInmueble.setNumBany( Integer.parseInt (boxBan.getSelectedItem().toString() ) );
+					nuevoInmueble.setUbicacion( txtUbicacion.getText().toString() );
+					nuevoInmueble.setTipo( tipoVivienda(boxTipoVivienda.getSelectedItem().toString()));
+					nuevoInmueble.setMetrosCuadrados( Float.parseFloat( txtmetros.getText().toString() ) );
+					
+					
+					gestor.anyadirDuenio(nuevoDuenio);
+					gestor.anadirInmueble(nuevoInmueble);
+					
+				}else {
+					
+					System.out.println("No se han rellenado todos los campos necesarios.");
 				}
-				nuevoInmueble.setOcupado(1);
-				nuevoInmueble.setNumHab( Integer.parseInt( boxHabi.getSelectedItem().toString() ) );
-				nuevoInmueble.setNumBany( Integer.parseInt (boxBan.getSelectedItem().toString() ) );
-				nuevoInmueble.setUbicacion( txtUbicacion.getText().toString() );
-				nuevoInmueble.setTipo( tipoVivienda(boxTipoVivienda.getSelectedItem().toString()));
-				nuevoInmueble.setMetrosCuadrados( Float.parseFloat( txtmetros.getText().toString() ) );
 				
 				
 				
-				System.out.println(nuevoDuenio);
-				System.out.println(nuevoInmueble);
 				
-				gestor.anyadirDuenio(nuevoDuenio);
-				gestor.anadirInmueble(nuevoInmueble);
+				
+				
+				
 				
 				
 				dispose();

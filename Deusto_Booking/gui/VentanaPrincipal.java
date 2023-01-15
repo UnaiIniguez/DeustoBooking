@@ -184,7 +184,7 @@ public class VentanaPrincipal extends JFrame {
 				seleccionadas = gestor.filtrar(tipo, ubicacion, diallegada, diasalida, h);
 				
 				if(seleccionadas.isEmpty()) {
-					System.out.println("No hay casas que cumplan esas caracteristicas");
+					System.out.println("No hay casas que cumplan esas caracteristicas:" + tipo + "-" + ubicacion + "-" + diallegada + "-" + diasalida + "-" + h);
 				}else {
 					VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas);
 					ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

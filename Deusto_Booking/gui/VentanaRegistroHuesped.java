@@ -11,6 +11,8 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -175,6 +177,16 @@ public class VentanaRegistroHuesped extends JFrame {
 		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/icono.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		l.setIcon(logo);
 		
+		
+		//Eventos
+		b1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
 		
 		
 	}

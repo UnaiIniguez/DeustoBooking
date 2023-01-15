@@ -82,13 +82,6 @@ public class Gestor {
 		return reservas;
 	}
 
-	public Connection getConectar() {
-		return conectar;
-	}
-
-
-
-
 
 
 
@@ -152,7 +145,7 @@ public class Gestor {
 		ArrayList<Inmueble> seleccionadas = new ArrayList<>();
 		
 		for(Inmueble i : inmuebles) {
-			if(ubicacion.equals( i.getUbicacion())) {
+			if(ubicacion.equals( i.getUbicacion()) && i.getOcupado() == 0) {
 				
 				for( ArrayList<Reserva> lr : listaReservas){
 					for(Reserva re : lr) {

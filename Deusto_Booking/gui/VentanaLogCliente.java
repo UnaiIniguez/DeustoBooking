@@ -2,21 +2,26 @@ package gui;
 
 import javax.swing.*;
 
+
 import deustoBooking.Gestor;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 
 public class VentanaLogCliente extends JFrame {
 
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	Gestor g;
 	JPasswordField pfContrasenya;
 	JTextField txtUsuario;
@@ -71,7 +76,7 @@ public class VentanaLogCliente extends JFrame {
 	panel4.add(btnLogin);
 	panel4.setBackground(new Color(173, 216, 230));
 	
-	final JButton BTNLOGIN = btnLogin;
+	
 	
 	// Label de error 
 	JLabel error = new JLabel("Contraseña o usuario erroneo");
@@ -101,6 +106,9 @@ public class VentanaLogCliente extends JFrame {
 				String contrasenya = pfContrasenya.getText();
 				if(gestor.buscarDuenio(dni, contrasenya) == false) {
 					error.setVisible(true);
+				}else {
+					VentanaCliente ventana = new VentanaCliente(g, dni);
+					ventana.setVisible(true);
 				}
 			}
 		}
@@ -121,6 +129,9 @@ public class VentanaLogCliente extends JFrame {
 			
 			if(gestor.buscarDuenio(dni, contrasenya) == false) {
 				error.setVisible(true);
+			}else {
+				VentanaCliente ventana = new VentanaCliente(g, dni);
+				ventana.setVisible(true);
 			}
 			
 			

@@ -75,7 +75,6 @@ public class VentanaLogAnfitrion extends JFrame {
 		panelIniciar.add(btnLogin);
 		panelIniciar.setBackground(new Color(173, 216, 230));
 
-		final JButton BTNLOGIN = btnLogin;
 
 		// Label de error
 		JLabel error = new JLabel("Contraseña o usuario erroneo");
@@ -106,6 +105,8 @@ public class VentanaLogAnfitrion extends JFrame {
 					String contrasenya = pfContrasenya.getText();
 					if (gestor.buscarDuenio(dni, contrasenya) == false) {
 						error.setVisible(true);
+					}else {
+						//Meter la ventana
 					}
 				}
 			}
@@ -122,6 +123,8 @@ public class VentanaLogAnfitrion extends JFrame {
 
 				if (gestor.buscarDuenio(dni, contrasenya) == false) {
 					error.setVisible(true);
+				}else {
+					//Meter la ventana
 				}
 
 			}
