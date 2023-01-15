@@ -20,6 +20,8 @@ public class VentanaLogCliente extends JFrame {
 	Gestor g;
 	JPasswordField pfContrasenya;
 	JTextField txtUsuario;
+	JLabel lbUusario;
+	JLabel lbContrasenya;
 	
 	public VentanaLogCliente(Gestor gestor) {
 	
@@ -48,13 +50,17 @@ public class VentanaLogCliente extends JFrame {
 	panel1.setBackground(new Color(173, 216, 230));
 
 	//Textfield de usuario
-	txtUsuario = new JTextField(15);
+	txtUsuario = new JTextField(10);
+	lbUusario = new JLabel("DNI:");
 	txtUsuario.setForeground(Color.BLACK);
+	panel2.add(lbUusario);
 	panel2.add(txtUsuario);
 	panel2.setBackground(new Color(173, 216, 230));
 	
 	//Textfield de contrasenya
-	pfContrasenya = new JPasswordField(15);
+	pfContrasenya = new JPasswordField(12);
+	lbContrasenya = new JLabel("Contrasena:");
+	panel3.add(lbContrasenya);
 	panel3.add(pfContrasenya);
 	panel3.setBackground(new Color(173, 216, 230));
 	

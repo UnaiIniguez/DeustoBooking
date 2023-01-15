@@ -22,7 +22,10 @@ public class VentanaLogAnfitrion extends JFrame {
 	Gestor g;
 	JPasswordField pfContrasenya;
 	JTextField txtUsuario;
-
+	JLabel lbUusario;
+	JLabel lbContrasenya;
+	
+	
 	public VentanaLogAnfitrion(Gestor gestor) {
 
 		g = gestor;
@@ -50,14 +53,18 @@ public class VentanaLogAnfitrion extends JFrame {
 		panelIcono.setBackground(new Color(173, 216, 230));
 
 		// Textfield de usuario
-		txtUsuario = new JTextField(15);
+		txtUsuario = new JTextField(10);
 		// txtUsuario.setText("Introduccir DNI");
+		lbUusario = new JLabel("DNI:");
 		txtUsuario.setForeground(Color.BLACK);
+		panelUsuario.add(lbUusario);
 		panelUsuario.add(txtUsuario);
 		panelUsuario.setBackground(new Color(173, 216, 230));
 
 		// Textfield de contrasenya
-		pfContrasenya = new JPasswordField(15);
+		pfContrasenya = new JPasswordField(12);
+		lbContrasenya = new JLabel("Contrasena:");
+		panelContrasenya.add(lbContrasenya);
 		panelContrasenya.add(pfContrasenya);
 		panelContrasenya.setBackground(new Color(173, 216, 230));
 

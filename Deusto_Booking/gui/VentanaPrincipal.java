@@ -16,6 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -91,9 +92,9 @@ public class VentanaPrincipal extends JFrame {
 		JLabel destino = new JLabel("DESTINO:");
 		JTextField destinotxt = new JTextField("", 15);
 		JLabel llegada = new JLabel("LLEGADA:");
-		JDateChooser diaLlegada = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
+		JDateChooser diaLlegada = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
 		JLabel salida = new JLabel("SALIDA:");
-		JDateChooser diaSalida = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
+		JDateChooser diaSalida = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
 		JLabel lbHuespedes = new JLabel("HUESPEDES:");
 		JTextField huespedes = new JTextField(5);
 		
@@ -160,38 +161,27 @@ public class VentanaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Inmueble> inmuebles = new ArrayList<>(gestor.getInmuebles());
-				Collection<ArrayList<Reserva>> listaReservas = gestor.getReservas().values();
+				
 				ArrayList<Inmueble> seleccionadas = new ArrayList<>();
 				
 				TipoVivienda tipo = null;
 				
-					if(comboBoxTipoVivienda.getSelectedIndex() == 1) {
-						tipo = TipoVivienda.PISO;
-					}else if(comboBoxTipoVivienda.getSelectedIndex() == 2) {
-						tipo = TipoVivienda.CHALET;
-					}else if(comboBoxTipoVivienda.getSelectedIndex() == 3) {	
-						tipo = TipoVivienda.ADOSADO;
-					}else if(comboBoxTipoVivienda.getSelectedIndex() == 4) {
-						tipo = TipoVivienda.ESTUDIO;
-					}
-				
-				
-				for(Inmueble i : inmuebles) {
-					if(destinotxt.getText().equals( i.getUbicacion())) {
-						
-						for( ArrayList<Reserva> lr : listaReservas){
-							for(Reserva re : lr) {
-								if(diaLlegada.getDate().equals(re.getFecha_Entrada()) && diaLlegada.getDate().compareTo(diaSalida.getDate()) < 0 &&
-										diaSalida.getDate().equals(re.getFecha_Salida())) {
-									if( i.getMaxHuespedes() >= Integer.parseInt(huespedes.getText()) && i.getTipo().equals(tipo)) {
-										seleccionadas.add(i);
-									}
-								}
-							}
-						}	
-					}
+				if(comboBoxTipoVivienda.getSelectedIndex() == 1) {
+					tipo = TipoVivienda.PISO;
+				}else if(comboBoxTipoVivienda.getSelectedIndex() == 2) {
+					tipo = TipoVivienda.CHALET;
+				}else if(comboBoxTipoVivienda.getSelectedIndex() == 3) {	
+					tipo = TipoVivienda.ADOSADO;
+				}else if(comboBoxTipoVivienda.getSelectedIndex() == 4) {
+					tipo = TipoVivienda.ESTUDIO;
 				}
+				
+				String ubicacion = destinotxt.getText();
+				Date diallegada = diaLlegada.getDate();
+				Date diasalida = diaSalida.getDate();
+				int h = Integer.parseInt(huespedes.getText());
+						
+				seleccionadas = gestor.filtrar(tipo, ubicacion, diallegada, diasalida, h);
 				
 				if(seleccionadas.isEmpty()) {
 					System.out.println("No hay casas que cumplan esas caracteristicas");

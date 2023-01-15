@@ -14,7 +14,7 @@ public class Inmueble {
 	private int id_Inmueble;
 	private int numHab;
 	private int numBany;
-	private String ubicacion; // Poner: (Pais/Comunidad/Ciudad)
+	private String ubicacion; //Nombre de la ciudad
 	private int MaxHuespedes;
 	private TipoVivienda tipo;
 	private float metrosCuadrados;

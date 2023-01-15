@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import deustoBooking.Duenio;
@@ -28,18 +29,18 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	
 	private Gestor gestor;
 	
-	private static JTextField txtDNI = new JTextField(12);
-	private static JTextField txtNombre = new JTextField(12);
-	private static JTextField txtApellido = new JTextField(12);
-	private static JTextField txtpuesto = new JTextField(12);
-	private static JTextField txtTelefono = new JTextField(12);
-	private static JTextField txtContrasenya = new JTextField(12);
-	private static JTextField txtEdad = new JTextField(7);
-	private static JTextField txtmetros = new JTextField(12);
-	private static JTextField txtUbicacion= new JTextField(12);
-	private static JTextField txtPrecio = new JTextField(12);
-	private static JTextField txtCorreo = new JTextField(12);
-	private static JTextField txtMaxHuespedes = new JTextField(5);
+	private JTextField txtDNI = new JTextField(12);
+	private JTextField txtNombre = new JTextField(12);
+	private JTextField txtApellido = new JTextField(12);
+	private JTextField txtpuesto = new JTextField(12);
+	private JTextField txtTelefono = new JTextField(12);
+	private JPasswordField txtContrasenya = new JPasswordField(12);
+	private JTextField txtEdad = new JTextField(7);
+	private JTextField txtmetros = new JTextField(12);
+	private JTextField txtUbicacion= new JTextField(12);
+	private JTextField txtPrecio = new JTextField(12);
+	private JTextField txtCorreo = new JTextField(12);
+	private JTextField txtMaxHuespedes = new JTextField(5);
 	
 	
 
