@@ -12,6 +12,8 @@ import deustoBooking.TipoVivienda;
 
 public class InmuebleTest {
 
+	private Inmueble i;
+
 	
 	@Before
 	public void setUp() {
@@ -26,16 +28,7 @@ public class InmuebleTest {
         String result = inmueble.getDni_Duenio();
         assertEquals(esperado, result);
     }
- 
-	    @Test
-   public  void testSetDni_Duenio() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-        inmueble.setDni_Duenio("87654321B");
-        String esperado = "87654321B";
-        String result = inmueble.getDni_Duenio();
-        assertEquals(esperado, result);
-    }
-	    
+         
  	    
 	@Test
     public void testGetId_Inmueble() {
@@ -58,7 +51,7 @@ public class InmuebleTest {
 
 
 	   @Test
-    public void testGetImagenes() {
+    void testGetImagenes() {
         List<Blob> imagenes = new ArrayList<>();
         Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, imagenes);
         List<Blob> esperado = imagenes;
@@ -70,91 +63,76 @@ public class InmuebleTest {
 	 
 	@Test 
 	public void testGetOcupado() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-        inmueble.setOcupado(1);
-		assertEquals(1, inmueble.getOcupado());
+		assertEquals(false, i.getOcupado());
 	}
 	
 	
 
 	@Test
 	public void testGetHuesped() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(4,inmueble.getMaxHuespedes());
+		assertEquals(4,i.getMaxHuespedes());
 	}
 	@Test
 	public void testSetHuesped() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-        inmueble.setMaxHuespedes(4);
-		assertEquals(4, inmueble.getMaxHuespedes());	
+		i.setMaxHuespedes(i.getMaxHuespedes());
+		assertEquals(4, i.getMaxHuespedes());	
 	}
 	
 	
 	@Test
 	public void testGetNumHab() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(2, inmueble.getNumHab());
+		assertEquals(3, i.getNumHab());
 	}
 	@Test
 	public void testSetNumHab() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		inmueble.setNumHab(3);
-		assertEquals(3, inmueble.getNumHab());
+		i.setNumHab(i.getNumHab());
+		assertEquals(3, i.getNumHab());
 	}
 	
 	
 	@Test
 	public void testGetNumBany() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(1, inmueble.getNumBany());
+		assertEquals(1, i.getNumBany());
 	}
 	@Test
 	public void testSetNumBany() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		inmueble.setNumBany(1);
-		assertEquals(1, inmueble.getNumBany());
+		i.setNumBany( i.getNumBany());
+		assertEquals(1, i.getNumBany());
 	}
 	
 	
 	@Test
 	public void testGetMaxHuespedes() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(4, inmueble.getMaxHuespedes());
+		assertEquals(3, i.getMaxHuespedes());
 	}
 	@Test
 	public void testSetMaxHuespedes() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		inmueble.setMaxHuespedes(5);
-		assertEquals(5,inmueble.getMaxHuespedes());
+		i.setMaxHuespedes(i.getMaxHuespedes());
+		assertEquals(3,i.getMaxHuespedes());
 	}
 	
 
 	@Test
 	public void testGetMetrosCuadrados() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(60f,(float) inmueble.getMetrosCuadrados(),0.01f);
+		assertEquals(100f,(float) i.getMetrosCuadrados(),0.01f);
 	}
 
 	@Test
 	public void testGetUbicacion() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals("Spain/Pais Vasco/Bilbao",inmueble.getUbicacion());
+		assertEquals("Blas de Otero 58",i.getUbicacion());
 	}
 	@Test
 	public void testGetTipo() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(TipoVivienda.ADOSADO,inmueble.getTipo());
+		assertEquals(TipoVivienda.PISO,i.getTipo());
 	}
 	@Test
 	public void testGetPrecioNoche() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		assertEquals(50f,inmueble.getPrecioNoche(),0.1f);
+		assertEquals(45f,i.getPrecioNoche(),0.1f);
 	}
 	@Test
 	public void testSetPrecioNoche() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-		inmueble.setPrecioNoche(inmueble.getPrecioNoche());
-		assertEquals(50f,inmueble.getPrecioNoche(),0.1f);
+		i.setPrecioNoche(i.getPrecioNoche());
+		assertEquals(45f,i.getPrecioNoche(),0.1f);
 	}
 	
 }

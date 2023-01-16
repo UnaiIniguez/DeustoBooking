@@ -3,22 +3,24 @@ package gui;
 import java.awt.BorderLayout;
 
 
+
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridBagLayout;
+
+
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.SystemColor;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,9 +29,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
-import com.toedter.calendar.JCalendar;
+
+
 import com.toedter.calendar.JDateChooser;
 
 import deustoBooking.Duenio;
@@ -41,8 +43,14 @@ import deustoBooking.TipoVivienda;
 
 public class VentanaPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private Gestor gestor;
-	TipoVivienda tipo;
+	
 	public VentanaPrincipal(Gestor g) {
 		
 		this.gestor = g;
@@ -51,6 +59,7 @@ public class VentanaPrincipal extends JFrame {
 		setTitle("Deusto Booking");
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		
 
 		// Creación de contenedores
 		JPanel panelCentral = new JPanel(new BorderLayout());
@@ -72,27 +81,26 @@ public class VentanaPrincipal extends JFrame {
 		// Creación de componentes
 
 		JButton regisDuenio = new JButton("Hazte anfitrión");
-		JButton iniSesionCl = new JButton("Iniciar como cliente");
-		JButton iniSesionAf = new JButton("Iniciar como anfitrión");
+		JButton iniSesionCl = new JButton("Ver reservas");
+		JButton iniSesionAf = new JButton("Ver mis casas");
 		JButton regisCliente = new JButton("Hazte cliente");
 		JButton buscar = new JButton("Buscar");
 		JLabel vacio1 = new JLabel("       ");
 		JLabel vacio2 = new JLabel("       ");
 		JLabel vacio3 = new JLabel("       ");
-		JLabel vacio4 = new JLabel(" ");
 		JLabel vacio5 = new JLabel("     ");
 		JLabel destino = new JLabel("DESTINO:");
 		JTextField destinotxt = new JTextField("", 15);
 		JLabel llegada = new JLabel("LLEGADA:");
-		JDateChooser diaLlegada = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
+		JDateChooser diaLlegada = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
 		JLabel salida = new JLabel("SALIDA:");
-		JDateChooser diaSalida = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
+		JDateChooser diaSalida = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
 		JLabel lbHuespedes = new JLabel("HUESPEDES:");
 		JTextField huespedes = new JTextField(5);
 		
-		JComboBox comboBoxTipoVivienda = new JComboBox();
+		JComboBox<String> comboBoxTipoVivienda = new JComboBox<>();
 		comboBoxTipoVivienda.setModel(
-				new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
+				new DefaultComboBoxModel<String>(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
 
 		JLabel lblImagen = new JLabel();
 		ImageIcon logo = new ImageIcon(
@@ -106,7 +114,7 @@ public class VentanaPrincipal extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistroHuesped ventana = new VentanaRegistroHuesped();
+				VentanaRegistroHuesped ventana = new VentanaRegistroHuesped(gestor);
 				ventana.setVisible(true);		
 				
 			}
@@ -116,7 +124,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion();
+				VentanaRegistroAnfitrion ventana = new VentanaRegistroAnfitrion(gestor);
 				ventana.setVisible(true);
 
 			}
@@ -126,7 +134,7 @@ public class VentanaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
+				VentanaLogCliente ventanaInicio = new VentanaLogCliente(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
 
@@ -137,8 +145,8 @@ public class VentanaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				VentanaLogin ventanaInicio = new VentanaLogin(gestor);
+				
+				VentanaLogAnfitrion ventanaInicio = new VentanaLogAnfitrion(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
 
@@ -146,10 +154,18 @@ public class VentanaPrincipal extends JFrame {
 		});
 		
 		
-		comboBoxTipoVivienda.addActionListener(new ActionListener() {
-			
+		
+		
+		
+		buscar.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				ArrayList<Inmueble> seleccionadas = new ArrayList<>();
+				
+				TipoVivienda tipo = null;
+				
 				if(comboBoxTipoVivienda.getSelectedIndex() == 1) {
 					tipo = TipoVivienda.PISO;
 				}else if(comboBoxTipoVivienda.getSelectedIndex() == 2) {
@@ -159,50 +175,36 @@ public class VentanaPrincipal extends JFrame {
 				}else if(comboBoxTipoVivienda.getSelectedIndex() == 4) {
 					tipo = TipoVivienda.ESTUDIO;
 				}
-			}
-		});
-		
-		
-		buscar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<Inmueble> inmuebles = new ArrayList<>(gestor.getInmuebles());
-				Collection<ArrayList<Reserva>> listaReservas = gestor.getReservas().values();
-				ArrayList<Inmueble> seleccionadas = new ArrayList<>();
 				
-				for(Inmueble i : inmuebles) {
-					if( (destinotxt.getText().trim().equals("") || destinotxt.getText().equals( i.getUbicacion())) &&
-						i.getOcupado() == 0 && 
-						(comboBoxTipoVivienda.getSelectedIndex() == 0 || tipo == i.getTipo()) && 
-						(huespedes.getText().trim().equals("") || Integer.parseInt(huespedes.getText()) <= i.getMaxHuespedes()) ) {
-							seleccionadas.add(i);
-						/*
-						for( ArrayList<Reserva> lr : listaReservas){
-							for(Reserva re : lr) {
-								if(diaLlegada.getDate().equals(re.getFecha_Entrada()) && diaLlegada.getDate().compareTo(diaSalida.getDate()) < 0 &&
-										diaSalida.getDate().equals(re.getFecha_Salida())) {
-									if( i.getMaxHuespedes() >= Integer.parseInt(huespedes.getText()) && i.getTipo().equals(tipo)) {
-										seleccionadas.add(i);
-									}
-								}
-							}
-						}
-						*/	
-					}
+				String ubicacion = destinotxt.getText();
+				Date diallegada = diaLlegada.getDate();
+				diallegada.setHours(0);
+				diallegada.setMinutes(0);
+				diallegada.setSeconds(0);
+				Date diasalida = diaSalida.getDate();
+				diasalida.setHours(0);
+				diasalida.setMinutes(0);
+				diasalida.setSeconds(0);
+				int h = Integer.parseInt(huespedes.getText());
+						
+				seleccionadas = gestor.filtrar(tipo, ubicacion, diallegada, diasalida, h);
+				
+				if(seleccionadas.isEmpty()) {
+					System.out.println("No hay casas que cumplan esas caracteristicas:" + tipo + "-" + ubicacion + "-" + diallegada + "-" + diasalida + "-" + h);
+				}else {
+					VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas);
+					ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+					ventana.setVisible(true);
 				}
 				
-				//VisualizarInmuebles ventana = new VisualizarInmuebles(gestor, seleccionadas);
-				VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas);
-				ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				ventana.setVisible(true);
+				
 
 			}
 		});
 		
 		
 
-		cerrarVentana();
+	
 
 		// Diseño de contenedores
 		panelSDCentro.setBackground(new Color(173, 216, 230));
@@ -256,27 +258,10 @@ public class VentanaPrincipal extends JFrame {
 		add(panelCentral, BorderLayout.CENTER);
 		add(panelInferior, BorderLayout.SOUTH);
 
-		
+		setVisible(true);
 		
 		
 	}
-
-	// Hacer un gurdado extra cuando se cierre la ventana principal(Por seguridad)
-
-	private void cerrarVentana() {
-
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				if (Gestor.isChangedP()) {
-					JOptionPane.showMessageDialog(null, "Cambios guardados", "Informacion",
-							JOptionPane.INFORMATION_MESSAGE);
-									
-				}
-			}
-		});
-
-	}
-
 }
 
 

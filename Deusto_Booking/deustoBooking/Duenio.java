@@ -23,21 +23,11 @@ public class Duenio extends Persona {
 	public String getCargo() {
 		return cargo;
 	}
-
+	
 		
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other == null)
-			return false;
-		if (this == other)
-			return true;
-		Duenio other_d = (Duenio) other;
-		return this.getDni().equals(other_d.getDni());
 	}
 	
 	@Override
