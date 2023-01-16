@@ -321,14 +321,14 @@ public class Gestor {
 	 * @param reserva = la reserva que desea realizar
 	 *
 	 */
-	public void reservar(Huesped h, Reserva reserva) {
-		if (reservas.containsKey(h.getDni())) {
-			reservas.get(h.getDni()).add(reserva);
+	public void reservar(String dni, Reserva reserva) {
+		if (reservas.containsKey(dni)) {
+			reservas.get(dni).add(reserva);
 			
 			
 		} else {
-			reservas.put(h.getDni(), new ArrayList<Reserva>());
-			reservas.get(h.getDni()).add(reserva);
+			reservas.put(dni, new ArrayList<Reserva>());
+			reservas.get(dni).add(reserva);
 			
 		}
 		Thread t = new Thread(new Runnable() {

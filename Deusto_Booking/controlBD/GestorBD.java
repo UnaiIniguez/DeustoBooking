@@ -51,17 +51,17 @@ public class GestorBD {
 	public void inicializarBD() {
 
 		String sql_TablaInmueble = " CREATE TABLE IF NOT EXISTS Inmueble (" + "id_Inmueble INTEGER,"
-				+ "Num_Hab INTEGER," + "Num_Bany INTEGER," + "ubicacion TEXT," + "maxHuespedes INTEGER," + "tipo TEXT,"
+				+ "numHab INTEGER," + "numBany INTEGER," + "ubicacion TEXT," + "maxHuespedes INTEGER," + "tipo TEXT,"
 				+ "m2	DECIMAL," + "precioNoche DECIMAL," + "ocupado INTEGER," + "DNI_D TEXT," + "foto1 BLOB,"
 				+ "foto2 BLOB," + "foto3 BLOB," + "foto4 BLOB," + "PRIMARY KEY (id_Inmueble AUTOINCREMENT)"
 				+ "FOREIGN KEY (DNI_D) REFERENCES Duenyo (DNI_D) );";
 
 		String sql_TablaHuesped = " CREATE TABLE IF NOT EXISTS Huesped (" + "DNI_H INTEGER," + "NOM_H TEXT,"
-				+ "EDAD_H INTEGER," + "MAIL_H TEXT," + "TLF_H TEXT," + "Contrasenya_H	TEXT," + "Cargo TEXT,"
-				+ "NOM_EMP TEXT," + "PRIMARY KEY (DNI_H) );";
+				+ "EDAD_H INTEGER," + "MAIL_H TEXT," + "TLF_H TEXT," + "Cargo TEXT," + 
+				 "NOM_EMP TEXT," +"Contrasenya_H TEXT," + "PRIMARY KEY (DNI_H) );";
 
 		String sql_TablaDuenyo = " CREATE TABLE IF NOT EXISTS Duenyo (" + "DNI_D TEXT," + "NOM_D TEXT,"
-				+ "EDAD_D INTEGER," + "MAIL_D TEXT," + "TLF_D INTEGER," + "Contrasenya_D	TEXT," + "Cargo TEXT,"
+				+ "EDAD_D INTEGER," + "MAIL_D TEXT," + "TLF_D INTEGER," + "Contrasenya	TEXT," + "Cargo TEXT,"
 				+ "PRIMARY KEY (DNI_D) );";
 
 		String sql_TablaReserva = "CREATE TABLE IF NOT EXISTS Reserva(" + "Id_Reserva INTEGER," + "id_Inmueble,"
@@ -121,8 +121,9 @@ public class GestorBD {
 				int edad_d = tablaDuenios.getInt(3);
 				String mail_d = tablaDuenios.getString(4);
 				String tlf_d = tablaDuenios.getString(5);
-				String cargo = tablaDuenios.getString(6);
-				String contrasenya = tablaDuenios.getString(7);
+				String contrasenya = tablaDuenios.getString(6);
+				String cargo = tablaDuenios.getString(7);
+				
 
 				// Lo muestro por pantalla
 				System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo + " "
@@ -151,6 +152,18 @@ public class GestorBD {
 			}
 
 			huesped.close();
+			
+			Statement reserva = conn.createStatement();
+			ResultSet tablaReserva = reserva.executeQuery("SELECT * FROM Reserva ; ");
+			while(tablaReserva.next()) {
+				int id_Reserva = tablaReserva.getInt(1);
+				int id_Inmueble = tablaReserva.getInt(2);
+				Date fecha_Entrada = tablaReserva.getDate(3);
+				Date fecha_Salida = tablaReserva.getDate(4);
+				String dni_h = tablaReserva.getString(5);
+				
+				gestor.reservar(dni_h, new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
+			}
 
 			Statement inmueble = conn.createStatement();
 			ResultSet tablaInmuebles = inmueble.executeQuery("SELECT * FROM Inmueble ;");
