@@ -193,11 +193,6 @@ public class VentanaRegistroAnfitrion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Añado un nuevo Duenyo
-				
-				if(txtDNI.getText() != null && txtpuesto.getText()!= null && txtContrasenya.getText() != null && Integer.parseInt(txtEdad.getText()) != 0
-						&& txtNombre.getText() != null && txtTelefono.getText() != null && txtCorreo.getText() != null &&
-						Float.parseFloat(txtPrecio.getText()) != 0f && Integer.parseInt(txtMaxHuespedes.getText()) != 0
-						&& txtUbicacion.getText() != null && Float.parseFloat( txtmetros.getText().toString()) != 0) {
 					
 					
 					Duenio nuevoDuenio = new Duenio();
@@ -226,19 +221,7 @@ public class VentanaRegistroAnfitrion extends JFrame {
 					
 					
 					gestor.anyadirDuenio(nuevoDuenio);
-					gestor.anadirInmueble(nuevoInmueble);
-					
-				}else {
-					
-					System.out.println("No se han rellenado todos los campos necesarios.");
-				}
-				
-				
-				
-				
-				
-				
-				
+					gestor.anadirInmueble(nuevoInmueble);	
 				
 				
 				dispose();
