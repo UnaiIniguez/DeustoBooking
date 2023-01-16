@@ -38,13 +38,14 @@ public class Gestor {
 	
 	private static Connection conectar;
 
-	private GestorBD gestorBD = new GestorBD();
+	private GestorBD gestorBD = new GestorBD(this);
 	 
 
 	public Gestor() {
-		gestorBD.conectar();
+		
 		
 		gestorBD.inicializarBD();
+		gestorBD.leerBaseDeDatos();
 		
 		FileHandler fileHandler;
 		try {

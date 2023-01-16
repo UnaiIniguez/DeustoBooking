@@ -178,7 +178,13 @@ public class VentanaPrincipal extends JFrame {
 				
 				String ubicacion = destinotxt.getText();
 				Date diallegada = diaLlegada.getDate();
+				diallegada.setHours(0);
+				diallegada.setMinutes(0);
+				diallegada.setSeconds(0);
 				Date diasalida = diaSalida.getDate();
+				diasalida.setHours(0);
+				diasalida.setMinutes(0);
+				diasalida.setSeconds(0);
 				int h = Integer.parseInt(huespedes.getText());
 						
 				seleccionadas = gestor.filtrar(tipo, ubicacion, diallegada, diasalida, h);
