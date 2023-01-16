@@ -125,6 +125,9 @@ public class VentanaLogAnfitrion extends JFrame {
 					error.setVisible(true);
 				}else {
 					//Meter la ventana
+					VentanaDuenio ventanaDuenio = new VentanaDuenio(g, dni);
+					ventanaDuenio.setVisible(true);
+					
 				}
 
 			}
