@@ -1,5 +1,7 @@
 package controlBD;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Blob;
 
 import java.sql.Connection;
@@ -12,6 +14,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -28,8 +32,18 @@ public class GestorBD {
 	private Connection conn;
 	private Gestor gestor;
 
+	private static final Logger logger = Logger.getLogger(GestorBD.class.getName());
+	
 	public GestorBD(Gestor gln) {
 		gestor = gln;
+		
+		try(FileInputStream fis = new FileInputStream("log")) {
+			LogManager.getLogManager().readConfiguration(fis);
+			
+		} catch (SecurityException | IOException e) {
+			
+			logger.warning("Error leyendo el logger");
+		}
 	}
 
 	// ========================Metodo para conenctarme a la Base de
@@ -43,7 +57,7 @@ public class GestorBD {
 
 		} catch (ClassNotFoundException | SQLException e) {
 
-			e.printStackTrace();
+			logger.warning("No se ha podido conectar la BD");
 		}
 
 	}
@@ -96,7 +110,7 @@ public class GestorBD {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			logger.warning("No se ha sido capaz de inicializar la BD");
 		}
 
 	}
@@ -128,7 +142,9 @@ public class GestorBD {
 				// Lo muestro por pantalla
 				System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo + " "
 						+ contrasenya);
-				gestor.anyadirDuenio(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
+				
+				gestor.getPropietarios().add(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
+				System.out.println(gestor.getPropietarios());
 			}
 			duenios.close();
 
@@ -162,7 +178,8 @@ public class GestorBD {
 				Date fecha_Salida = tablaReserva.getDate(4);
 				String dni_h = tablaReserva.getString(5);
 				
-				gestor.reservar(dni_h, new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
+				gestor.getReservas().get(dni_h).add(new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
+				
 			}
 
 			Statement inmueble = conn.createStatement();
@@ -217,8 +234,9 @@ public class GestorBD {
 				imagenes.add(foto_3);
 				imagenes.add(foto_4);
 
-				gestor.anadirInmueble(new Inmueble(id_Inmueble, dni_d, ubi, tipo_vivienda, m2, num_bany, num_hab,
-						max_hu, precio, ocupado, imagenes));
+				//gestor.getInmuebles().add(new Inmueble(id_Inmueble, dni_d, ubi, tipo_vivienda, m2, num_bany, num_hab,
+				//		max_hu, precio, ocupado, imagenes) );
+				
 			}
 
 			conn.close();
@@ -548,7 +566,7 @@ public class GestorBD {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+		
 		}
 		try {
 			conn.close();
