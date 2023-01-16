@@ -1,23 +1,33 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
@@ -41,7 +51,10 @@ public class VentanaRegistroAnfitrion extends JFrame {
 	private JTextField txtPrecio = new JTextField(12);
 	private JTextField txtCorreo = new JTextField(12);
 	private JTextField txtMaxHuespedes = new JTextField(5);
-	
+	private Blob conFoto1 = null;
+	private Blob conFoto2 = null;
+	private Blob conFoto3 = null;
+	private Blob conFoto4 = null;
 	
 
 	public VentanaRegistroAnfitrion(Gestor g) {
@@ -110,14 +123,14 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		boxHabi.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7" }));
 		//Asignacion del numero de Baños
 		JComboBox<String> boxBan = new JComboBox<>();
-		boxBan.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+		boxBan.setModel(new DefaultComboBoxModel<String>(new String[] { "1", "2", "3", "4", "5" }));
 		//Asignacion del tipo de vivienda
 		JComboBox<String> boxTipoVivienda = new JComboBox<>();
-		boxTipoVivienda.setModel(new DefaultComboBoxModel(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
+		boxTipoVivienda.setModel(new DefaultComboBoxModel<String>(new String[] { "Tipo de vivienda", "PISO", "CHALET", "ADOSADO", "ESTUDIO" }));
 		//Asignacion de si esta ocupado o no (1: ocupado, 0: disponible)
 		JComboBox<String> boxOcupacion = new JComboBox<>();
-		boxOcupacion.setModel( new DefaultComboBoxModel( new String[] { "NO", "SI" }));
-
+		boxOcupacion.setModel( new DefaultComboBoxModel<String>( new String[] { "NO", "SI" }));
+		
 		
 		// Añadir los objetos a los paneles
 		panelDNI.add(lbDNI);
@@ -185,7 +198,149 @@ public class VentanaRegistroAnfitrion extends JFrame {
 		panelSuperior.setBackground(new Color(173, 216, 230));
 		panelInferior.setBackground(new Color(173, 216, 230));
 
-		// Accion del boton registrar
+		// Accion de los botones
+		
+		imagen1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaRegistroAnfitrion.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto1 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
+		
+		imagen2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaRegistroAnfitrion.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto2 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
+		imagen3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaRegistroAnfitrion.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto3 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
+		imagen4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaRegistroAnfitrion.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto4 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
 		
 		botonRegistrar.addActionListener(new ActionListener() {
 
@@ -206,6 +361,7 @@ public class VentanaRegistroAnfitrion extends JFrame {
 					
 					//Añado un nuevo Inmueble
 					Inmueble nuevoInmueble = new Inmueble();
+					nuevoInmueble.setDni_Duenio(txtDNI.getText());
 					nuevoInmueble.setPrecioNoche( Float.parseFloat( txtPrecio.getText().toString() ) );
 					nuevoInmueble.setMaxHuespedes( Integer.parseInt (txtMaxHuespedes.getText().toString() ) );
 					if(boxOcupacion.getSelectedItem().toString() == "NO") {
@@ -218,7 +374,12 @@ public class VentanaRegistroAnfitrion extends JFrame {
 					nuevoInmueble.setUbicacion( txtUbicacion.getText().toString() );
 					nuevoInmueble.setTipo( tipoVivienda(boxTipoVivienda.getSelectedItem().toString()));
 					nuevoInmueble.setMetrosCuadrados( Float.parseFloat( txtmetros.getText().toString() ) );
-					
+					ArrayList<Blob> im = new ArrayList<>();
+					im.add(conFoto1);
+					im.add(conFoto2);
+					im.add(conFoto3);
+					im.add(conFoto4);
+					nuevoInmueble.setImagenes(im);
 					
 					gestor.anyadirDuenio(nuevoDuenio);
 					gestor.anadirInmueble(nuevoInmueble);	

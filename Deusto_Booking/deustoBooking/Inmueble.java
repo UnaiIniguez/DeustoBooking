@@ -52,6 +52,14 @@ public Inmueble() {
 	}
 	
 
+	public void setDni_Duenio(String dni_Duenio) {
+		this.dni_Duenio = dni_Duenio;
+	}
+
+	public void setImagenes(List<Blob> imagenes) {
+		this.imagenes = imagenes;
+	}
+
 	public int getId_Inmueble() {
 		return id_Inmueble;
 	}
