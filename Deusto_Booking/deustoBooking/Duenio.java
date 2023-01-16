@@ -7,7 +7,7 @@ public class Duenio extends Persona {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Inmueble> inmueble = new ArrayList<Inmueble>();
+	
 
 	private String cargo;
 	
@@ -23,11 +23,7 @@ public class Duenio extends Persona {
 	public String getCargo() {
 		return cargo;
 	}
-
-
-	public void setInmueble(List<Inmueble> inmueble) {
-		this.inmueble = inmueble;
-	}
+	
 		
 	public void setCargo(String cargo) {
 		this.cargo = cargo;

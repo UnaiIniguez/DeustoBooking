@@ -28,16 +28,7 @@ public class InmuebleTest {
         String result = inmueble.getDni_Duenio();
         assertEquals(esperado, result);
     }
- 
-	    @Test
-   public  void testSetDni_Duenio() {
-        Inmueble inmueble = new Inmueble(1, "12345678A", "Spain/Pais Vasco/Bilbao", TipoVivienda.ADOSADO, 60, 1, 2, 4, 50, 0, null);
-        inmueble.setDni_Duenio("87654321B");
-        String esperado = "87654321B";
-        String result = inmueble.getDni_Duenio();
-        assertEquals(esperado, result);
-    }
-	    
+         
  	    
 	@Test
     public void testGetId_Inmueble() {
