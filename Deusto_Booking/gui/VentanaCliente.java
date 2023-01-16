@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +20,8 @@ import javax.swing.table.TableModel;
 import com.toedter.calendar.JDateChooser;
 
 import deustoBooking.Gestor;
-import deustoBooking.Reserva; 
+import deustoBooking.Reserva;
+import deustoBooking.ReservaInexistenteException; 
 
 
 
@@ -121,7 +124,53 @@ public class VentanaCliente extends JFrame{
 		add(panelIzquierdo);
 		add(panelDerecho);
 		
+		bteliminar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int id= Integer.parseInt(txtEliminar.getText());
+				
+				for(Reserva r : reservas) {
+					if(r.getId_Reserva() == id ){
+						try {
+							gestor.anularReserva(dni, r);
+						} catch (ReservaInexistenteException e1) {
+							
+							e1.printStackTrace();
+						}
+					}
+				}
+				
+			}
+		});
 		
+		btEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Date fi = fechaIni.getDate();
+				fi.setHours(0);
+				fi.setMinutes(0);
+				fi.setSeconds(0);
+				Date ff = fechaFin.getDate();
+				ff.setHours(0);
+				ff.setMinutes(0);
+				ff.setSeconds(0);
+				int id= Integer.parseInt(txtEditar.getText());
+				
+				for(Reserva r : reservas) {
+					if(r.getId_Reserva() == id) {
+						try {
+							gestor.editarFechaReserva(dni, r, fi, ff);
+						} catch (ReservaInexistenteException e1) {
+							
+							e1.printStackTrace();
+						}
+					}
+				}
+				
+			}
+		});
 
 		setVisible(true);
 	}
