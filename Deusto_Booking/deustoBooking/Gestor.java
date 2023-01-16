@@ -347,13 +347,13 @@ public class Gestor {
 	 * 
 	 * Anular una reserva
 	 * 
-	 * @param h = Huesped que desea anular una reserva
+	 * @param h = dni del Huesped que desea anular una reserva
 	 * @param reserva = la reserva que desea anular
 	 *
 	 */
-	public void anularReserva(Huesped h , Reserva reserva)throws ReservaInexistenteException {
-		if (reservas.containsKey(h.getDni())) {
-			reservas.get(h.getDni()).remove(reserva);
+	public void anularReserva(String h , Reserva reserva)throws ReservaInexistenteException {
+		if (reservas.containsKey(h)) {
+			reservas.get(h).remove(reserva);
 			Thread r = new Thread(new Runnable() {
 				
 				@Override
@@ -375,15 +375,15 @@ public class Gestor {
 	 * 
 	 * Cambiar una reserva de fechas
 	 * 
-	 * @param h = Huesped que desea cambiar la reserva
+	 * @param h = dni del Huesped que desea cambiar la reserva
 	 * @param reserva = la reserva que desea modificar
 	 * @param Fecha_Entrada = Nueva fecha entrada que se quiere añadir
 	 * @param Fecha_Salida = Nueva fecha de salida que se quiere añadir
 	 *
 	 */
-	public void editarFechaReserva(Huesped h , Reserva reserva, Date FechaEntrada, Date FechaSalida )throws ReservaInexistenteException {
-		if (reservas.containsKey(h.getDni())) {
-			ArrayList<Reserva> res = reservas.get(h.getDni());
+	public void editarFechaReserva(String h , Reserva reserva, Date FechaEntrada, Date FechaSalida )throws ReservaInexistenteException {
+		if (reservas.containsKey(h)) {
+			ArrayList<Reserva> res = reservas.get(h);
 			for(Reserva r : res) {
 				if(r.equals(reserva)) {
 					r.setFecha_Entrada(FechaEntrada);
@@ -391,8 +391,8 @@ public class Gestor {
 					
 				}
 			}
-			reservas.remove(h.getDni());
-			reservas.put(h.getDni(), res);
+			reservas.remove(h);
+			reservas.put(h, res);
 			Thread f = new Thread(new Runnable() {
 				
 				@Override

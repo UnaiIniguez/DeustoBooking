@@ -121,6 +121,7 @@ public class VentanaCliente extends JFrame{
 		add(panelIzquierdo);
 		add(panelDerecho);
 		
+		
 
 		setVisible(true);
 	}
