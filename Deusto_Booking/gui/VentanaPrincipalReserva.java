@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -81,7 +82,7 @@ public class VentanaPrincipalReserva extends JFrame {
 	private ListModelInmuebles modeloCasas;
 	private JList lstCasas;
 
-	public VentanaPrincipalReserva(Gestor g, ArrayList<Inmueble> seleccionadas) {
+	public VentanaPrincipalReserva(Gestor g, ArrayList<Inmueble> seleccionadas, Date fechallegada, Date fechaSalida) {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
@@ -119,6 +120,8 @@ public class VentanaPrincipalReserva extends JFrame {
 					btnReservar.setFont(new Font("Tahoma", Font.BOLD, 12));
 					btnReservar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							VentanaReserva ventana = new VentanaReserva(g, i, fechallegada,fechaSalida);
+							
 						}
 					});
 					btnReservar.setBounds(685, 467, 89, 45);

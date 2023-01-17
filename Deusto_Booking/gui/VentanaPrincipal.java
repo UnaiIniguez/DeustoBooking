@@ -195,7 +195,7 @@ public class VentanaPrincipal extends JFrame {
 					System.out.println("No hay casas que cumplan esas caracteristicas:" + tipo + "-" + ubicacion + "-" + diallegada + "-" + diasalida + "-" + h);
 					JOptionPane.showMessageDialog(VentanaPrincipal.this, "No hay casas que cumplan esos requisitos", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
-					VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas);
+					VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas, diallegada, diasalida);
 					ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 					ventana.setVisible(true);
 				}
