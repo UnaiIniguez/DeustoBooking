@@ -55,7 +55,7 @@ public class VentanaDuenio extends JFrame {
 		List<Inmueble> listaInmueble = new ArrayList<>();
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(700, 500);
+		setSize(720, 550);
 		setLocationRelativeTo(null);
 		setTitle("Registro dueño");
 
@@ -118,7 +118,7 @@ public class VentanaDuenio extends JFrame {
 
 		JButton botonEliminar = new JButton("Eliminar");
 		JButton botonEditar = new JButton("Editar Estado");
-		JButton botonAnyadir = new JButton("A�adir");
+		JButton botonAnyadir = new JButton("Añadir");
 		JButton imagen1 = new JButton("1");
 		JButton imagen2 = new JButton("2");
 		JButton imagen3 = new JButton("3");
