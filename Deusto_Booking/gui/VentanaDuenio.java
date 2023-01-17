@@ -256,7 +256,7 @@ public class VentanaDuenio extends JFrame {
 				List<Inmueble> listaInmueble = new ArrayList<>(setInmuebles);
 				for(Inmueble i: listaInmueble) {
 					if(i.getId_Inmueble() == id) {
-						new VentanaEditar().setVisible(true);
+						new VentanaEditar(i).setVisible(true);
 						
 					}
 				}

@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -13,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import deustoBooking.Gestor;
+import deustoBooking.Inmueble;
 
 public class VentanaEditar extends JFrame{
 
@@ -21,7 +24,7 @@ public class VentanaEditar extends JFrame{
 	Gestor g;
 	JComboBox jc;
 	
-	public VentanaEditar() {
+	public VentanaEditar(Inmueble i) {
 		
 		//g = gestor;
 
@@ -63,6 +66,29 @@ public class VentanaEditar extends JFrame{
 		add(pFoto);
 		add(pArriba);
 		add(pAbajo);
+		
+		b.addActionListener(new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String ocupado = jc.getSelectedItem().toString();
+				if(ocupado == "SI") {
+					i.setOcupado(1);
+				}else {
+					i.setOcupado(0);
+				}
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+		});
 		
 	}
 	
