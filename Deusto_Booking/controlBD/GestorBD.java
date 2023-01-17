@@ -143,7 +143,7 @@ public class GestorBD {
 				System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo + " "
 						+ contrasenya);
 				
-				gestor.getPropietarios().add(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, cargo, contrasenya));
+				gestor.getPropietarios().add(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, contrasenya, cargo));
 				System.out.println(gestor.getPropietarios());
 			}
 			duenios.close();
@@ -216,8 +216,8 @@ public class GestorBD {
 				imagenes.add(foto_3);
 				imagenes.add(foto_4);
 
-				//gestor.getInmuebles().add(new Inmueble(id_Inmueble, dni_d, ubi, tipo_vivienda, m2, num_bany, num_hab,
-				//		max_hu, precio, ocupado, imagenes) );
+				gestor.getInmuebles().add(new Inmueble(id_Inmueble, dni_d, ubi, tipo_vivienda, m2, num_bany, num_hab,
+						max_hu, precio, ocupado, imagenes) );
 				
 			}
 

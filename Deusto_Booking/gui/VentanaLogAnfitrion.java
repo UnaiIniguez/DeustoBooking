@@ -24,8 +24,7 @@ public class VentanaLogAnfitrion extends JFrame {
 	JTextField txtUsuario;
 	JLabel lbUusario;
 	JLabel lbContrasenya;
-	
-	
+
 	public VentanaLogAnfitrion(Gestor gestor) {
 
 		g = gestor;
@@ -75,7 +74,6 @@ public class VentanaLogAnfitrion extends JFrame {
 		panelIniciar.add(btnLogin);
 		panelIniciar.setBackground(new Color(173, 216, 230));
 
-
 		// Label de error
 		JLabel error = new JLabel("Contraseña o usuario erroneo");
 		error.setVisible(false);
@@ -105,8 +103,10 @@ public class VentanaLogAnfitrion extends JFrame {
 					String contrasenya = pfContrasenya.getText();
 					if (gestor.buscarDuenio(dni, contrasenya) == false) {
 						error.setVisible(true);
-					}else {
-						//Meter la ventana
+					} else {
+						// Meter la ventana
+						VentanaDuenio ventanaDuenio = new VentanaDuenio(g, dni);
+						ventanaDuenio.setVisible(true);
 					}
 				}
 			}
@@ -123,11 +123,11 @@ public class VentanaLogAnfitrion extends JFrame {
 
 				if (gestor.buscarDuenio(dni, contrasenya) == false) {
 					error.setVisible(true);
-				}else {
-					//Meter la ventana
+				} else {
+					// Meter la ventana
 					VentanaDuenio ventanaDuenio = new VentanaDuenio(g, dni);
 					ventanaDuenio.setVisible(true);
-					
+
 				}
 
 			}

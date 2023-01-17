@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import controlBD.GestorBD;
 import deustoBooking.Gestor;
 import deustoBooking.Inmueble;
+import deustoBooking.InmuebleInexistenteException;
 import deustoBooking.TipoVivienda;
 
 public class VentanaDuenio extends JFrame {
@@ -36,15 +39,20 @@ public class VentanaDuenio extends JFrame {
 	private JTextField txtUbicacion = new JTextField(12);
 	private JTextField txtPrecio = new JTextField(12);
 	private JTextField txtMaxHuespedes = new JTextField(5);
+	private Blob conFoto1 = null;
+	private Blob conFoto2 = null;
+	private Blob conFoto3 = null;
+	private Blob conFoto4 = null;
+	private Set<Inmueble> setInmuebles;
 
 	public VentanaDuenio(Gestor g, String dni) {
 		// TODO Auto-generated constructor stub
 
 		this.gestor = g;
 
-		Set<Inmueble> setInmuebles = g.getInmuebles();
+		setInmuebles = g.getInmuebles();
 
-		List<Inmueble> listaInmueble = null;
+		List<Inmueble> listaInmueble = new ArrayList<>();
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(700, 500);
@@ -60,7 +68,13 @@ public class VentanaDuenio extends JFrame {
 		JPanel panelIzquierdo = new JPanel(new GridLayout(8, 4));
 		JPanel panelSuperior = new JPanel(new FlowLayout());
 
-		JPanel panelElementos_Inmueble = new JPanel();
+		JPanel panelMetros = new JPanel();
+		JPanel panelServicios = new JPanel();
+		JPanel panelOcupacion = new JPanel();
+		JPanel panelUbicacion = new JPanel();
+		JPanel panelTipoVivienda = new JPanel();
+		JPanel panelPrecio = new JPanel();
+		JPanel panelImagenes = new JPanel();
 		JPanel panelTablas_Usuario = new JPanel();
 		JPanel panelDuenio = new JPanel();
 		JPanel panelInmueble = new JPanel();
@@ -76,11 +90,15 @@ public class VentanaDuenio extends JFrame {
 
 		// Cargo los datos de los Inmuebles:
 
+		System.out.println("Tamaño setInmuebles: " + setInmuebles.size());
+
 		for (Inmueble i : setInmuebles) {
 
-			if (i.getDni_Duenio() == dni) {
+			System.out.println("Inmueble " + i);
 
-				listaInmueble = new ArrayList<>(setInmuebles);
+			if (i.getDni_Duenio().equalsIgnoreCase(dni)) {
+
+				listaInmueble.add(i);
 
 			}
 
@@ -101,6 +119,10 @@ public class VentanaDuenio extends JFrame {
 		JButton botonEliminar = new JButton("Eliminar");
 		JButton botonEditar = new JButton("Editar Estado");
 		JButton botonAnyadir = new JButton("Añadir");
+		JButton imagen1 = new JButton("1");
+		JButton imagen2 = new JButton("2");
+		JButton imagen3 = new JButton("3");
+		JButton imagen4 = new JButton("4");
 
 		JLabel lbMetros2 = new JLabel("Metros cuadrados:");
 		JLabel lbNumHabi = new JLabel("N. Habitaciones:");
@@ -126,29 +148,39 @@ public class VentanaDuenio extends JFrame {
 		JComboBox<String> boxOcupacion = new JComboBox<>();
 		boxOcupacion.setModel(new DefaultComboBoxModel(new String[] { "NO", "SI" }));
 
-		panelElementos_Inmueble.add(lbMetros2);
-		panelElementos_Inmueble.add(txtmetros);
-		panelElementos_Inmueble.add(lbNumHabi);
-		panelElementos_Inmueble.add(boxHabi);
-		panelElementos_Inmueble.add(lbNumBan);
-		panelElementos_Inmueble.add(boxBan);
-		panelElementos_Inmueble.add(lbNumHues);
-		panelElementos_Inmueble.add(txtMaxHuespedes);
-		panelElementos_Inmueble.add(lbOcupacion);
-		panelElementos_Inmueble.add(boxOcupacion);
-		panelElementos_Inmueble.add(lbUbicacion);
-		panelElementos_Inmueble.add(txtUbicacion);
-		panelElementos_Inmueble.add(lbTipoVivienda);
-		panelElementos_Inmueble.add(boxTipoVivienda);
-		panelElementos_Inmueble.add(lbPrecio);
-		panelElementos_Inmueble.add(txtPrecio);
-		panelElementos_Inmueble.add(lbImagenes);
+		panelMetros.add(lbMetros2);
+		panelMetros.add(txtmetros);
+		panelServicios.add(lbNumBan);
+		panelServicios.add(boxBan);
+		panelServicios.add(lbNumHabi);
+		panelServicios.add(boxHabi);
+		panelOcupacion.add(lbNumHues);
+		panelOcupacion.add(txtMaxHuespedes);
+		panelOcupacion.add(lbOcupacion);
+		panelOcupacion.add(boxOcupacion);
+		panelUbicacion.add(lbUbicacion);
+		panelUbicacion.add(txtUbicacion);
+		panelTipoVivienda.add(lbTipoVivienda);
+		panelTipoVivienda.add(boxTipoVivienda);
+		panelPrecio.add(lbPrecio);
+		panelPrecio.add(txtPrecio);
+		panelImagenes.add(imagen1);
+		panelImagenes.add(imagen2);
+		panelImagenes.add(imagen3);
+		panelImagenes.add(imagen4);
 		panelTablas_Usuario.add(scrollTabla_Usuario);
 		panelDuenio.add(botonEliminar);
 		panelDuenio.add(botonEditar);
 		panelInmueble.add(botonAnyadir);
 
-		panelDerecho.add(panelElementos_Inmueble);
+		panelDerecho.add(panelMetros);
+		panelDerecho.add(panelOcupacion);
+		panelDerecho.add(panelServicios);
+		panelDerecho.add(panelUbicacion);
+		panelDerecho.add(panelTipoVivienda);
+		panelDerecho.add(panelPrecio);
+		panelDerecho.add(lbImagenes);
+		panelDerecho.add(panelImagenes);
 
 		panelIzquierdo.add(panelTablas_Usuario);
 
@@ -197,7 +229,20 @@ public class VentanaDuenio extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				// HAcer un getSelectedItem para que me devuelva el objeto id, y poder obteren
+				// el ide del inmuebel seleccionado
+				int id = (int) modelo_Usuario.getValueAt(tabla_Usuario.getSelectedRow(), 0);
+
+				if (eliminarInmueble(id)) {
+					// Mensaje: Inmueble eliminado correctamente
+					JOptionPane.showMessageDialog(null, "El inmueble se elimino correctamente", "Informacion",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					// Mensaje de error
+					JOptionPane.showMessageDialog(null, "No se pudo eliminar el inmueble", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 
 			}
 		});
@@ -234,6 +279,29 @@ public class VentanaDuenio extends JFrame {
 
 		}
 		return null;
+	}
+
+	private boolean eliminarInmueble(int id) {
+
+		Inmueble inmueble = null;
+		boolean resultado = false;
+
+		for (Inmueble i : setInmuebles) {
+			if (i.getId_Inmueble() == id) {
+				inmueble = i;
+				setInmuebles.remove(i);
+			}
+		}
+
+		try {
+			gestor.eliminarInmueble(inmueble);
+			resultado = true;
+		} catch (InmuebleInexistenteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return resultado;
 	}
 
 }
