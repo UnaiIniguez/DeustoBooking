@@ -127,7 +127,7 @@ public class VentanaLogCliente extends JFrame {
 			String dni = txtUsuario.getText();
 			String contrasenya = pfContrasenya.getText();
 			
-			if(gestor.buscarDuenio(dni, contrasenya) == false) {
+			if(gestor.buscarHuesped(dni, contrasenya) == false) {
 				error.setVisible(true);
 			}else {
 				VentanaCliente ventana = new VentanaCliente(g, dni);

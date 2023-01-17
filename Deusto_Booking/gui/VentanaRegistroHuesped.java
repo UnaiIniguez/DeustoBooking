@@ -45,7 +45,7 @@ public class VentanaRegistroHuesped extends JFrame {
 	private JTextField txtCargo;
 	private JTextField txtContrasenya;
 
-	public VentanaRegistroHuesped() {
+	public VentanaRegistroHuesped(Gestor gestor) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Registro Huesped");
 		setLocationRelativeTo(null);

@@ -19,6 +19,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import controlBD.GestorBD;
+import utilidades.Cifrar;
 
 
 public class Gestor {
@@ -75,8 +76,8 @@ public class Gestor {
 		this.inmuebles = inmuebles;
 	}
 
-	public Map<String, ArrayList<Reserva>> getHuespedes() {
-		return reservas;
+	public Set<Huesped> getHuespedes() {
+		return huespedes;
 	}
 	
 	public Map<String, ArrayList<Reserva>> getReservas() {
@@ -100,7 +101,8 @@ public class Gestor {
 	public boolean buscarDuenio(String dni, String contrasenya) {
 		ArrayList<Duenio> duenios = new ArrayList<>(getPropietarios());	
 		for(Duenio d : duenios) {
-			if(d.getDni() == dni && d.getContrasenya() == contrasenya ) {
+			String c = Cifrar.cifrar(contrasenya);
+			if(d.getDni() == dni && d.getContrasenya() == c ) {
 				return true;
 			}
 			
@@ -408,6 +410,34 @@ public class Gestor {
 			throw new ReservaInexistenteException("No existe esa reserva");
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * Este metodo busca si un Huesped esta en la memoria o no 
+	 * 
+	 * 
+	 * @param DNI = El dni que se desea buscar
+	 * @param Contrasenya = La clave del huesped
+	 *
+	 */
+	public boolean buscarHuesped(String dni, String contrasenya) {
+		ArrayList<Huesped> huespedes = new ArrayList<>(getHuespedes());	
+		for(Huesped h : huespedes) {
+			String c = Cifrar.cifrar(contrasenya);
+			if(h.getDni() == dni && h.getContrasenya() == c ) {
+				return true;
+			}
+			
+		}
+		return false;
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	
