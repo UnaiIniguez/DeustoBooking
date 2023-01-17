@@ -151,7 +151,9 @@ public class Gestor {
 		
 		for(Inmueble i : inmuebles) {
 			if(ubicacion.equals( i.getUbicacion()) && i.getOcupado() == 0) {
-				
+				if(listaReservas.isEmpty()) {
+					seleccionadas.add(i);
+				}
 				for( ArrayList<Reserva> lr : listaReservas){
 					for(Reserva re : lr) {
 						if(diaLlegada.equals(re.getFecha_Entrada()) && diaLlegada.compareTo(diaSalida) < 0 &&

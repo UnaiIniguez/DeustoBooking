@@ -28,7 +28,7 @@ public class Inmueble implements Comparable<Inmueble> {
 	public Inmueble(int id_Inmueble, String dni_Duenio, String ubicacion, TipoVivienda tipo, float metrosCuadrados,
 			int numBany, int numHab, int maxHuespedes, float precioNoche, int ocupado, List<Blob> imagenes) {
 		super();
-		this.imagenes = new ArrayList<>();
+		this.imagenes = imagenes;
 		this.id_Inmueble = id_Inmueble;
 		this.dni_Duenio = dni_Duenio;
 		this.numHab = numHab;
