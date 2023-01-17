@@ -101,8 +101,8 @@ public class Gestor {
 	public boolean buscarDuenio(String dni, String contrasenya) {
 		ArrayList<Duenio> duenios = new ArrayList<>(getPropietarios());	
 		for(Duenio d : duenios) {
-			String c = Cifrar.cifrar(contrasenya);
-			if(d.getDni().equalsIgnoreCase(dni) && d.getContrasenya().equals(c) ) {
+//			String c = Cifrar.cifrar(contrasenya);
+			if(d.getDni().equalsIgnoreCase(dni) && d.getContrasenya().equals(contrasenya) ) {
 				return true;
 			}
 			
@@ -424,8 +424,8 @@ public class Gestor {
 	public boolean buscarHuesped(String dni, String contrasenya) {
 		ArrayList<Huesped> huespedes = new ArrayList<>(getHuespedes());	
 		for(Huesped h : huespedes) {
-			String c = Cifrar.cifrar(contrasenya);
-			if(h.getDni().equalsIgnoreCase(dni) && h.getContrasenya().equals(c) ) {
+			//String c = Cifrar.cifrar(contrasenya);
+			if(h.getDni().equalsIgnoreCase(dni) && h.getContrasenya().equals(contrasenya) ) {
 				return true;
 			}
 			

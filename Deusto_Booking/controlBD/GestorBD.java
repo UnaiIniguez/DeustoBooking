@@ -258,7 +258,7 @@ public class GestorBD {
 
 		try {
 
-			contrasenya = Cifrar.cifrar(contrasenya);
+//			contrasenya = Cifrar.cifrar(contrasenya);
 
 			Statement stmt = conn.createStatement();
 
@@ -305,7 +305,8 @@ public class GestorBD {
 			pst.setInt(3, duenio.getEdad());
 			pst.setString(4, duenio.getMail());
 			pst.setString(5, duenio.getTlfNum());
-			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
+//			pst.setString(6, Cifrar.cifrar(duenio.getContrasenya()));
+			pst.setString(6, duenio.getContrasenya());
 			pst.setString(7, duenio.getCargo());
 			pst.executeUpdate();
 			System.out.println("Insercion correcta");
@@ -449,7 +450,8 @@ public class GestorBD {
 			pst.setString(5, huesped.getTlfNum());
 			pst.setString(6, huesped.getCargo());
 			pst.setString(7, huesped.getNomEmpresa());
-			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
+//			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
+			pst.setString(8, huesped.getContrasenya());
 			pst.executeUpdate();
 			System.out.println("Insercion correcta");
 			pst.close();
