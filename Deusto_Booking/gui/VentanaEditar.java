@@ -66,9 +66,6 @@ public class VentanaEditar extends JFrame{
 		
 	}
 	
-	public static void main(String args[]) {
-		new VentanaEditar().setVisible(true);
-	}
 	
 	
 }
