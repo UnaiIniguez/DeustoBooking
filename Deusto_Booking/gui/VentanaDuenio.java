@@ -90,7 +90,7 @@ public class VentanaDuenio extends JFrame {
 
 		// Cargo los datos de los Inmuebles:
 
-		System.out.println("Tamaño setInmuebles: " + setInmuebles.size());
+		System.out.println("Tamaï¿½o setInmuebles: " + setInmuebles.size());
 
 		for (Inmueble i : setInmuebles) {
 
@@ -118,7 +118,7 @@ public class VentanaDuenio extends JFrame {
 
 		JButton botonEliminar = new JButton("Eliminar");
 		JButton botonEditar = new JButton("Editar Estado");
-		JButton botonAnyadir = new JButton("Añadir");
+		JButton botonAnyadir = new JButton("Aï¿½adir");
 		JButton imagen1 = new JButton("1");
 		JButton imagen2 = new JButton("2");
 		JButton imagen3 = new JButton("3");
@@ -251,7 +251,19 @@ public class VentanaDuenio extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				int id = (int) modelo_Usuario.getValueAt(tabla_Usuario.getSelectedRow(), 0);
+				List<Inmueble> listaInmueble = new ArrayList<>(setInmuebles);
+				for(Inmueble i: listaInmueble) {
+					if(i.getId_Inmueble() == id) {
+						new VentanaEditar().setVisible(true);
+						
+					}
+				}
+				
+				
+				
+				
 
 			}
 		});
