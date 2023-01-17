@@ -102,7 +102,7 @@ public class Gestor {
 		ArrayList<Duenio> duenios = new ArrayList<>(getPropietarios());	
 		for(Duenio d : duenios) {
 			String c = Cifrar.cifrar(contrasenya);
-			if(d.getDni() == dni && d.getContrasenya() == c ) {
+			if(d.getDni().equalsIgnoreCase(dni) && d.getContrasenya().equals(c) ) {
 				return true;
 			}
 			
@@ -425,7 +425,7 @@ public class Gestor {
 		ArrayList<Huesped> huespedes = new ArrayList<>(getHuespedes());	
 		for(Huesped h : huespedes) {
 			String c = Cifrar.cifrar(contrasenya);
-			if(h.getDni() == dni && h.getContrasenya() == c ) {
+			if(h.getDni().equalsIgnoreCase(dni) && h.getContrasenya().equals(c) ) {
 				return true;
 			}
 			

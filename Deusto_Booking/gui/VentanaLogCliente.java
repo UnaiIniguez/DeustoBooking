@@ -104,7 +104,7 @@ public class VentanaLogCliente extends JFrame {
 			if (e.getKeyCode() == 10) {
 				String dni = txtUsuario.getText();
 				String contrasenya = pfContrasenya.getText();
-				if(gestor.buscarDuenio(dni, contrasenya) == false) {
+				if(gestor.buscarHuesped(dni, contrasenya) == false) {
 					error.setVisible(true);
 				}else {
 					VentanaCliente ventana = new VentanaCliente(g, dni);
