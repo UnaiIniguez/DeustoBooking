@@ -30,7 +30,7 @@ public class VentanaLogAnfitrion extends JFrame {
 		g = gestor;
 
 		// Especificaciones de ventana
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Inicio de sesión");
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(5, 1));
@@ -107,6 +107,7 @@ public class VentanaLogAnfitrion extends JFrame {
 						// Meter la ventana
 						VentanaDuenio ventanaDuenio = new VentanaDuenio(g, dni);
 						ventanaDuenio.setVisible(true);
+						
 					}
 				}
 			}
@@ -125,6 +126,7 @@ public class VentanaLogAnfitrion extends JFrame {
 					error.setVisible(true);
 				} else {
 					// Meter la ventana
+					dispose();
 					VentanaDuenio ventanaDuenio = new VentanaDuenio(g, dni);
 					ventanaDuenio.setVisible(true);
 
