@@ -11,8 +11,6 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -21,175 +19,175 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
 import deustoBooking.Gestor;
+import deustoBooking.Huesped;
+
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
 public class VentanaRegistroHuesped extends JFrame {
 
 	private JPanel j;
-	private Gestor gestor;
+	private JTextField txtNombre;
+	private JTextField txtDNI;
+	private JTextField txtTelefono;
+	private JTextField txtEmail;
+	private JTextField txtEdad;
+	private JTextField txtEmpresa;
+	private JTextField txtCargo;
+	private JTextField txtContrasenya;
 
-	public VentanaRegistroHuesped(Gestor g) {
-
-		this.gestor = g;
-		getContentPane().setLayout(new GridLayout(7, 1));
-		//Paneles para personalizar tamaños de componentes
-		JPanel p1 = new JPanel(new GridLayout(1,6));
-		JPanel p2 = new JPanel(new GridLayout());
-		JPanel p3 = new JPanel(new GridLayout());
-		JPanel p4 = new JPanel(new GridLayout());
-		JPanel p5 = new JPanel(new GridLayout());
-		JPanel p6 = new JPanel(new GridLayout());
-		JPanel p7 = new JPanel(new GridLayout());
-
-		JPanel p8 = new JPanel(new FlowLayout());
-	
-		
-		JPanel p11 = new JPanel(new FlowLayout());
-		JPanel p22 = new JPanel(new FlowLayout());
-		JPanel p33 = new JPanel(new FlowLayout());
-		JPanel p44 = new JPanel(new FlowLayout());
-		JPanel p55 = new JPanel(new FlowLayout());
-		JPanel p66 = new JPanel(new FlowLayout());
-		JPanel p77 = new JPanel(new FlowLayout());
-		JPanel p88 = new JPanel(new FlowLayout());
-		JPanel p99 = new JPanel(new FlowLayout());
-		JPanel p100 = new JPanel(new FlowLayout());
-		JPanel p101= new JPanel(new FlowLayout());
-		JPanel p102= new JPanel(new FlowLayout());
-		JPanel p103= new JPanel(new FlowLayout());
-		JPanel p104= new JPanel(new FlowLayout());
-		
-		
-		//Componentes de ventana
-		JLabel l = new JLabel("Deusto Booking");
-		JLabel l1 = new JLabel("DNI      ");
-		JLabel l2 = new JLabel("Nombre   ");
-		JLabel l3 = new JLabel("Apellido ");
-		JLabel l4 = new JLabel("Telefono ");
-		JLabel l5 = new JLabel("Fecha Nacimiento ");
-		JTextField t = new JTextField(14);
-		JTextField t1 = new JTextField(14);
-		JTextField t2 = new JTextField(14);
-		JTextField t3 = new JTextField(14);
-		JDateChooser fechaNacimiento = new JDateChooser("yyyy/MM/dd", "####/##/##", '_');
-		JButton b = new JButton("Registrarse ");
-		JButton b1 = new JButton("Cancelar");
-		
-		p1.add(p11);
-		p2.add(p22);
-		p2.add(p33);
-		p3.add(p44);
-		p3.add(p55);
-		p4.add(p66);
-		p4.add(p77);
-		p5.add(p88);
-		p5.add(p99);
-		p6.add(p100);
-		p6.add(p101);
-		p7.add(p102);
-		p7.add(p103);
-		
-		
-		
-		p11.add(l);
-		p22.add(l1);
-		p33.add(t);
-		p44.add(l2);
-		p55.add(t1);
-		p66.add(l3);
-		p77.add(t2);
-		p88.add(l4);
-		p99.add(t3);
-		p100.add(l5);
-		p101.add(fechaNacimiento);
-		p102.add(b1);
-		p103.add(b);
-	
-		
-		
-		getContentPane().add(p1);
-		getContentPane().add(p2);
-		getContentPane().add(p3);
-		getContentPane().add(p4);
-		getContentPane().add(p5);
-		getContentPane().add(p6);
-		getContentPane().add(p7);
-		
-		
-		
-		
-		
-		
-		
-		
-		//Especificaciones de ventana
+	public VentanaRegistroHuesped() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Registro Huesped");
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(173, 216, 230));
-		setSize(400,600);
-		p1.setBackground(new Color(173, 216, 230));
-		p2.setBackground(new Color(173, 216, 230));
-		p3.setBackground(new Color(173, 216, 230));
-		p4.setBackground(new Color(173, 216, 230));
-		p11.setBackground(new Color(173, 216, 230));
-		p22.setBackground(new Color(173, 216, 230));
-		p33.setBackground(new Color(173, 216, 230));
-		p44.setBackground(new Color(173, 216, 230));
-		p55.setBackground(new Color(173, 216, 230));
-		p66.setBackground(new Color(173, 216, 230));
-		p77.setBackground(new Color(173, 216, 230));
-		p88.setBackground(new Color(173, 216, 230));
-		p99.setBackground(new Color(173, 216, 230));
-		p100.setBackground(new Color(173, 216, 230));
-		p101.setBackground(new Color(173, 216, 230));
-		p102.setBackground(new Color(173, 216, 230));
-		p103.setBackground(new Color(173, 216, 230));
-		
-	
-		//Ajuste del tamaño de los botones
-		Dimension dimb = new Dimension(140,20);
-		b.setPreferredSize(dimb);
-		b1.setPreferredSize(dimb);
-		Font bigFont = l.getFont().deriveFont(Font.BOLD, 26f);
-		Font mediumFont = l1.getFont().deriveFont(Font.PLAIN, 10f);
-		Font mediumFont2 = l2.getFont().deriveFont(Font.PLAIN, 10f);
-		Font mediumFont3 = l3.getFont().deriveFont(Font.PLAIN, 10f);
-		Font mediumFont4 = l4.getFont().deriveFont(Font.PLAIN, 10f);
-		Font mediumFont5 = l5.getFont().deriveFont(Font.PLAIN, 10f);
-		l.setFont(bigFont);
-		l1.setFont(mediumFont);
-		l2.setFont(mediumFont);
-		l3.setFont(mediumFont);
-		l4.setFont(mediumFont);
-		l5.setFont(mediumFont);
+		setSize(300,560);
+		getContentPane().setLayout(null);
+
 		
 		
-		//Icono de ventana
+		//Componentes de ventana
+		JLabel l = new JLabel("");
+		l.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel l1 = new JLabel("DNI:");
+		JLabel l2 = new JLabel("Nombre:");
+		JLabel l3 = new JLabel("Email:");
+		JLabel l4 = new JLabel("Telefono:");
+		JLabel l5 = new JLabel("Edad:");
+		JLabel l6 = new JLabel("Empresa:");
+		JLabel l7 = new JLabel("Cargo:");
+		JLabel l8 = new JLabel("Contraseña:");
+		
+		l.setBounds(40, 11, 204, 135);		
+		l.setFont(new Font("Tahoma", Font.BOLD, 14));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono.png"));
-		
-		
 		ImageIcon logo = new ImageIcon(new ImageIcon("imagenes/icono.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		l.setIcon(logo);
 		
+		l1.setBounds(28, 202, 85, 14);
+		l1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		l2.setBounds(28, 170, 85, 14);
+		l2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		l3.setBounds(28, 271, 85, 14);
+		l3.setFont(new Font("Tahoma", Font.BOLD, 14));
+		l4.setBounds(28, 236, 85, 14);
+		l4.setFont(new Font("Tahoma", Font.BOLD, 14));
+		l5.setBounds(28, 307, 85, 14);
+		l5.setFont(new Font("Tahoma", Font.BOLD, 14));
+		l6.setBounds(28, 339, 85, 20);
+		l6.setFont(new Font("Tahoma", Font.BOLD, 14));
+		l7.setBounds(28, 375, 85, 20);
+		l7.setFont(new Font("Tahoma", Font.BOLD, 14));		
+		l8.setBounds(28, 413, 85, 14);
+		l8.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+		getContentPane().add(l);
 		
-		//Eventos
-		b1.addActionListener(new ActionListener() {
-			
-			@Override
+		getContentPane().add(l1);
+		getContentPane().add(l2);
+		getContentPane().add(l3);
+		getContentPane().add(l4);
+		getContentPane().add(l5);
+		getContentPane().add(l6);
+		getContentPane().add(l7);
+		getContentPane().add(l8);
+
+		JButton btnRegistrarse = new JButton("Registrarse ");
+		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				Gestor g = new Gestor();
 				
+				g.registroHuesped(
+						txtDNI.getText().trim(),
+						txtNombre.getText().trim(),
+						Integer.parseInt(txtEdad.getText().trim()),
+						txtEmail.getText().trim(),
+						txtTelefono.getText().trim(),
+						txtContrasenya.getText().trim(),
+						txtCargo.getText().trim(),
+						txtEmpresa.getText().trim() );
+
+				dispose();
 			}
 		});
+		btnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRegistrarse.setBounds(12, 475, 115, 20);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				dispose();
+			}
+		});
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCancelar.setBounds(162, 475, 112, 20);
+
+		Dimension dimb = new Dimension(140,20);
+		btnRegistrarse.setPreferredSize(dimb);
+		btnCancelar.setPreferredSize(dimb);
+		
+		getContentPane().add(btnCancelar);
+		getContentPane().add(btnRegistrarse);
+	
+		
+		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNombre.setBounds(146, 167, 112, 20);
+		getContentPane().add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		txtDNI = new JTextField();
+		txtDNI.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDNI.setColumns(10);
+		txtDNI.setBounds(146, 199, 112, 20);
+		getContentPane().add(txtDNI);
+		
+		txtTelefono = new JTextField();
+		txtTelefono.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtTelefono.setColumns(10);
+		txtTelefono.setBounds(146, 233, 112, 20);
+		getContentPane().add(txtTelefono);
+		
+		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(146, 268, 112, 20);
+		getContentPane().add(txtEmail);
+		
+		txtEdad = new JTextField();
+		txtEdad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtEdad.setColumns(10);
+		txtEdad.setBounds(146, 304, 112, 20);
+		getContentPane().add(txtEdad);
+		
+		txtEmpresa = new JTextField();
+		txtEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtEmpresa.setColumns(10);
+		txtEmpresa.setBounds(146, 339, 112, 20);
+		getContentPane().add(txtEmpresa);
+		
+		txtCargo = new JTextField();
+		txtCargo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtCargo.setColumns(10);
+		txtCargo.setBounds(146, 375, 112, 20);
+		getContentPane().add(txtCargo);
+		
+		txtContrasenya = new JTextField();
+		txtContrasenya.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtContrasenya.setColumns(10);
+		txtContrasenya.setBounds(146, 410, 112, 20);
+		getContentPane().add(txtContrasenya);
 		
 		
 	}
-
-
 }

@@ -198,28 +198,10 @@ public class GestorBD {
 				int ocupado = tablaInmuebles.getInt(9);
 				String dni_d = tablaInmuebles.getString(10);
 
-				Blob foto_1 = null;
-				byte[] fb = tablaInmuebles.getBytes(11);
-				if (fb != null) {
-					foto_1 = new SerialBlob(fb);
-				}
-
-				Blob foto_2 = null;
-				fb = tablaInmuebles.getBytes(12);
-				if (fb != null) {
-					foto_2 = new SerialBlob(fb);
-				}
-				Blob foto_3= null;
-				fb = tablaInmuebles.getBytes(13);
-				if(fb != null) {
-					foto_3 = new SerialBlob(fb);
-				}
-				
-				Blob foto_4= null;
-				fb = tablaInmuebles.getBytes(14);
-				if(fb != null) {
-					foto_4 = new SerialBlob(fb);
-				} 
+				Blob foto_1 = new SerialBlob(tablaInmuebles.getBytes(11));
+				Blob foto_2 = new SerialBlob(tablaInmuebles.getBytes(12));
+				Blob foto_3 = new SerialBlob(tablaInmuebles.getBytes(13));
+				Blob foto_4 = new SerialBlob(tablaInmuebles.getBytes(14));
 
 
 				// Lo muestro por pantalla(Todo menos las fotos)
