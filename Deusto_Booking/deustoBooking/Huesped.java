@@ -41,4 +41,12 @@ public class Huesped extends Persona {
 		this.nomEmpresa = nomEmpresa;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Huesped " + this.getDni() + " " +  this.getNombre() ;
+	}
+	
+	
+
 }

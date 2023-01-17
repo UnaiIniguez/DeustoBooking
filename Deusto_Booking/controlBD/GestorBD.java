@@ -158,13 +158,15 @@ public class GestorBD {
 				int edad_h = tablaHuesped.getInt(3);
 				String mail_h = tablaHuesped.getString(4);
 				String tlf_h = tablaHuesped.getString(5);
-				String cargo = tablaHuesped.getString(6);
-				String nom_emp = tablaHuesped.getString(7);
-				String contrasenya_h = tablaHuesped.getString(8); // Aqui habia un 9 ( ns si hay que cambiarlo)
+				String cargo = tablaHuesped.getString(7);
+				String nom_emp = tablaHuesped.getString(8);
+				String contrasenya_h = tablaHuesped.getString(6); // Aqui habia un 9 ( ns si hay que cambiarlo)
 
 				// Lo muestro por pantalla
 				System.out.println(dni_h + " " + nom_h + " " + edad_h + " " + mail_h + " " + tlf_h + " " + cargo + " "
 						+ nom_emp + " " + contrasenya_h);
+				Huesped h = new Huesped(dni_h, nom_h, edad_h, mail_h, tlf_h, contrasenya_h, cargo, nom_emp);
+				gestor.getHuespedes().add( h );
 			}
 
 			huesped.close();
@@ -346,10 +348,25 @@ public class GestorBD {
 			pst.setFloat(8, inmueble.getPrecioNoche());
 			pst.setInt(9, inmueble.getOcupado());
 			pst.setString(10, inmueble.getDni_Duenio());
-			pst.setBlob(11, inmueble.getImagenes().get(0));
-			pst.setBlob(12, inmueble.getImagenes().get(1));
-			pst.setBlob(13, inmueble.getImagenes().get(2));
-			pst.setBlob(14, inmueble.getImagenes().get(3));
+			
+			
+	
+			Blob b1 = inmueble.getImagenes().get(0);
+			byte [] x = b1.getBytes(1, (int)b1.length());
+			pst.setBytes(11, x );
+			
+			Blob b2 = inmueble.getImagenes().get(1);
+			byte [] x2 = b2.getBytes(1, (int)b2.length());
+			pst.setBytes(12, x2 );
+			
+			Blob b3 = inmueble.getImagenes().get(2);
+			byte [] x3 = b3.getBytes(1, (int)b3.length());
+			pst.setBytes(13, x3 );
+			
+			Blob b4 = inmueble.getImagenes().get(3);
+			byte [] x4 = b4.getBytes(1, (int)b4.length());
+			pst.setBytes(14, x4 );
+			
 
 			pst.executeUpdate();
 

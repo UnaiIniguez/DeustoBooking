@@ -424,9 +424,12 @@ public class Gestor {
 	 *
 	 */
 	public boolean buscarHuesped(String dni, String contrasenya) {
-		ArrayList<Huesped> huespedes = new ArrayList<>(getHuespedes());	
+		ArrayList<Huesped> huespedes = new ArrayList<>( getHuespedes() );	
 		for(Huesped h : huespedes) {
 			//String c = Cifrar.cifrar(contrasenya);
+			
+			System.out.println( h );
+			
 			if(h.getDni().equalsIgnoreCase(dni) && h.getContrasenya().equals(contrasenya) ) {
 				return true;
 			}
