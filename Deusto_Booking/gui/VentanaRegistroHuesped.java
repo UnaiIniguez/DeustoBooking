@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Button;
 
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -17,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -115,8 +117,9 @@ public class VentanaRegistroHuesped extends JFrame {
 						txtContrasenya.getText().trim(),
 						txtCargo.getText().trim(),
 						txtEmpresa.getText().trim() );
-
+				
 				dispose();
+				JOptionPane.showMessageDialog(VentanaRegistroHuesped.this, "El cliente se ha creado adecuadamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 13));

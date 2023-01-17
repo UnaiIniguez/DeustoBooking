@@ -309,9 +309,10 @@ public class GestorBD {
 			pst.setString(6, duenio.getContrasenya());
 			pst.setString(7, duenio.getCargo());
 			pst.executeUpdate();
-			System.out.println("Insercion correcta");
+			
 
 			pst.close();
+			System.out.println("Se ha añadido el dueño");
 
 		} catch (SQLException e) {
 
@@ -352,8 +353,8 @@ public class GestorBD {
 
 			pst.executeUpdate();
 
-			System.out.println("Insercion correcta");
 
+			System.out.println("Se ha añadido el inmueble");
 			pst.close();
 
 		} catch (SQLException e) {
@@ -453,7 +454,7 @@ public class GestorBD {
 //			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
 			pst.setString(8, huesped.getContrasenya());
 			pst.executeUpdate();
-			System.out.println("Insercion correcta");
+			System.out.println("Insercion de huesped correcta");
 			pst.close();
 		} catch (SQLException e) {
 
@@ -492,6 +493,7 @@ public class GestorBD {
 			pst.setString(4, reserva.getDni_Huesped());
 			pst.executeUpdate();
 
+			System.out.println("Insercion de reserva correcta");
 			pst.close();
 
 		} catch (SQLException e) {
@@ -519,7 +521,7 @@ public class GestorBD {
 			pst.executeUpdate();
 
 			pst.close();
-
+			System.out.println("Anulada la reserva");
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -548,6 +550,7 @@ public class GestorBD {
 		try {
 			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.executeUpdate();
+			System.out.println("editada la reserva");
 		} catch (SQLException e) {
 
 		

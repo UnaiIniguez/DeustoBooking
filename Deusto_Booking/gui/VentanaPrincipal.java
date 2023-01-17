@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 
 
+
 import java.awt.Color;
 
 
@@ -33,6 +34,7 @@ import javax.swing.JTextField;
 
 
 import com.toedter.calendar.JDateChooser;
+
 
 import deustoBooking.Duenio;
 import deustoBooking.Gestor;
@@ -191,6 +193,7 @@ public class VentanaPrincipal extends JFrame {
 				
 				if(seleccionadas.isEmpty()) {
 					System.out.println("No hay casas que cumplan esas caracteristicas:" + tipo + "-" + ubicacion + "-" + diallegada + "-" + diasalida + "-" + h);
+					JOptionPane.showMessageDialog(VentanaPrincipal.this, "No hay casas que cumplan esos requisitos", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
 					VentanaPrincipalReserva ventana = new VentanaPrincipalReserva(gestor, seleccionadas);
 					ventana.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

@@ -126,6 +126,8 @@ public class Gestor {
 		if( p.contains(duenio)) {
 			return false;
 		}else {
+			propietarios.add(duenio);
+			
 			Thread d = new Thread(new Runnable() {
 				
 				@Override
@@ -297,8 +299,8 @@ public class Gestor {
 			String nomEmpresa, String contrasenya) {
 
 		Huesped h = new Huesped(dni, nombre, edad, mail, tlf, contrasenya, cargo, nomEmpresa);
-
-		if (!huespedes.contains(h)) {
+		ArrayList<Huesped> hs = new ArrayList<>(huespedes);
+		if (!hs.contains(h)) {
 			huespedes.add(h);
 		}
 		Thread p = new Thread(new Runnable() {
