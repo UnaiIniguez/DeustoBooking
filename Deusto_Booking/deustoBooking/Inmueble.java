@@ -154,7 +154,7 @@ public class Inmueble implements Comparable<Inmueble> {
 
 	@Override
 	public String toString() {
-		return "Inmueble [duenio=" + dni_Duenio + ", ocupado=" + ocupado + ", numHab=" + numHab + ", numBany=" + numBany
+		return "Inmueble [ ID: "+ id_Inmueble  +"duenio=" + dni_Duenio + ", ocupado=" + ocupado + ", numHab=" + numHab + ", numBany=" + numBany
 				+ ", ubicacion=" + ubicacion + ", MaxHuespedes=" + MaxHuespedes + ", tipo=" + tipo
 				+ ", metrosCuadrados=" + metrosCuadrados + ", precioNoche=" + precioNoche + "]";
 	}

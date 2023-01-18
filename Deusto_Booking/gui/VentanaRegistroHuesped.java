@@ -118,6 +118,8 @@ public class VentanaRegistroHuesped extends JFrame {
 						txtCargo.getText().trim(),
 						txtEmpresa.getText().trim() );
 				
+				
+				
 				dispose();
 				JOptionPane.showMessageDialog(VentanaRegistroHuesped.this, "El cliente se ha creado adecuadamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 			}

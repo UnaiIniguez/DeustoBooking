@@ -412,7 +412,7 @@ public class VentanaDuenio extends JFrame {
 				List<Inmueble> listaInmueble = new ArrayList<>(setInmuebles);
 				for(Inmueble i: listaInmueble) {
 					if(i.getId_Inmueble() == id) {
-						new VentanaEditar(i).setVisible(true);
+						new VentanaEditar( i, g ).setVisible(true);
 						
 					}
 				}
@@ -455,6 +455,7 @@ public class VentanaDuenio extends JFrame {
 		boolean resultado = false;
 
 		for (Inmueble i : setInmuebles) {
+			
 			if (i.getId_Inmueble() == id) {
 				inmueble = i;
 				setInmuebles.remove(i);

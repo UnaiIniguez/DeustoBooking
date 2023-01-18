@@ -212,7 +212,7 @@ public class GestorBD {
 
 
 				// Lo muestro por pantalla(Todo menos las fotos)
-				System.out.println(id_Inmueble + " " + num_hab + " " + num_bany + " " + ubi + " " + max_hu + " " + tipo
+				System.out.println("ID:" + id_Inmueble + " " + num_hab + " " + num_bany + " " + ubi + " " + max_hu + " " + tipo
 						+ " " + m2 + " " + precio + " " + ocupado + " " + dni_d);
 
 				TipoVivienda tipo_vivienda = tipoVivienda(tipo);
@@ -458,6 +458,32 @@ public class GestorBD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void editarEstadoInmueble( Inmueble inmueble ) {
+		
+		conectar();
+		
+		String s = "UPDATE Inmueble SET ocupado = " + inmueble.getOcupado() + "WHERE id_Inmueble = " + inmueble.getId_Inmueble() + ";";
+		
+		
+		try {
+			PreparedStatement editarSQL = conn.prepareStatement(s);
+			
+			editarSQL.setInt( 9, inmueble.getOcupado() );
+			
+			editarSQL.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void anyadirHuespedBD(Huesped huesped) { // A�ade un huesped a la Base de Datos

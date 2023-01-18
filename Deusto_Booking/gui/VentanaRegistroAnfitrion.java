@@ -382,8 +382,9 @@ public class VentanaRegistroAnfitrion extends JFrame {
 					nuevoInmueble.setImagenes(im);
 					
 					gestor.anyadirDuenio(nuevoDuenio);
-					gestor.anadirInmueble(nuevoInmueble);	
-				
+					gestor.anadirInmueble(nuevoInmueble);
+					
+					JOptionPane.showMessageDialog(VentanaRegistroAnfitrion.this, "El dueño se ha creado adecuadamente", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
 				
 				dispose();
 			}

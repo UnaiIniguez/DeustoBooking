@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controlBD.GestorBD;
 import deustoBooking.Gestor;
 import deustoBooking.Inmueble;
 
@@ -24,12 +25,11 @@ public class VentanaEditar extends JFrame{
 	Gestor g;
 	JComboBox jc;
 	
-	public VentanaEditar(Inmueble i) {
+	public VentanaEditar(Inmueble i, Gestor g) {
 		
-		//g = gestor;
+		this.g = g;
 
 		// Especificaciones de ventana
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Inicio de sesión");
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(3, 1));
@@ -75,13 +75,11 @@ public class VentanaEditar extends JFrame{
 				String ocupado = jc.getSelectedItem().toString();
 				if(ocupado == "SI") {
 					i.setOcupado(1);
+					setVisible(false);
 				}else {
 					i.setOcupado(0);
+					setVisible(false);
 				}
-				
-				
-				
-				
 				
 			}
 			

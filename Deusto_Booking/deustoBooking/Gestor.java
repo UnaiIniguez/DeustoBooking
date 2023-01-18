@@ -211,20 +211,29 @@ public class Gestor {
 	 */
 	public void eliminarInmueble(Inmueble inmueble) throws InmuebleInexistenteException {
 		ArrayList<Inmueble> lista = new ArrayList<>(inmuebles);
+		
+		System.out.println(lista);
 
-		if (lista.contains(inmueble)) {
-			inmuebles.remove(inmueble);
-			Thread t = new Thread(new Runnable() {
+		for (Inmueble i : lista) {
+			
+			if (i.equals(inmueble)) {
+				
+				inmuebles.remove(inmueble);
+				Thread t = new Thread(new Runnable() {
 
-				@Override
-				public void run() {
-					gestorBD.eliminarInmuebleBD(inmueble);
+					@Override
+					public void run() {
+						gestorBD.eliminarInmuebleBD(inmueble);
 
-				}
-			});
-			t.start();
-		} else {
-			throw new InmuebleInexistenteException("No existe un inmueble con ese ID");
+					}
+				});
+				t.start();
+				
+			} else {
+				
+				throw new InmuebleInexistenteException("No existe un inmueble con ese ID");
+				
+			}
 		}
 
 	}
@@ -235,7 +244,7 @@ public class Gestor {
 	 * 
 	 * @param
 	 * @param Inmueble = El inmueble que se desea modificar
-	 * @param Baños    = Nuevo numero de baños que tendrá el inmueble
+	 * @param Baños   = Nuevo numero de baños que tendrá el inmueble
 	 *
 	 */
 	public void editarNumBanInmueble(Inmueble inmueble, int Ban) throws InmuebleInexistenteException {
@@ -256,7 +265,7 @@ public class Gestor {
 	 * Editar el numero de habitaciones que tiene el inmueble
 	 * 
 	 * @param
-	 * @param Inmueble   = El inmueble que se desea modificar
+	 * @param Inmueble    = El inmueble que se desea modificar
 	 * @param Habitación = Nuevo numero de habitaciones que va a tener el inmueble
 	 *
 	 */
@@ -282,21 +291,27 @@ public class Gestor {
 
 	}
 
+	public void editarOcupacionInmueble(Inmueble inmueble) {
+
+		gestorBD.editarEstadoInmueble(inmueble);
+
+	}
+
 	// ********************METODOS DEL HUESPED********************************
 
 	/**
 	 * 
 	 * Hace el registro de un huesped
 	 * 
-	 * @param DNI        = el dni del huesped(Será el usuario a la hora de iniciar
-	 *                   sesion)
-	 * @param Nombre     = Nombre del huesped
-	 * @param Edad       = edad del huesped
-	 * @param Gmail      = el gmail del huesped
-	 * @param Telefono   = El numero de telefono del huesped
-	 * @param El         puesto de trabajo = El puesto de trabajo o cargo que tiene
-	 *                   el huesped
-	 * @param La         compañia = La compañia en la que trabaja el cliente
+	 * @param DNI         = el dni del huesped(Será el usuario a la hora de iniciar
+	 *                    sesion)
+	 * @param Nombre      = Nombre del huesped
+	 * @param Edad        = edad del huesped
+	 * @param Gmail       = el gmail del huesped
+	 * @param Telefono    = El numero de telefono del huesped
+	 * @param El          puesto de trabajo = El puesto de trabajo o cargo que tiene
+	 *                    el huesped
+	 * @param La          compañia = La compañia en la que trabaja el cliente
 	 * @param Contraseña = La contrasenya que quiere tener el huesped.
 	 *
 	 */
