@@ -176,9 +176,11 @@ public class GestorBD {
 			while(tablaReserva.next()) {
 				int id_Reserva = tablaReserva.getInt(1);
 				int id_Inmueble = tablaReserva.getInt(2);
-				Date fecha_Entrada = tablaReserva.getDate(3);
+				Date fecha_Entrada =  tablaReserva.getDate(3);
 				Date fecha_Salida = tablaReserva.getDate(4);
 				String dni_h = tablaReserva.getString(5);
+				
+				
 				
 				ArrayList<Reserva> reservas = new ArrayList<>();
 				reservas.add(new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
@@ -257,6 +259,7 @@ public class GestorBD {
 
 	// ================Test de la Base de Datos==========================
 
+	
 	public boolean iniciarSesionDB(String dni, String contrasenya) {
 
 		conectar();

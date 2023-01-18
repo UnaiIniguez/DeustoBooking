@@ -18,6 +18,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -164,7 +166,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				ArrayList<Inmueble> seleccionadas = new ArrayList<>();
+				
 				
 				TipoVivienda tipo = null;
 				
@@ -188,8 +190,9 @@ public class VentanaPrincipal extends JFrame {
 				diasalida.setMinutes(0);
 				diasalida.setSeconds(0);
 				int h = Integer.parseInt(huespedes.getText());
-						
-				seleccionadas = gestor.filtrar(tipo, ubicacion, diallegada, diasalida, h);
+				Set<Inmueble> s = new HashSet<>();	
+				s = gestor.filtrar(tipo, ubicacion, diallegada, diasalida, h);
+				ArrayList<Inmueble> seleccionadas = new ArrayList<>(s);
 				
 				if(seleccionadas.isEmpty()) {
 					System.out.println("No hay casas que cumplan esas caracteristicas:" + tipo + "-" + ubicacion + "-" + diallegada + "-" + diasalida + "-" + h);
