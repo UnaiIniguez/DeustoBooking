@@ -159,8 +159,9 @@ public class Gestor {
 				}else {
 					for( ArrayList<Reserva> lr : listaReservas){
 						for(Reserva re : lr) {
-							if(diaLlegada.equals(re.getFecha_Entrada()) && diaLlegada.compareTo(diaSalida) < 0 &&
-									diaSalida.equals(re.getFecha_Salida())) {
+							if(!diaLlegada.equals(re.getFecha_Entrada()) && diaLlegada.compareTo(diaSalida) < 0 &&
+									!diaSalida.equals(re.getFecha_Salida())) {
+									System.out.println("Hola");
 								if( i.getMaxHuespedes() >= huespedes && i.getTipo().equals(tipo)) {
 									seleccionadas.add(i);
 								}
