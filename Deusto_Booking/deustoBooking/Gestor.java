@@ -145,25 +145,30 @@ public class Gestor {
 	}
 	
 	public ArrayList<Inmueble> filtrar(TipoVivienda tipo , String ubicacion, Date diaLlegada, Date diaSalida, int huespedes ){
+		
 		ArrayList<Inmueble> inmuebles = new ArrayList<>(getInmuebles());
 		Collection<ArrayList<Reserva>> listaReservas = getReservas().values();
 		ArrayList<Inmueble> seleccionadas = new ArrayList<>();
 		
 		for(Inmueble i : inmuebles) {
-			if(ubicacion.equals( i.getUbicacion()) && i.getOcupado() == 0) {
+			if(ubicacion.equalsIgnoreCase( i.getUbicacion()) && i.getOcupado() == 0) {
 				if(listaReservas.isEmpty()) {
+					
 					seleccionadas.add(i);
-				}
-				for( ArrayList<Reserva> lr : listaReservas){
-					for(Reserva re : lr) {
-						if(diaLlegada.equals(re.getFecha_Entrada()) && diaLlegada.compareTo(diaSalida) < 0 &&
-								diaSalida.equals(re.getFecha_Salida())) {
-							if( i.getMaxHuespedes() >= huespedes && i.getTipo().equals(tipo)) {
-								seleccionadas.add(i);
+					
+				}else {
+					for( ArrayList<Reserva> lr : listaReservas){
+						for(Reserva re : lr) {
+							if(diaLlegada.equals(re.getFecha_Entrada()) && diaLlegada.compareTo(diaSalida) < 0 &&
+									diaSalida.equals(re.getFecha_Salida())) {
+								if( i.getMaxHuespedes() >= huespedes && i.getTipo().equals(tipo)) {
+									seleccionadas.add(i);
+								}
 							}
 						}
 					}
-				}	
+				}
+					
 			}
 		}
 		

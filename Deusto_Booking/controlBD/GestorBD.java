@@ -184,6 +184,7 @@ public class GestorBD {
 				reservas.add(new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
 				gestor.getReservas().put(dni_h, reservas);
 				
+				
 			}
 
 			Statement inmueble = conn.createStatement();

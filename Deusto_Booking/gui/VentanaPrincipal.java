@@ -151,7 +151,7 @@ public class VentanaPrincipal extends JFrame {
 				VentanaLogAnfitrion ventanaInicio = new VentanaLogAnfitrion(gestor);
 				ventanaInicio.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				ventanaInicio.setVisible(true);
-
+				
 			}
 		});
 		
