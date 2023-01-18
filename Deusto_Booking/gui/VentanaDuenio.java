@@ -225,6 +225,7 @@ public class VentanaDuenio extends JFrame {
 					im.add(conFoto3);
 					im.add(conFoto4);
 					nuevoInmueble.setImagenes(im);
+					nuevoInmueble.setDni_Duenio(dni);
 					gestor.anadirInmueble(nuevoInmueble);
 
 				} else {

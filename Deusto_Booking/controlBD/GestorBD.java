@@ -340,7 +340,7 @@ public class GestorBD {
 
 		try {
 			PreparedStatement pst = conn.prepareStatement(datos_sql);
-			pst.setInt(1, inmueble.getId_Inmueble());
+			
 			pst.setInt(2, inmueble.getNumHab());
 			pst.setInt(3, inmueble.getNumBany());
 			pst.setString(4, inmueble.getUbicacion());
@@ -498,7 +498,7 @@ public class GestorBD {
 
 		try {
 			PreparedStatement pst = conn.prepareStatement(datos_sql);
-			pst.setInt(1, reserva.getId_Reserva());
+			
 			pst.setInt(2, reserva.getId_Inmueble());
 
 			long dato1 = reserva.getFecha_Entrada().getTime();
