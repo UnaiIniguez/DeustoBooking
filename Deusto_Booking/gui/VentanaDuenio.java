@@ -6,15 +6,21 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import controlBD.GestorBD;
@@ -212,7 +219,12 @@ public class VentanaDuenio extends JFrame {
 					nuevoInmueble.setUbicacion(txtUbicacion.getText().toString());
 					nuevoInmueble.setTipo(tipoVivienda(boxTipoVivienda.getSelectedItem().toString()));
 					nuevoInmueble.setMetrosCuadrados(Float.parseFloat(txtmetros.getText().toString()));
-
+					ArrayList<Blob> im = new ArrayList<>();
+					im.add(conFoto1);
+					im.add(conFoto2);
+					im.add(conFoto3);
+					im.add(conFoto4);
+					nuevoInmueble.setImagenes(im);
 					gestor.anadirInmueble(nuevoInmueble);
 
 				} else {
@@ -224,6 +236,149 @@ public class VentanaDuenio extends JFrame {
 
 			}
 		});
+		
+		
+		imagen1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaDuenio.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto1 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
+		
+		imagen2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaDuenio.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto2 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+						
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
+		imagen3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaDuenio.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto3 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+					
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
+		imagen4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser fileChooser = new JFileChooser();
+	               
+	               // solo se admiten ficheros con extensión ".txt"
+	               FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "*.png", "jpg", "png");
+	               fileChooser.addChoosableFileFilter(filtro);
+	               // en este caso se muestra un dialogo de selección de fichero de
+	               // guardado.
+	               int result = fileChooser.showSaveDialog(VentanaDuenio.this);
+	               if (result == JFileChooser.APPROVE_OPTION) {
+	                   // el usuario ha pulsado el boton aceptar
+	                   // se obtiene el fichero seleccionado -> File
+	                   File file = fileChooser.getSelectedFile();
+	                   try {
+						byte[] contenido = Files.readAllBytes(file.toPath());
+						try {
+							conFoto4 = new SerialBlob(contenido);
+						} catch (SQLException e1) {
+							
+							e1.printStackTrace();
+						}
+					} catch (IOException e1) {
+						
+						e1.printStackTrace();
+					}
+	                   
+				
+			}
+			}
+		});
+		
 
 		botonEliminar.addActionListener(new ActionListener() {
 
@@ -309,7 +464,7 @@ public class VentanaDuenio extends JFrame {
 			gestor.eliminarInmueble(inmueble);
 			resultado = true;
 		} catch (InmuebleInexistenteException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
