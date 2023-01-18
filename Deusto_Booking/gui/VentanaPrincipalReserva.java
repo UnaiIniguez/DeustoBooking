@@ -52,7 +52,7 @@ public class VentanaPrincipalReserva extends JFrame {
 
 		ListModelInmuebles(ArrayList<Inmueble> seleccionadas) {
 			for (Inmueble inmueble : seleccionadas) {
-				System.out.println("..");
+//				System.out.println("..");
 				lista.add(inmueble);
 			}
 
@@ -87,6 +87,8 @@ public class VentanaPrincipalReserva extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Ventana de Reservas");
+		
+		setLocationRelativeTo(null);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

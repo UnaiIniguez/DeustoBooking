@@ -150,22 +150,14 @@ public class Gestor {
 				} else {
 					for (ArrayList<Reserva> lr : listaReservas) {
 						for (Reserva re : lr) {
-
-							String diaL = new SimpleDateFormat("dd-MM-yyyy").format(diaLlegada);
-							String redial = new SimpleDateFormat("dd-MM-yyyy").format(re.getFecha_Entrada());
-							System.out.println(diaL + "El q metemos");
-							System.out.println(redial);
-							String diaS = new SimpleDateFormat("dd-MM-yyyy").format(diaSalida);
-							String rediaS = new SimpleDateFormat("dd-MM-yyyy").format(re.getFecha_Salida());
-							System.out.println(diaS + "el que metemos");
-							System.out.println(rediaS);
-							if ((!diaL.equals(redial)) && (!diaS.equals(rediaS))) {
+							
+							if ((diaLlegada != (re.getFecha_Entrada())) && (diaSalida != (re.getFecha_Salida()))) {
 
 								if (i.getMaxHuespedes() >= huespedes && i.getTipo().equals(tipo)) {
 									seleccionadas.add(i);
 								}
 							} else {
-								System.out.println("Esa reserva ya esta ");
+//								System.out.println("Esa reserva ya esta ");
 								seleccionadas.clear();
 							}
 						}
@@ -212,7 +204,7 @@ public class Gestor {
 	public void eliminarInmueble(Inmueble inmueble) throws InmuebleInexistenteException {
 		ArrayList<Inmueble> lista = new ArrayList<>(inmuebles);
 		
-		System.out.println(lista);
+//		System.out.println(lista);
 
 		for (Inmueble i : lista) {
 			
@@ -319,10 +311,9 @@ public class Gestor {
 			String nomEmpresa, String contrasenya) {
 
 		Huesped h = new Huesped(dni, nombre, edad, mail, tlf, contrasenya, cargo, nomEmpresa);
-		ArrayList<Huesped> hs = new ArrayList<>(huespedes);
-		if (!hs.contains(h)) {
+		
 			huespedes.add(h);
-		}
+			
 		Thread p = new Thread(new Runnable() {
 
 			@Override
@@ -443,7 +434,7 @@ public class Gestor {
 		for (Huesped h : huespedes) {
 			// String c = Cifrar.cifrar(contrasenya);
 
-			System.out.println(h);
+//			System.out.println(h);
 
 			if (h.getDni().equalsIgnoreCase(dni) && h.getContrasenya().equals(contrasenya)) {
 				return true;

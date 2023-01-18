@@ -97,11 +97,11 @@ public class VentanaDuenio extends JFrame {
 
 		// Cargo los datos de los Inmuebles:
 
-		System.out.println("Tama�o setInmuebles: " + setInmuebles.size());
+//		System.out.println("Tama�o setInmuebles: " + setInmuebles.size());
 
 		for (Inmueble i : setInmuebles) {
 
-			System.out.println("Inmueble " + i);
+//			System.out.println("Inmueble " + i);
 
 			if (i.getDni_Duenio().equalsIgnoreCase(dni)) {
 

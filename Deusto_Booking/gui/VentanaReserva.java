@@ -13,6 +13,7 @@ import java.util.random.RandomGenerator;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -62,7 +63,9 @@ public class VentanaReserva extends JFrame {
 					Reserva r = new Reserva(3, inmueble.getId_Inmueble(), fechallegada, fechasalida, dni);
 					gestor.reservar(dni, r);
 					
-					setVisible(false);
+					JOptionPane.showMessageDialog(VentanaReserva.this, "Se a reservado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+					
+					dispose();
 				} else {
 
 				}

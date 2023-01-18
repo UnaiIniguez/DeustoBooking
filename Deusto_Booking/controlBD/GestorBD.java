@@ -117,7 +117,7 @@ public class GestorBD {
 
 	public void leerBaseDeDatos() {
 
-		System.out.println("Ejecucion metodo leerBaseDatos");
+//		System.out.println("Ejecucion metodo leerBaseDatos");
 
 		try {
 
@@ -140,8 +140,8 @@ public class GestorBD {
 				
 
 				// Lo muestro por pantalla
-				System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo + " "
-						+ contrasenya);
+//				System.out.println(dni_d + " " + nom_d + " " + edad_d + " " + mail_d + " " + tlf_d + " " + cargo + " "
+//						+ contrasenya);
 				
 				gestor.getPropietarios().add(new Duenio(dni_d, nom_d, edad_d, mail_d, tlf_d, contrasenya, cargo));
 				System.out.println(gestor.getPropietarios());
@@ -163,8 +163,8 @@ public class GestorBD {
 				String contrasenya_h = tablaHuesped.getString(6); // Aqui habia un 9 ( ns si hay que cambiarlo)
 
 				// Lo muestro por pantalla
-				System.out.println(dni_h + " " + nom_h + " " + edad_h + " " + mail_h + " " + tlf_h + " " + cargo + " "
-						+ nom_emp + " " + contrasenya_h);
+//				System.out.println(dni_h + " " + nom_h + " " + edad_h + " " + mail_h + " " + tlf_h + " " + cargo + " "
+//						+ nom_emp + " " + contrasenya_h);
 				Huesped h = new Huesped(dni_h, nom_h, edad_h, mail_h, tlf_h, contrasenya_h, cargo, nom_emp);
 				gestor.getHuespedes().add( h );
 			}
@@ -212,8 +212,8 @@ public class GestorBD {
 
 
 				// Lo muestro por pantalla(Todo menos las fotos)
-				System.out.println("ID:" + id_Inmueble + " " + num_hab + " " + num_bany + " " + ubi + " " + max_hu + " " + tipo
-						+ " " + m2 + " " + precio + " " + ocupado + " " + dni_d);
+//				System.out.println("ID:" + id_Inmueble + " " + num_hab + " " + num_bany + " " + ubi + " " + max_hu + " " + tipo
+//						+ " " + m2 + " " + precio + " " + ocupado + " " + dni_d);
 
 				TipoVivienda tipo_vivienda = tipoVivienda(tipo);
 
@@ -320,7 +320,7 @@ public class GestorBD {
 			
 
 			pst.close();
-			System.out.println("Se ha añadido el dueño");
+//			System.out.println("Se ha añadido el dueño");
 
 		} catch (SQLException e) {
 
@@ -377,7 +377,7 @@ public class GestorBD {
 			pst.executeUpdate();
 
 
-			System.out.println("Se ha añadido el inmueble");
+//			System.out.println("Se ha añadido el inmueble");
 			pst.close();
 
 		} catch (SQLException e) {
@@ -503,7 +503,7 @@ public class GestorBD {
 //			pst.setString(8, Cifrar.cifrar(huesped.getContrasenya()));
 			pst.setString(8, huesped.getContrasenya());
 			pst.executeUpdate();
-			System.out.println("Insercion de huesped correcta");
+//			System.out.println("Insercion de huesped correcta");
 			pst.close();
 		} catch (SQLException e) {
 
@@ -542,7 +542,7 @@ public class GestorBD {
 			pst.setString(5, reserva.getDni_Huesped());
 			pst.executeUpdate();
 
-			System.out.println("Insercion de reserva correcta");
+//			System.out.println("Insercion de reserva correcta");
 			pst.close();
 
 		} catch (SQLException e) {
@@ -570,7 +570,7 @@ public class GestorBD {
 			pst.executeUpdate();
 
 			pst.close();
-			System.out.println("Anulada la reserva");
+//			System.out.println("Anulada la reserva");
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -599,7 +599,7 @@ public class GestorBD {
 		try {
 			PreparedStatement pst = conn.prepareStatement(datos_sql);
 			pst.executeUpdate();
-			System.out.println("editada la reserva");
+//			System.out.println("editada la reserva");
 		} catch (SQLException e) {
 
 		
