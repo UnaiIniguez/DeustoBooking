@@ -180,7 +180,9 @@ public class GestorBD {
 				Date fecha_Salida = tablaReserva.getDate(4);
 				String dni_h = tablaReserva.getString(5);
 				
-				gestor.getReservas().get(dni_h).add(new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
+				ArrayList<Reserva> reservas = new ArrayList<>();
+				reservas.add(new Reserva(id_Reserva, id_Inmueble, fecha_Entrada, fecha_Salida, dni_h));
+				gestor.getReservas().put(dni_h, reservas);
 				
 			}
 
@@ -496,18 +498,18 @@ public class GestorBD {
 
 		try {
 			PreparedStatement pst = conn.prepareStatement(datos_sql);
-			pst.setInt(0, reserva.getId_Reserva());
-			pst.setInt(1, reserva.getId_Inmueble());
+			pst.setInt(1, reserva.getId_Reserva());
+			pst.setInt(2, reserva.getId_Inmueble());
 
 			long dato1 = reserva.getFecha_Entrada().getTime();
 			java.sql.Date fechaEntrada = new java.sql.Date(dato1);
-			pst.setDate(2, fechaEntrada);
+			pst.setDate(3, fechaEntrada);
 
 			long dato2 = reserva.getFecha_Salida().getTime();
 			java.sql.Date fechaSalida = new java.sql.Date(dato2);
-			pst.setDate(3, fechaSalida);
+			pst.setDate(4, fechaSalida);
 
-			pst.setString(4, reserva.getDni_Huesped());
+			pst.setString(5, reserva.getDni_Huesped());
 			pst.executeUpdate();
 
 			System.out.println("Insercion de reserva correcta");

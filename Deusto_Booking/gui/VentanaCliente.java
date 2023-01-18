@@ -11,10 +11,12 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -42,7 +44,7 @@ public class VentanaCliente extends JFrame{
 		 ArrayList<Reserva> reservas = gestor.getReservas().get(dni);
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setTitle("Registro Huesped");
+		setTitle("Reservas Huesped");
 		setLocationRelativeTo(null);
 		setSize(700,450);
 		setLayout(new GridLayout(1,2)); 
@@ -80,19 +82,23 @@ public class VentanaCliente extends JFrame{
 		JButton btEditar = new JButton("Editar Reserva");
 		JLabel espacio = new JLabel(" ");
 		
-		tabla = new JTable();
-		TableModel modelo = tabla.getModel();
-		int fila = 0;
-		for(Reserva r : reservas) {
-			int dato1 = r.getId_Reserva();
-			Date dato2 = r.getFecha_Entrada();
-			Date dato3 = r.getFecha_Salida();
-			
-			
-			modelo.setValueAt(dato1, fila, 0);
-			modelo.setValueAt(dato2, fila, 1);
-			modelo.setValueAt(dato3, fila, 1);
-			fila++;
+		DefaultTableModel modelo = new DefaultTableModel();
+		
+		modelo.addColumn("ID");
+		modelo.addColumn("Fecha de Entrada");
+		modelo.addColumn("Fecha de Salida");
+		
+		tabla = new JTable( modelo );
+		
+		if (reservas != null) {
+			for (int i = 0; i < reservas.size(); i++) {
+				Object[] fila = new Object[3];
+				fila[0] = reservas.get(i).getId_Reserva();
+				fila[1] = reservas.get(i).getFecha_Entrada();
+				fila[2] = reservas.get(i).getFecha_Salida();
+				modelo.addRow(fila);
+
+			}
 		}
 		
 		//Insertar objetos dentro de paneles
@@ -131,13 +137,16 @@ public class VentanaCliente extends JFrame{
 				int id= Integer.parseInt(txtEliminar.getText());
 				
 				for(Reserva r : reservas) {
+					
 					if(r.getId_Reserva() == id ){
-						try {
-							gestor.anularReserva(dni, r);
-						} catch (ReservaInexistenteException e1) {
-							
-							e1.printStackTrace();
-						}
+							try {
+								
+								gestor.anularReserva(r.getDni_Huesped(), r);
+								
+							} catch (ReservaInexistenteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 					}
 				}
 				
@@ -174,4 +183,6 @@ public class VentanaCliente extends JFrame{
 
 		setVisible(true);
 	}
+	
 }
+

@@ -357,9 +357,9 @@ public class Gestor {
 	 * @param reserva = la reserva que desea anular
 	 *
 	 */
-	public void anularReserva(String h , Reserva reserva)throws ReservaInexistenteException {
-		if (reservas.containsKey(h)) {
-			reservas.get(h).remove(reserva);
+	public void anularReserva(String h_dni , Reserva reserva)throws ReservaInexistenteException {
+		if (reservas.containsKey(h_dni)) {
+			reservas.get(h_dni).remove(reserva);
 			Thread r = new Thread(new Runnable() {
 				
 				@Override
@@ -438,6 +438,14 @@ public class Gestor {
 			
 		}
 		return false;
+		
+	}
+
+	public void datosTest() {
+		// TODO Auto-generated method stub
+		
+		
+		
 		
 	}
 	

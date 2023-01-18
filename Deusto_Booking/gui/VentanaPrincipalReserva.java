@@ -106,6 +106,7 @@ public class VentanaPrincipalReserva extends JFrame {
 				int selection = lstCasas.getSelectedIndex();
 				if (selection != -1) {
 					Inmueble i = modeloCasas.getInmueble(selection);
+					
 
 					txtNumHab.setText(i.getNumHab() + "");
 					txtNumBany.setText(i.getNumBany() + "");
@@ -121,7 +122,7 @@ public class VentanaPrincipalReserva extends JFrame {
 					btnReservar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							VentanaReserva ventana = new VentanaReserva(g, i, fechallegada,fechaSalida);
-							
+							ventana.setVisible(true);
 						}
 					});
 					btnReservar.setBounds(685, 467, 89, 45);
